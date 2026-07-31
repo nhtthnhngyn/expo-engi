@@ -7,6 +7,13 @@
     "status": "draft"
   },
   {
+    "formatId": "idea-proposal.default",
+    "phaseId": "idea-proposal",
+    "displayName": "Phiếu trình ý tưởng đề tài nghiên cứu (Research idea proposal)",
+    "version": "v1",
+    "status": "draft"
+  },
+  {
     "formatId": "journal-submission.default",
     "phaseId": "journal-submission",
     "displayName": "Bài báo khoa học (VN IMRaD manuscript)",

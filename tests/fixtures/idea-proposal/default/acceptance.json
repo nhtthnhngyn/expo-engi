@@ -1,0 +1,12 @@
+{
+  "formatId": "idea-proposal.default",
+  "standard": "Research idea proposal form (Phiếu trình ý tưởng đề tài nghiên cứu), extracted from a real Phase 1 reference document — zero named Word styles, direct formatting throughout",
+  "checks": [
+    { "id": "title-bold-centered", "description": "custom:pageTitle styleMap entry applies bold + center directly on Normal.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/>" } },
+    { "id": "study-title-bold-centered", "description": "custom:studyTitleValue applies bold + center to the actual research title text.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Đặc điểm rối loạn nuốt" } },
+    { "id": "no-named-heading-style", "description": "This format has zero named heading styles — confirmed by grepping the entire real source document.xml for w:pStyle and finding none beyond Word's implicit defaults.", "assert": { "kind": "notContains", "part": "word/document.xml", "value": "w:pStyle w:val=\"Heading1\"" } },
+    { "id": "a4-page-size", "description": "page.widthTwips=11906/heightTwips=16838 (real A4 from the source document's pgSz) is honoured.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:w=\"11906\"" } },
+    { "id": "custom-margins", "description": "page.margins.leftTwips=1701 (real value from the source document's pgMar) is honoured.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:left=\"1701\"" } },
+    { "id": "vietnamese-text-present", "description": "Vietnamese diacritics survive normalization and rendering unescaped.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "viêm phổi hít" } }
+  ]
+}

@@ -53,9 +53,36 @@ describe('readTemplateFacts', () => {
     writeFileSync(path, JSON.stringify(VALID_FACTS));
     expect(readTemplateFacts(path)).toEqual(VALID_FACTS);
   });
+
+  it('accepts an empty styles array — a format can legitimately be 100% direct formatting on bare Normal with no named table style either', () => {
+    const dir = makeTmpFormatsDir();
+    const path = join(dir, 'facts.json');
+    const noStyles: TemplateFacts = { formatId: 'demo-phase.demo-format', bodyFont: 'Times New Roman', bodySizeHalfPoints: 26, styles: [] };
+    writeFileSync(path, JSON.stringify(noStyles));
+    expect(readTemplateFacts(path)).toEqual(noStyles);
+  });
 });
 
 describe('buildTemplatesFromFacts', () => {
+  it('builds a valid template.dotx from facts with an empty styles array', () => {
+    const formatsDir = makeTmpFormatsDir();
+    const fmtDir = join(formatsDir, 'demo-phase', 'demo-format');
+    mkdirSync(fmtDir, { recursive: true });
+    writeFileSync(
+      join(fmtDir, 'template-facts.json'),
+      JSON.stringify({ formatId: 'demo-phase.demo-format', bodyFont: 'Times New Roman', bodySizeHalfPoints: 26, styles: [] }),
+    );
+
+    const result = buildTemplatesFromFacts(formatsDir);
+    expect(result.written).toEqual([join(fmtDir, 'template.dotx')]);
+
+    const bytes = readFileSync(join(fmtDir, 'template.dotx'));
+    const { files } = zipRead(bytes);
+    const stylesXml = files.get('word/styles.xml')!.toString('utf8');
+    expect(stylesXml).toContain('w:styleId="Normal"');
+    expect((stylesXml.match(/w:styleId="Normal"/g) ?? []).length, 'Normal must be defined exactly once, not duplicated').toBe(1);
+  });
+
   it('builds a template.dotx from a discovered template-facts.json, containing the real style facts', () => {
     const formatsDir = makeTmpFormatsDir();
     const fmtDir = join(formatsDir, 'demo-phase', 'demo-format');

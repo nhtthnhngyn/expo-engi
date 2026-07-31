@@ -1,0 +1,82 @@
+{
+  "formatId": "idea-proposal.default",
+  "skeletonVersion": "v1",
+  "note": "Extracted from a real 'Phiếu trình ý tưởng đề tài nghiên cứu' (research idea proposal form), the platform's Phase 1 — submitted before the Đề cương (protocol) phase. No named Word styles anywhere in the source file — direct formatting throughout, same convention family as journal-submission.default and defense-report.default. The feasibility table (section 5) and reference list (section 6) are rendered as plain paragraphs here rather than real ProseMirror table nodes, matching how the source document itself has no named table style either.",
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "blockKind": "pageTitle", "locked": true },
+        "content": [{ "type": "text", "text": "PHIẾU TRÌNH Ý TƯỞNG ĐỀ TÀI NGHIÊN CỨU" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subtitle", "locked": true },
+        "content": [{ "type": "text", "text": "(Sinh tự động từ hệ thống hỗ trợ nghiên cứu khoa học — Phase 1)" }] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "formHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Họ và tên học viên:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "formHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Bậc đào tạo:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "formHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Chuyên ngành:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "formHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Cơ sở thực hiện:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "formHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Người hướng dẫn dự kiến:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "formHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Ngày trình:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "1. TÊN ĐỀ TÀI" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "studyTitleValue", "fillIn": true },
+        "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "2. MỤC TIÊU NGHIÊN CỨU" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — real number and wording of objectives (the source document has two) is study-specific." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "3. LÝ DO ĐỀ XUẤT" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "4. THIẾT KẾ VÀ ĐỐI TƯỢNG NGHIÊN CỨU" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true }, "content": [{ "type": "text", "text": "Thiết kế" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true }, "content": [{ "type": "text", "text": "Đối tượng" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true }, "content": [{ "type": "text", "text": "Tiêu chuẩn chọn" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true }, "content": [{ "type": "text", "text": "Tiêu chuẩn loại" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true }, "content": [{ "type": "text", "text": "Công cụ đo lường" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true }, "content": [{ "type": "text", "text": "Thời gian thu thập" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "5. TÍNH KHẢ THI VỀ CỠ MẪU" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — a system-computed sample-size feasibility calculation (required N, cases/month, collection months, eligibility/consent rates, realistic yield, feasibility verdict). Row labels are a fixed convention but the values are computed per study, not fixed here." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "6. TÀI LIỆU THAM KHẢO CHÍNH" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "System-generated from a PubMed/Europe PMC literature search — content is auto-filled, not user-typed, but still belongs in the exported document as ordinary reference-list content." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "7. ĐỀ NGHỊ THẦY/CÔ CHO Ý KIẾN VỀ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — the specific questions asked of the advisor are study-specific, though asking 2-3 targeted questions is the standing convention." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "subLabel", "locked": true },
+        "content": [{ "type": "text", "text": "Ý KIẾN CỦA NGƯỜI HƯỚNG DẪN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "signatureBlock", "locked": true }, "content": [{ "type": "text", "text": "HỌC VIÊN" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "signatureCaption", "locked": true }, "content": [{ "type": "text", "text": "(Ký, ghi rõ họ tên)" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "signatureBlock", "locked": true }, "content": [{ "type": "text", "text": "NGƯỜI HƯỚNG DẪN" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "signatureCaption", "locked": true }, "content": [{ "type": "text", "text": "(Ký, ghi rõ họ tên)" }] }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "formatId": "idea-proposal.default",
+    "documentTitle": "Ý tưởng đề tài: Rối loạn nuốt sau đột quỵ",
+    "projectId": "proj_idea_proposal_default",
+    "generatedAt": "2026-08-02T00:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "id": "t1", "blockKind": "pageTitle" }, "content": [{ "type": "text", "text": "PHIẾU TRÌNH Ý TƯỞNG ĐỀ TÀI NGHIÊN CỨU" }] },
+      { "type": "researchBlock", "attrs": { "id": "f1", "blockKind": "formHeaderField" }, "content": [{ "type": "text", "text": "Họ và tên học viên: Nguyễn Văn A" }] },
+      { "type": "researchBlock", "attrs": { "id": "s1", "blockKind": "sectionHeading" }, "content": [{ "type": "text", "text": "1. TÊN ĐỀ TÀI" }] },
+      { "type": "researchBlock", "attrs": { "id": "v1", "blockKind": "studyTitleValue" }, "content": [{ "type": "text", "text": "Đặc điểm rối loạn nuốt và một số yếu tố liên quan ở người bệnh đột quỵ não giai đoạn bán cấp" }] },
+      { "type": "researchBlock", "attrs": { "id": "s2", "blockKind": "sectionHeading" }, "content": [{ "type": "text", "text": "3. LÝ DO ĐỀ XUẤT" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Rối loạn nuốt là biến chứng thường gặp sau đột quỵ não và liên quan trực tiếp đến viêm phổi hít." }] },
+      { "type": "researchBlock", "attrs": { "id": "sb1", "blockKind": "signatureBlock" }, "content": [{ "type": "text", "text": "HỌC VIÊN" }] }
+    ]
+  }
+}

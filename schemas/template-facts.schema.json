@@ -12,8 +12,8 @@
     "bodySizeHalfPoints": { "type": "integer", "minimum": 2, "description": "Default body size in half-points, i.e. 24 = 12pt." },
     "styles": {
       "type": "array",
-      "minItems": 1,
-      "description": "Every named style config.json's styleMap/headings actually reference — not every style the source document happens to define.",
+      "minItems": 0,
+      "description": "Every named style config.json's styleMap/headings actually reference — not every style the source document happens to define. Legitimately empty for a format that is 100% direct formatting on the bare Normal style with no named table style either.",
       "items": { "$ref": "#/definitions/style" }
     }
   },

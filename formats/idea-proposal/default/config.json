@@ -1,0 +1,35 @@
+{
+  "formatId": "idea-proposal.default",
+  "displayName": "Phiếu trình ý tưởng đề tài nghiên cứu (Research idea proposal)",
+  "phaseId": "idea-proposal",
+  "version": "v1",
+  "templateFile": "template.dotx",
+  "page": {
+    "size": "a4",
+    "widthTwips": 11906,
+    "heightTwips": 16838,
+    "orientation": "portrait",
+    "margins": { "topTwips": 1134, "rightTwips": 1134, "bottomTwips": 1134, "leftTwips": 1701 }
+  },
+  "typography": {
+    "defaultFont": "Times New Roman",
+    "defaultSizePt": 13,
+    "defaultLineSpacing": "single",
+    "defaultAlignment": "justify"
+  },
+  "styleMap": {
+    "paragraph": "Normal",
+    "custom:pageTitle": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } },
+    "custom:subtitle": { "style": "Normal", "runFormatting": { "italic": true }, "paragraphFormatting": { "alignment": "center" } },
+    "custom:formHeaderField": { "style": "Normal", "runFormatting": {}, "paragraphFormatting": { "alignment": "left" } },
+    "custom:sectionHeading": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "left" } },
+    "custom:studyTitleValue": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } },
+    "custom:subLabel": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "left" } },
+    "custom:signatureBlock": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } },
+    "custom:signatureCaption": { "style": "Normal", "runFormatting": {}, "paragraphFormatting": { "alignment": "center" } }
+  },
+  "toc": { "enabled": false, "depth": 0, "autoGenerateFromHeadings": false },
+  "headingNumbering": { "auto": false },
+  "citationStyle": "none",
+  "pageNumbering": "none"
+}
