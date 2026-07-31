@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "formatId": "data-processing.log-default",
+    "documentTitle": "Baseline Dataset Processing Log",
+    "projectId": "proj_ic4m",
+    "generatedAt": "2026-02-20T09:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h_summary", "level": 1, "sectionId": "dataset-summary" },
+        "content": [{ "type": "text", "text": "Dataset summary" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "dataset-summary" },
+        "content": [{ "type": "text", "text": "412 participant records exported from REDCap on 2026-02-19." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_cleaning", "level": 1, "sectionId": "cleaning-steps" },
+        "content": [{ "type": "text", "text": "Cleaning steps" }]
+      },
+      {
+        "type": "orderedList",
+        "attrs": { "sectionId": "cleaning-steps" },
+        "content": [
+          { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Removed 3 duplicate participant ids." }] }] },
+          { "type": "listItem", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Recoded out-of-range age values (n=2) to missing." }] }] }
+        ]
+      },
+      {
+        "type": "codeBlock",
+        "attrs": { "sectionId": "cleaning-steps" },
+        "content": [{ "type": "text", "text": "df <- df[!duplicated(df$participant_id), ]\ndf$age[df$age > 110] <- NA" }]
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/format-meta.schema.json",
+  "title": "Format meta (meta.json)",
+  "description": "Workflow data deliberately kept out of config.json per FORMAT_CONFIG_GUIDE.md: registry status, review sign-off, and (optionally) document-structure/entitlement/provenance data for formats that want it. Only formatId/phaseId/displayName/status are required — the extract-research-format skill produces exactly that minimal shape plus reviewedBy for a freshly-extracted draft; everything else is additive for formats that need richer workflow tracking (e.g. paid-tier gating).",
+  "type": "object",
+  "required": ["formatId", "phaseId", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "formatId": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$" },
+    "phaseId": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "displayName": { "type": "string", "minLength": 1 },
+    "sourcePlatform": { "type": "string", "minLength": 1 },
+    "addedBy": { "type": "string", "minLength": 1 },
+    "addedAt": { "type": "string", "format": "date-time" },
+    "status": { "enum": ["active", "draft", "deprecated"] },
+    "notes": { "type": "string" },
+
+    "reviewedBy": {
+      "type": ["string", "null"],
+      "description": "Flat review sign-off, as produced by the extract-research-format skill: null until a human reviewer publishes the draft. Mutually informative with (but simpler than) `provenance.reviewedBy` below — a format uses one or the other, not both."
+    },
+
+    "sectionOrder": {
+      "type": "array",
+      "description": "Optional. Section ids in the order they must appear in the output, regardless of their order in the IR.",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    },
+    "requiredBlocks": {
+      "type": "array",
+      "description": "Optional. Section ids or blockKinds that must be present in the IR before the document may render.",
+      "items": { "type": "string", "minLength": 1 }
+    },
+
+    "numbering": {
+      "type": "object",
+      "description": "Optional. External content numbering (e.g. CONSORT item '4a'/'4b'), read verbatim from the IR — distinct from headingNumbering in config.json, which is about automatic Word heading numbers.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["scheme", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "scheme": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "pattern": "^attrs\\.[A-Za-z0-9_.]+$" },
+          "prefix": { "type": "string" },
+          "suffix": { "type": "string" }
+        }
+      }
+    },
+
+    "fallback": {
+      "type": "object",
+      "description": "Optional.",
+      "required": ["unknownBlockKind"],
+      "additionalProperties": false,
+      "properties": {
+        "unknownBlockKind": { "enum": ["renderAsPlainParagraph", "skip", "error"] }
+      }
+    },
+
+    "entitlement": {
+      "type": "object",
+      "description": "Optional. Absent means free tier.",
+      "required": ["tier"],
+      "additionalProperties": false,
+      "properties": {
+        "tier": { "enum": ["free", "paid"] }
+      }
+    },
+
+    "provenance": {
+      "type": "object",
+      "description": "Optional, richer alternative to the flat `reviewedBy` field above — used by formats that track full authorship/extraction provenance.",
+      "required": ["authoredBy", "reviewedBy", "addedAt", "extractionAssisted"],
+      "additionalProperties": false,
+      "properties": {
+        "authoredBy": { "type": "string", "minLength": 1 },
+        "reviewedBy": { "type": ["string", "null"] },
+        "addedAt": { "type": "string", "format": "date-time" },
+        "extractionAssisted": { "type": "boolean" }
+      }
+    }
+  }
+}

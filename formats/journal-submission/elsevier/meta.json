@@ -1,0 +1,39 @@
+{
+  "formatId": "journal-submission.elsevier",
+  "phaseId": "journal-submission",
+  "sourcePlatform": "Elsevier",
+  "addedBy": "u_dami_adeyemi",
+  "addedAt": "2026-03-06T11:20:00.000Z",
+  "status": "active",
+  "notes": "Generic Elsevier article layout. Requires a declaration-of-interest section, which is what most desk rejections at submission are actually caused by.",
+  "sectionOrder": [
+    "title-page",
+    "highlights",
+    "abstract",
+    "keywords",
+    "introduction",
+    "material-and-methods",
+    "results",
+    "discussion",
+    "conclusions",
+    "declaration-of-interest",
+    "references"
+  ],
+  "requiredBlocks": [
+    "abstract",
+    "keywords",
+    "declaration-of-interest"
+  ],
+  "fallback": {
+    "unknownBlockKind": "renderAsPlainParagraph"
+  },
+  "entitlement": {
+    "tier": "paid"
+  },
+  "provenance": {
+    "authoredBy": "u_dami_adeyemi",
+    "reviewedBy": "u_marta_oliveira",
+    "addedAt": "2026-03-06T11:20:00.000Z",
+    "extractionAssisted": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "formatId": "journal-submission.elsevier",
+    "documentTitle": "Cost-effectiveness of early mobilisation protocols in intensive care",
+    "projectId": "proj_ic4m",
+    "generatedAt": "2026-03-08T09:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h_abstract", "level": 1, "sectionId": "abstract" },
+        "content": [{ "type": "text", "text": "Abstract" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "abstract" },
+        "content": [{ "type": "text", "text": "A within-trial economic evaluation comparing early mobilisation to usual care." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_keywords", "level": 1, "sectionId": "keywords" },
+        "content": [{ "type": "text", "text": "Keywords" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "keywords" },
+        "content": [{ "type": "text", "text": "Critical care; cost-effectiveness; early mobilisation" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_doi", "level": 1, "sectionId": "declaration-of-interest" },
+        "content": [{ "type": "text", "text": "Declaration of interest" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "declaration-of-interest" },
+        "content": [{ "type": "text", "text": "The authors declare no conflict of interest." }]
+      }
+    ]
+  }
+}

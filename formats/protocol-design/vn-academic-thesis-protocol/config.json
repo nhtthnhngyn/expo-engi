@@ -1,0 +1,61 @@
+{
+  "formatId": "protocol-design.vn-academic-thesis-protocol",
+  "displayName": "VN academic research protocol (Đề cương nghiên cứu)",
+  "phaseId": "protocol-design",
+  "version": "v3",
+  "templateFile": "template.dotx",
+
+  "page": {
+    "size": "letter",
+    "widthTwips": 12240,
+    "heightTwips": 15840,
+    "orientation": "portrait",
+    "margins": { "topTwips": 1987, "rightTwips": 1134, "bottomTwips": 1699, "leftTwips": 1985 }
+  },
+
+  "typography": {
+    "defaultFont": "Times New Roman",
+    "defaultSizePt": 13,
+    "defaultLineSpacing": "1.5",
+    "defaultAlignment": "justify",
+    "language": "vi-VN"
+  },
+
+  "headings": {
+    "1": { "wordStyle": "Heading1", "font": "Times New Roman", "sizePt": 13, "bold": true, "align": "center" },
+    "2": { "wordStyle": "Heading2", "font": "Times New Roman", "sizePt": 13, "bold": true, "align": "left" },
+    "3": { "wordStyle": "Heading3", "font": "Times New Roman", "sizePt": 13, "bold": true, "align": "justify" }
+  },
+
+  "caption": { "wordStyle": "Caption", "font": "Times New Roman", "sizePt": 13, "bold": true, "align": "center" },
+
+  "reference": { "wordStyle": "Bibliography", "font": "Times New Roman", "sizePt": 13, "bold": false, "align": "left" },
+
+  "table": { "wordStyle": "TableGrid" },
+
+  "styleMap": {
+    "paragraph": "Normal",
+    "heading:1": "Heading1",
+    "heading:2": "Heading2",
+    "heading:3": "Heading3",
+    "table": "TableGrid",
+    "figureCaption": "Caption",
+    "tableCaption": "Caption",
+    "reference": "Bibliography",
+    "tocHeading": "TOCHeading",
+    "toc:1": "TOC1",
+    "toc:2": "TOC2",
+    "toc:3": "TOC3",
+    "listOfTablesEntry": "TableofFigures"
+  },
+
+  "toc": { "enabled": true, "depth": 3, "autoGenerateFromHeadings": true },
+
+  "headingNumbering": {
+    "auto": false,
+    "note": "Headings are typed with literal numbering (e.g. 'CHƯƠNG I:', '1.1.') by the author. Do not auto-number; preserve typed text as-is."
+  },
+
+  "citationStyle": "numbered-bracket",
+  "pageNumbering": "arabic"
+}

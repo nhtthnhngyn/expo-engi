@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "formatId": "data-collection.crf-redcap",
+    "documentTitle": "Baseline Visit CRF",
+    "projectId": "proj_ic4m",
+    "generatedAt": "2026-02-15T09:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h_header", "level": 1, "sectionId": "form-header" },
+        "content": [{ "type": "text", "text": "Baseline Visit" }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_elig", "level": 1, "sectionId": "eligibility" },
+        "content": [{ "type": "text", "text": "Eligibility" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_age",
+          "blockKind": "crfField",
+          "sectionId": "eligibility",
+          "fieldName": "Age at consent (years)",
+          "fieldType": "number",
+          "required": true,
+          "fieldNumber": "1"
+        }
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_consent",
+          "blockKind": "crfField",
+          "sectionId": "eligibility",
+          "fieldName": "Written consent obtained",
+          "fieldType": "boolean",
+          "required": true,
+          "fieldNumber": "2"
+        }
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_arm",
+          "blockKind": "crfField",
+          "sectionId": "demographics",
+          "fieldName": "Study arm",
+          "fieldType": "text",
+          "required": false,
+          "fieldNumber": "3",
+          "options": ["Early mobilisation", "Usual care"]
+        }
+      }
+    ]
+  }
+}

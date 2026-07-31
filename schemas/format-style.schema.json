@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/format-style.schema.json",
+  "title": "Format style config (config.json)",
+  "description": "Formatting and JSON->Word mapping only, per FORMAT_CONFIG_GUIDE.md. Answers exactly one question: given a block of typed content, what does it look like in Word? It never covers document structure (sectionOrder/requiredBlocks) or workflow (status/entitlement/provenance) — those live in meta.json.",
+  "type": "object",
+  "required": ["formatId", "displayName", "phaseId", "version", "templateFile", "styleMap"],
+  "additionalProperties": false,
+  "properties": {
+    "formatId": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$" },
+    "displayName": { "type": "string", "minLength": 1 },
+    "phaseId": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "version": { "type": "string", "pattern": "^v[0-9]+(\\.[0-9]+)*$" },
+    "templateFile": { "type": "string", "pattern": "^[A-Za-z0-9._-]+\\.dotx$" },
+
+    "page": { "$ref": "#/definitions/page" },
+    "typography": { "$ref": "#/definitions/typography" },
+    "headings": { "$ref": "#/definitions/headings" },
+    "caption": { "$ref": "#/definitions/directFormatSpec" },
+    "reference": { "$ref": "#/definitions/directFormatSpec" },
+    "table": { "$ref": "#/definitions/directFormatSpec" },
+
+    "sharedFormattingWith": {
+      "type": "string",
+      "description": "Documentation only, never read by the engine — names another formatId this config shares its underlying convention with, so maintainers know to edit both together. See GENERAL_VS_PRIVATE_NOTES.md."
+    },
+    "formatFamily": { "type": "string", "description": "Documentation only, never read by the engine." },
+    "familyRole": { "type": "string", "description": "Documentation only, never read by the engine." },
+    "diffFromFamilyBase": { "type": "string", "description": "Documentation only, never read by the engine." },
+    "reusabilityNote": { "type": "string", "description": "Documentation only, never read by the engine." },
+
+    "styleMap": {
+      "type": "object",
+      "description": "content-block-type -> Word style name, OR -> { style, runFormatting?, paragraphFormatting? } for direct-formatting formats. Keys are whatever block types the phase's editor actually produces — not a fixed enum.",
+      "minProperties": 1,
+      "propertyNames": { "minLength": 1 },
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string", "minLength": 1 },
+          { "$ref": "#/definitions/styleMapDirectEntry" }
+        ]
+      }
+    },
+
+    "toc": {
+      "type": "object",
+      "required": ["enabled", "depth", "autoGenerateFromHeadings"],
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "depth": { "type": "integer", "minimum": 0, "maximum": 6 },
+        "autoGenerateFromHeadings": { "type": "boolean" }
+      }
+    },
+
+    "headingNumbering": {
+      "type": "object",
+      "required": ["auto"],
+      "additionalProperties": false,
+      "properties": {
+        "auto": { "type": "boolean" },
+        "note": { "type": "string" }
+      }
+    },
+
+    "citationStyle": {
+      "type": "string",
+      "enum": ["numbered-bracket", "author-date", "none", "vancouver", "vancouver-superscript", "ieee", "numeric", "apa", "harvard", "chicago"]
+    },
+
+    "pageNumbering": { "enum": ["arabic", "roman", "none"] },
+
+    "docFeatures": {
+      "type": "object",
+      "description": "Engine capabilities the guide's schema doesn't cover (optional, additive — omit entirely for a format that doesn't need them).",
+      "additionalProperties": false,
+      "properties": {
+        "coverPage": { "type": "boolean" },
+        "header": { "type": "string", "description": "May contain {documentTitle}/{projectId}/{formatId}/{sourceDocVersion} tokens." },
+        "footer": { "type": "string" }
+      }
+    }
+  },
+
+  "definitions": {
+    "twips": { "type": "integer", "minimum": 0 },
+
+    "page": {
+      "type": "object",
+      "required": ["size", "widthTwips", "heightTwips", "orientation", "margins"],
+      "additionalProperties": false,
+      "properties": {
+        "size": { "enum": ["letter", "a4", "custom"] },
+        "widthTwips": { "$ref": "#/definitions/twips" },
+        "heightTwips": { "$ref": "#/definitions/twips" },
+        "orientation": { "enum": ["portrait", "landscape"] },
+        "margins": {
+          "type": "object",
+          "required": ["topTwips", "rightTwips", "bottomTwips", "leftTwips"],
+          "additionalProperties": false,
+          "properties": {
+            "topTwips": { "$ref": "#/definitions/twips" },
+            "rightTwips": { "$ref": "#/definitions/twips" },
+            "bottomTwips": { "$ref": "#/definitions/twips" },
+            "leftTwips": { "$ref": "#/definitions/twips" }
+          }
+        }
+      }
+    },
+
+    "typography": {
+      "type": "object",
+      "required": ["defaultFont", "defaultSizePt", "defaultLineSpacing", "defaultAlignment"],
+      "additionalProperties": false,
+      "properties": {
+        "defaultFont": { "type": "string", "minLength": 1 },
+        "defaultSizePt": { "type": "number", "exclusiveMinimum": 0 },
+        "defaultLineSpacing": { "enum": ["single", "1.5", "double"] },
+        "defaultAlignment": { "enum": ["left", "right", "center", "justify"] },
+        "language": { "type": ["string", "null"] }
+      }
+    },
+
+    "directFormatSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "wordStyle": { "type": "string", "minLength": 1 },
+        "font": { "type": "string", "minLength": 1 },
+        "sizePt": { "type": "number", "exclusiveMinimum": 0 },
+        "bold": { "type": "boolean" },
+        "italic": { "type": "boolean" },
+        "align": { "enum": ["left", "right", "center", "justify"] }
+      }
+    },
+
+    "headings": {
+      "type": "object",
+      "description": "Either numbered levels ('1'..'6', used with method absent/namedStyle) or named roles (used with method: directFormatting) map to a directFormatSpec. 'method' and 'note' are the only non-spec keys.",
+      "properties": {
+        "method": { "enum": ["namedStyle", "directFormatting"] },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": { "$ref": "#/definitions/directFormatSpec" }
+    },
+
+    "styleMapDirectEntry": {
+      "type": "object",
+      "required": ["style"],
+      "additionalProperties": false,
+      "properties": {
+        "style": { "type": "string", "minLength": 1 },
+        "runFormatting": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "bold": { "type": "boolean" },
+            "italic": { "type": "boolean" },
+            "underline": { "type": "boolean" }
+          }
+        },
+        "paragraphFormatting": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "alignment": { "enum": ["left", "right", "center", "justify"] }
+          }
+        }
+      }
+    }
+  }
+}

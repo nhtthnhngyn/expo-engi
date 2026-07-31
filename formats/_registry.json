@@ -1,0 +1,110 @@
+[
+  {
+    "formatId": "data-collection.crf-redcap",
+    "phaseId": "data-collection",
+    "displayName": "Case Report Form (REDCap layout)",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "REDCap"
+  },
+  {
+    "formatId": "data-processing.log-default",
+    "phaseId": "data-processing",
+    "displayName": "Data Processing Log",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "Internal — research platform default"
+  },
+  {
+    "formatId": "general.plain-document",
+    "phaseId": "general",
+    "displayName": "Plain document (generic fallback)",
+    "version": "v2",
+    "status": "draft"
+  },
+  {
+    "formatId": "journal-submission.elsevier",
+    "phaseId": "journal-submission",
+    "displayName": "Elsevier generic manuscript",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "Elsevier"
+  },
+  {
+    "formatId": "journal-submission.ieee",
+    "phaseId": "journal-submission",
+    "displayName": "IEEE Transactions manuscript",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "IEEE"
+  },
+  {
+    "formatId": "journal-submission.plos-one",
+    "phaseId": "journal-submission",
+    "displayName": "PLOS ONE submission",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "PLOS"
+  },
+  {
+    "formatId": "journal-submission.vn-academic-imrad-manuscript",
+    "phaseId": "journal-submission",
+    "displayName": "VN academic journal manuscript (IMRaD, bilingual abstract)",
+    "version": "v3",
+    "status": "draft"
+  },
+  {
+    "formatId": "protocol-design.default",
+    "phaseId": "protocol-design",
+    "displayName": "Standard Study Protocol",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "Internal — research platform default"
+  },
+  {
+    "formatId": "protocol-design.vn-academic-thesis-protocol",
+    "phaseId": "protocol-design",
+    "displayName": "VN academic research protocol (Đề cương nghiên cứu)",
+    "version": "v3",
+    "status": "draft"
+  },
+  {
+    "formatId": "report-writing.consort",
+    "phaseId": "report-writing",
+    "displayName": "CONSORT 2010",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "CONSORT Group"
+  },
+  {
+    "formatId": "report-writing.prisma",
+    "phaseId": "report-writing",
+    "displayName": "PRISMA 2020 (systematic reviews)",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "PRISMA Statement"
+  },
+  {
+    "formatId": "report-writing.strobe",
+    "phaseId": "report-writing",
+    "displayName": "STROBE (observational studies)",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "STROBE Initiative"
+  },
+  {
+    "formatId": "report-writing.vn-academic-thesis-full",
+    "phaseId": "report-writing",
+    "displayName": "VN academic thesis, full write-up (Luận văn)",
+    "version": "v3",
+    "status": "draft"
+  },
+  {
+    "formatId": "stat-analysis.default",
+    "phaseId": "stat-analysis",
+    "displayName": "Statistical Analysis Report",
+    "version": "v1",
+    "status": "active",
+    "sourcePlatform": "Internal — research platform default"
+  }
+]

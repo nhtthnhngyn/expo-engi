@@ -1,0 +1,11 @@
+{
+  "formatId": "journal-submission.plos-one",
+  "standard": "PLOS ONE submission guidelines",
+  "checks": [
+    { "id": "abstract-required", "description": "abstract (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "12-month follow-up" } },
+    { "id": "data-availability-required", "description": "data-availability (required) present via the shared labelled-value plugin.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "ICU4M repository" } },
+    { "id": "data-availability-label", "description": "The labelled-value plugin renders its label in bold.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Data availability:" } },
+    { "id": "references-required", "description": "references (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "PLOS ONE. 2026" } },
+    { "id": "cover-page-present", "description": "docProperties.coverPage = true.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Long-term functional outcomes" } }
+  ]
+}

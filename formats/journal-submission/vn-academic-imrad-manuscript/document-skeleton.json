@@ -1,0 +1,84 @@
+{
+  "formatId": "journal-submission.vn-academic-imrad-manuscript",
+  "skeletonVersion": "v1",
+
+  "note": "This format has no named Heading styles (see SCHEMA_PATCH_NOTES.md), so its skeleton uses researchBlock nodes whose blockKind matches this format's styleMap keys, instead of 'heading' nodes. Fixed here: the IMRaD section labels (same wording for any paper in this convention) and the structured-abstract sub-labels. NOT fixed: title, authors, affiliation, and every paragraph of actual content — all entirely user-authored, left empty.",
+
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "blockKind": "titleVn", "fillIn": true } },
+      { "type": "researchBlock", "attrs": { "blockKind": "titleEn", "fillIn": true } },
+      { "type": "researchBlock", "attrs": { "blockKind": "authorList", "fillIn": true } },
+      { "type": "researchBlock", "attrs": { "blockKind": "affiliation", "fillIn": true } },
+
+      { "type": "paragraph", "attrs": { "locked": true },
+        "content": [{ "type": "text", "text": "Tác giả liên hệ:", "marks": ["bold"] }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "correspondingAuthorBlock", "fillIn": true } },
+
+      { "type": "paragraph", "attrs": { "locked": true },
+        "content": [{ "type": "text", "text": "Nguồn tài trợ:", "marks": ["bold"] }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "fundingStatement", "fillIn": true } },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "TÓM TẮT" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Đặt vấn đề: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Mục tiêu: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Đối tượng và phương pháp nghiên cứu: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Kết luận: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Từ khóa: ", "marks": ["bold"] }] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "ABSTRACT" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Background: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Objectives: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Methods: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Results: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Conclusions: ", "marks": ["bold"] }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Keywords: ", "marks": ["bold"] }] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "ĐẶT VẤN ĐỀ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "subsectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "Mục tiêu nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true, "note": "Field-typical wording (assumes human/animal/material subjects). A different field's format entry can supply its own label, e.g. plain 'PHƯƠNG PHÁP NGHIÊN CỨU'." },
+        "content": [{ "type": "text", "text": "ĐỐI TƯỢNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — internal structure (e.g. multi-phase studies) is study-specific." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "KẾT QUẢ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "BÀN LUẬN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "KẾT LUẬN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true, "required": false },
+        "content": [{ "type": "text", "text": "LỜI CẢM ƠN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionHeading", "locked": true },
+        "content": [{ "type": "text", "text": "TÀI LIỆU THAM KHẢO" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] }
+    ]
+  }
+}

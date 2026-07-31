@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/prosemirror-base.schema.json",
+  "title": "ProseMirror input contract",
+  "description": "The editor-side contract every phase must satisfy. Format-specific content is expressed as a `researchBlock` node with attrs.blockKind — never as a bespoke node type per phase. That convention is what keeps the normalizer generic.",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": { "const": "doc" },
+    "attrs": { "$ref": "#/definitions/attrs" },
+    "content": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/node" }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "attrs": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "baseNodeType": {
+      "enum": [
+        "paragraph",
+        "heading",
+        "bulletList",
+        "orderedList",
+        "listItem",
+        "table",
+        "tableRow",
+        "tableCell",
+        "tableHeader",
+        "image",
+        "blockquote",
+        "codeBlock",
+        "horizontalRule",
+        "hardBreak",
+        "text",
+        "researchBlock"
+      ]
+    },
+    "markType": {
+      "enum": [
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "link",
+        "superscript",
+        "subscript",
+        "footnote",
+        "citation"
+      ]
+    },
+    "mark": {
+      "description": "Either a bare string (shorthand for a mark with no attrs, e.g. \"bold\") or a full object ({type, attrs?}) for a mark that carries attrs (e.g. link).",
+      "oneOf": [
+        { "$ref": "#/definitions/markType" },
+        {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": { "$ref": "#/definitions/markType" },
+            "attrs": { "type": "object", "additionalProperties": true }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "$ref": "#/definitions/baseNodeType" },
+        "attrs": { "$ref": "#/definitions/attrs" },
+        "content": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/node" }
+        },
+        "marks": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/mark" }
+        },
+        "text": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "heading" } }, "required": ["type"] },
+          "then": {
+            "properties": {
+              "attrs": {
+                "type": "object",
+                "required": ["level"],
+                "properties": {
+                  "level": { "type": "integer", "minimum": 1, "maximum": 6 }
+                },
+                "additionalProperties": true
+              }
+            },
+            "required": ["attrs"]
+          }
+        },
+        {
+          "if": { "properties": { "type": { "const": "text" } }, "required": ["type"] },
+          "then": { "required": ["text"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "researchBlock" } }, "required": ["type"] },
+          "then": {
+            "properties": {
+              "attrs": {
+                "type": "object",
+                "required": ["blockKind"],
+                "properties": {
+                  "blockKind": { "type": "string", "minLength": 1 }
+                },
+                "additionalProperties": true
+              }
+            },
+            "required": ["attrs"]
+          }
+        }
+      ]
+    }
+  }
+}

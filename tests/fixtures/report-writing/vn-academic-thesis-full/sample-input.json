@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "formatId": "report-writing.vn-academic-thesis-full",
+    "documentTitle": "Luận văn: Hiệu quả vận động sớm tại ICU",
+    "projectId": "proj_vn_thesis_full",
+    "generatedAt": "2026-07-31T00:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h1", "level": 1 },
+        "content": [{ "type": "text", "text": "CHƯƠNG III: KẾT QUẢ" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Trong tổng số 412 bệnh nhân được sàng lọc, 206 bệnh nhân được phân bổ vào nhóm can thiệp." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h2", "level": 1 },
+        "content": [{ "type": "text", "text": "CHƯƠNG IV: BÀN LUẬN" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Kết quả nghiên cứu này phù hợp với các nghiên cứu quốc tế trước đây." }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "id": "ref1", "role": "reference" },
+        "content": [{ "type": "text", "text": "Nguyễn Văn A. Vận động sớm trong ICU. Tạp chí Y học. 2025." }]
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "formatId": "journal-submission.vn-academic-imrad-manuscript",
+  "standard": "VN academic journal manuscript, IMRaD (config_1.json, FORMAT_CONFIG_GUIDE.md worked example)",
+  "checks": [
+    { "id": "titlevn-text-present", "description": "The Vietnamese title text is present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Hiệu quả của vận động sớm" } },
+    { "id": "titlevn-centered-paragraph", "description": "headings.titleVn's align: center is applied as a direct paragraph-alignment override — this is the exact gap the pre-extension diagnostic found unrendered.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:jc w:val=\"center\"/>" } },
+    { "id": "titlevn-bold-run", "description": "headings.titleVn's bold: true is applied as a direct run override.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/>" } },
+    { "id": "titlevn-uses-normal-style", "description": "headings.titleVn.wordStyle = Normal is applied even though the block is a heading — no Heading1 style exists in this template at all.", "assert": { "kind": "notContains", "part": "word/document.xml", "value": "w:val=\"Heading1\"" } },
+    { "id": "titleen-bold-italic", "description": "headings.titleEn adds italic on top of bold, both as direct run overrides.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/><w:i/>" } },
+    { "id": "section-label-bold-left", "description": "headings.sectionLabel (bold, left) renders the Vietnamese section heading in bold.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "PHƯƠNG PHÁP NGHIÊN CỨU" } },
+    { "id": "no-cover-page", "description": "This config sets no docFeatures, so no cover page renders.", "assert": { "kind": "notContains", "part": "word/document.xml", "value": "Project: " } },
+    { "id": "justified-body", "description": "typography.defaultAlignment = justify; body paragraphs get no forced direct alignment (per the 'apply only what's specified' rule) — the template's own Normal style is expected to carry justification.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Nghiên cứu đoàn hệ tiến cứu" } }
+  ]
+}

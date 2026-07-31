@@ -1,0 +1,44 @@
+{
+  "formatId": "report-writing.prisma",
+  "phaseId": "report-writing",
+  "sourcePlatform": "PRISMA Statement",
+  "addedBy": "u_marta_oliveira",
+  "addedAt": "2026-02-03T10:15:00.000Z",
+  "status": "active",
+  "notes": "Reuses the shared checklist-item and flow-diagram block plugins. Onboarding touched no engine code.",
+  "sectionOrder": [
+    "title",
+    "abstract",
+    "introduction",
+    "methods",
+    "results",
+    "discussion",
+    "prisma-flow-diagram",
+    "prisma-checklist",
+    "other-information",
+    "references"
+  ],
+  "requiredBlocks": [
+    "prisma-flow-diagram",
+    "prisma-checklist"
+  ],
+  "numbering": {
+    "checklistItem": {
+      "scheme": "prisma-item-number",
+      "source": "attrs.checklistNo",
+      "suffix": ". "
+    }
+  },
+  "fallback": {
+    "unknownBlockKind": "renderAsPlainParagraph"
+  },
+  "entitlement": {
+    "tier": "paid"
+  },
+  "provenance": {
+    "authoredBy": "u_marta_oliveira",
+    "reviewedBy": "u_arun_kapoor",
+    "addedAt": "2026-02-03T10:15:00.000Z",
+    "extractionAssisted": false
+  }
+}

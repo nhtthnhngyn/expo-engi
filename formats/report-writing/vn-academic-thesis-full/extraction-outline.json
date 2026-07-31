@@ -1,0 +1,29 @@
+{
+  "sourceFile": "Phase_4_-_Luận_văn.docx",
+  "extractionMethod": "deterministic OOXML parse (styles.xml, document.xml, sectPr) — no ML/LLM involved",
+  "namedStylesFoundInStylesXml": [
+    "Normal", "Heading1", "Heading2", "Heading3", "Title", "Subtitle", "Quote",
+    "ListParagraph", "Header", "Footer", "TOCHeading", "TOC1", "TOC2", "TOC3",
+    "Hyperlink", "TableGrid", "Caption", "Bibliography", "NoSpacing", "TableofFigures"
+  ],
+  "diffAgainstProtocolDesignTemplate": {
+    "namedStylesFoundInStylesXml": "identical set to Phase_2_-_Đề_cương.docx",
+    "pgSz_pgMar": "byte-for-byte identical",
+    "tableStylesUsed": "Phase_4 body uses direct table borders, no w:tblStyle reference found (Phase_2 used TableGrid explicitly on 2 tables) — treat as cosmetically equivalent, both render as bordered grid tables",
+    "headingHierarchy": "identical outlineLvl/basedOn/numPr behavior"
+  },
+  "headingTextObservedInOrder": [
+    "MỤC LỤC", "DANH MỤC BẢNG", "ĐẶT VẤN ĐỀ", "Mục tiêu nghiên cứu",
+    "CHƯƠNG I: TỔNG QUAN TÀI LIỆU", "1.1 ...", "1.1.1 ...", "1.1.2 ...", "1.2 ...", "1.2.1 ...",
+    "CHƯƠNG II: PHƯƠNG PHÁP NGHIÊN CỨU", "2.1 ...", "2.2 ...", "2.3 ...", "2.4 ...",
+    "CHƯƠNG III: KẾT QUẢ", "3.1. Mục tiêu 1: ...", "Nhận xét:", "3.2. Mục tiêu 2: ...",
+    "CHƯƠNG IV: BÀN LUẬN", "4.1. Đặc điểm dân số nghiên cứu", "4.1.1. Tuổi, giới tính",
+    "4.2. Kết quả so sánh", "TÀI LIỆU THAM KHẢO"
+  ],
+  "keyDivergenceFromProtocolDesignTemplate": {
+    "chapter3Title": "DỰ KIẾN KẾT QUẢ (expected results) → KẾT QUẢ (actual results)",
+    "chapter4Title": "KẾ HOẠCH THỰC HIỆN (implementation plan) → BÀN LUẬN (discussion)",
+    "note": "Chapter III in this template also contains an inline 'Nhận xét:' (remarks) subsection under objective 1 that the protocol template does not have. Treated as an optional, not required, sub-block since it appears to be content the specific author added rather than a fixed template slot — flagged here for the human reviewer to confirm."
+  },
+  "authoringDisclaimer": "This file is read-only reference output from deterministic parsing. It contains NO sectionOrder, requiredBlocks, or styleMap decisions — those fields in config.json were written by a human author using this outline as reference, per the no-AI onboarding process in AGENT_BUILD_SPEC.md section 7."
+}

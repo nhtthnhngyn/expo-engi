@@ -1,0 +1,13 @@
+{
+  "formatId": "data-collection.crf-redcap",
+  "standard": "REDCap data-entry form layout",
+  "checks": [
+    { "id": "form-header-required", "description": "form-header (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Baseline Visit" } },
+    { "id": "eligibility-required", "description": "eligibility (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Eligibility" } },
+    { "id": "required-field-marked", "description": "A required field's prompt is marked with an asterisk.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Age at consent (years) *" } },
+    { "id": "boolean-answer-space", "description": "A boolean field gets a Yes/No answer space.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Yes" } },
+    { "id": "options-rendered", "description": "An options field renders each option as a checkbox.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Early mobilisation" } },
+    { "id": "field-numbered", "description": "External numbering reads attrs.fieldNumber verbatim.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "1) " } },
+    { "id": "no-toc", "description": "docProperties.tocDepth = 0 emits no TOC field, unlike the report-writing formats.", "assert": { "kind": "notContains", "part": "word/document.xml", "value": "w:instrText" } }
+  ]
+}

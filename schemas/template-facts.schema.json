@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/template-facts.schema.json",
+  "title": "Template facts (template-facts.json)",
+  "description": "Real Word style facts extracted directly from a reference document's own word/styles.xml — font, size, bold/italic, alignment, per named style actually used. Deterministic extraction only, never invented (see extract-research-format SKILL.md's hard rules). tools/build-templates-from-facts.ts turns this into an actual template.dotx, so a human only has to review the rendered result instead of hand-authoring template-definitions.ts.",
+  "type": "object",
+  "required": ["formatId", "bodyFont", "bodySizeHalfPoints", "styles"],
+  "additionalProperties": false,
+  "properties": {
+    "formatId": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$" },
+    "bodyFont": { "type": "string", "minLength": 1, "description": "Default body font for the whole template, as found in the reference document's docDefaults/Normal style." },
+    "bodySizeHalfPoints": { "type": "integer", "minimum": 2, "description": "Default body size in half-points, i.e. 24 = 12pt." },
+    "styles": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Every named style config.json's styleMap/headings actually reference — not every style the source document happens to define.",
+      "items": { "$ref": "#/definitions/style" }
+    }
+  },
+  "definitions": {
+    "style": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "Word display name — what config.json's styleMap/headings reference by name." },
+        "styleId": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["paragraph", "character", "table", "numbering"] },
+        "basedOn": { "type": "string" },
+        "sizeHalfPoints": { "type": "integer", "minimum": 2 },
+        "bold": { "type": "boolean" },
+        "italic": { "type": "boolean" },
+        "allCaps": { "type": "boolean" },
+        "font": { "type": "string" },
+        "color": { "type": "string", "description": "Hex RGB without '#', e.g. \"FF0000\", as found in w:color." },
+        "alignment": { "type": "string", "enum": ["left", "center", "right", "both"] },
+        "outlineLevel": { "type": "integer", "minimum": 0, "maximum": 8, "description": "0-based. Set on heading styles so Word's TOC/navigation work." },
+        "spacingBefore": { "type": "integer", "minimum": 0 },
+        "spacingAfter": { "type": "integer", "minimum": 0 },
+        "lineSpacing": { "type": "integer", "minimum": 0 },
+        "indentLeft": { "type": "integer", "minimum": 0 },
+        "indentHanging": { "type": "integer", "minimum": 0 },
+        "keepNext": { "type": "boolean" },
+        "borders": { "type": "boolean" },
+        "shading": { "type": "string", "description": "Hex RGB fill without '#'." }
+      }
+    }
+  }
+}

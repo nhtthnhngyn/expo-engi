@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/document-skeleton.schema.json",
+  "title": "Document skeleton (document-skeleton.json)",
+  "description": "The seed ProseMirror document a new document of a format starts from — answers 'what standard structure already exists before the user types anything', as opposed to config.json which answers 'how does this render'. See FORMAT_CONFIG_GUIDE.md. `doc` is validated separately against prosemirror-base.schema.json at load time; this schema only checks the wrapper shape.",
+  "type": "object",
+  "required": ["formatId", "skeletonVersion", "doc"],
+  "additionalProperties": false,
+  "properties": {
+    "formatId": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$" },
+    "skeletonVersion": { "type": "string", "pattern": "^v[0-9]+(\\.[0-9]+)*$" },
+    "note": { "type": "string" },
+    "doc": {
+      "type": "object",
+      "description": "A ProseMirror doc. Nodes carry attrs.locked:true (standard, fixed structure, read-only to the end user) or attrs.fillIn:true (intentionally empty, no placeholder text). Validated in full against prosemirror-base.schema.json separately.",
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "doc" }
+      }
+    }
+  }
+}

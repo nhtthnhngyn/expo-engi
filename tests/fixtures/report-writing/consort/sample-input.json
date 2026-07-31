@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "formatId": "report-writing.consort",
+    "documentTitle": "Effect of early mobilisation on ICU length of stay: a randomised controlled trial",
+    "projectId": "proj_ic4m",
+    "generatedAt": "2026-04-02T09:00:00.000Z",
+    "sourceDocVersion": "12"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h_abstract", "level": 1, "sectionId": "abstract" },
+        "content": [{ "type": "text", "text": "Abstract" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "abstract" },
+        "content": [
+          { "type": "text", "text": "Background: prolonged immobility in intensive care is associated with " },
+          { "type": "text", "text": "muscle wasting", "marks": [{ "type": "italic" }] },
+          { "type": "text", "text": " and delayed discharge." }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_intro", "level": 1, "sectionId": "introduction" },
+        "content": [{ "type": "text", "text": "Introduction" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "introduction" },
+        "content": [
+          { "type": "text", "text": "Earlier trials reported shorter ventilation times" },
+          { "type": "text", "text": "", "marks": [{ "type": "citation", "attrs": { "key": "schweickert2009" } }] },
+          { "type": "text", "text": " but were single-centre" },
+          {
+            "type": "text",
+            "text": "",
+            "marks": [{ "type": "footnote", "attrs": { "text": "Two of the four trials enrolled fewer than 60 participants." } }]
+          },
+          { "type": "text", "text": "." }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_methods", "level": 1, "sectionId": "methods" },
+        "content": [{ "type": "text", "text": "Methods" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_trialreg",
+          "blockKind": "trialRegistrationNumber",
+          "sectionId": "methods",
+          "value": "ISRCTN27384756",
+          "registry": "ISRCTN"
+        }
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_participants", "level": 2, "sectionId": "methods" },
+        "content": [{ "type": "text", "text": "Participants and setting" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "methods" },
+        "content": [
+          { "type": "text", "text": "Adults admitted to four mixed medical–surgical ICUs. Full eligibility criteria are published at " },
+          {
+            "type": "text",
+            "text": "the trial registry",
+            "marks": [{ "type": "link", "attrs": { "href": "https://www.isrctn.com/ISRCTN27384756" } }]
+          },
+          { "type": "text", "text": "." }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": { "sectionId": "methods" },
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              { "type": "paragraph", "content": [{ "type": "text", "text": "Mechanically ventilated for at least 48 hours" }] }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              { "type": "paragraph", "content": [{ "type": "text", "text": "Expected to remain in ICU for a further 72 hours" }] },
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      { "type": "paragraph", "content": [{ "type": "text", "text": "Assessed daily by the treating intensivist" }] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_results", "level": 1, "sectionId": "results" },
+        "content": [{ "type": "text", "text": "Results" }]
+      },
+      {
+        "type": "table",
+        "attrs": { "sectionId": "results" },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Outcome" }] }] },
+              { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Intervention" }] }] },
+              { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Control" }] }] }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": { "rowspan": 2 },
+                "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "ICU length of stay (days)" }] }]
+              },
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "6.1 (SD 2.4)" }] }] },
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "8.3 (SD 3.1)" }] }] }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              { "type": "tableCell", "attrs": { "colspan": 2 }, "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Difference −2.2 days (95% CI −3.4 to −1.0)" }] }] }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_discussion", "level": 1, "sectionId": "discussion" },
+        "content": [{ "type": "text", "text": "Discussion" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "discussion" },
+        "content": [
+          { "type": "text", "text": "Early mobilisation shortened ICU stay without an increase in adverse events." }
+        ]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_flow",
+          "blockKind": "consortFlowDiagram",
+          "sectionId": "consort-flow-diagram",
+          "caption": "Figure 1. Participant flow through the trial.",
+          "stages": [
+            { "label": "Assessed for eligibility", "count": 640 },
+            { "label": "Randomised", "count": 412 },
+            { "label": "Allocated to early mobilisation", "count": 206 },
+            { "label": "Allocated to usual care", "count": 206 },
+            { "label": "Analysed (intention to treat)", "count": 404 }
+          ]
+        }
+      },
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "b_item4a", "blockKind": "consortChecklistItem", "checklistNo": "4a", "sectionId": "consort-checklist" },
+        "content": [{ "type": "text", "text": "Eligibility criteria for participants" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "b_item4b", "blockKind": "consortChecklistItem", "checklistNo": "4b", "sectionId": "consort-checklist" },
+        "content": [{ "type": "text", "text": "Settings and locations where the data were collected" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "b_item5", "blockKind": "consortChecklistItem", "checklistNo": "5", "sectionId": "consort-checklist" },
+        "content": [{ "type": "text", "text": "Interventions for each group with sufficient detail to allow replication" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_unknown",
+          "blockKind": "sponsorDeclaration",
+          "sectionId": "consort-checklist",
+          "text": "The sponsor had no role in study design, data collection, analysis, or the decision to submit."
+        }
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_references", "level": 1, "sectionId": "references" },
+        "content": [{ "type": "text", "text": "References" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "references" },
+        "content": [
+          { "type": "text", "text": "Schweickert WD, et al. Early physical and occupational therapy in mechanically ventilated, critically ill patients. Lancet. 2009." }
+        ]
+      }
+    ]
+  }
+}

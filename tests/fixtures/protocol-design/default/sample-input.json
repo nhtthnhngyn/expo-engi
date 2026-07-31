@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "formatId": "protocol-design.default",
+    "documentTitle": "Early Mobilisation in the ICU: Study Protocol",
+    "projectId": "proj_ic4m",
+    "generatedAt": "2026-01-20T09:00:00.000Z",
+    "sourceDocVersion": "3"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h_admin", "level": 1, "sectionId": "administrative-information" },
+        "content": [{ "type": "text", "text": "Administrative information" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "administrative-information" },
+        "content": [{ "type": "text", "text": "Protocol version 3, 20 January 2026." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_bg", "level": 1, "sectionId": "background-and-rationale" },
+        "content": [{ "type": "text", "text": "Background and rationale" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "background-and-rationale" },
+        "content": [
+          { "type": "text", "text": "Prolonged bed rest in the ICU is associated with " },
+          { "type": "text", "text": "ICU-acquired weakness", "marks": [{ "type": "bold" }] },
+          { "type": "text", "text": "." }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_obj", "level": 1, "sectionId": "objectives" },
+        "content": [{ "type": "text", "text": "Objectives" }]
+      },
+      {
+        "type": "orderedList",
+        "attrs": { "sectionId": "objectives" },
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              { "type": "paragraph", "content": [{ "type": "text", "text": "Determine whether early mobilisation reduces ICU length of stay." }] }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              { "type": "paragraph", "content": [{ "type": "text", "text": "Determine whether early mobilisation is safe in mechanically ventilated adults." }] }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_design", "level": 1, "sectionId": "study-design" },
+        "content": [{ "type": "text", "text": "Study design" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "study-design" },
+        "content": [{ "type": "text", "text": "A multicentre, parallel-group, randomised controlled trial with 1:1 allocation." }]
+      },
+      {
+        "type": "blockquote",
+        "attrs": { "sectionId": "study-design" },
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [{ "type": "text", "text": "Protocol amendments will be logged in the trial registry and communicated to all sites within 5 working days." }]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_participants", "level": 1, "sectionId": "participants" },
+        "content": [{ "type": "text", "text": "Participants" }]
+      },
+      {
+        "type": "table",
+        "attrs": { "sectionId": "participants" },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Inclusion" }] }] },
+              { "type": "tableHeader", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Exclusion" }] }] }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Age ≥ 18" }] }] },
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Unstable spinal injury" }] }] }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h_ethics", "level": 1, "sectionId": "ethics-and-dissemination" },
+        "content": [{ "type": "text", "text": "Ethics and dissemination" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_ethics",
+          "blockKind": "ethicsApproval",
+          "sectionId": "ethics-and-dissemination",
+          "value": "REC ref 25/LO/0042"
+        }
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_funding",
+          "blockKind": "fundingStatement",
+          "sectionId": "ethics-and-dissemination",
+          "value": "Funded by the National Institute for Health and Care Research, grant NIHR203456."
+        }
+      },
+      {
+        "type": "codeBlock",
+        "attrs": { "sectionId": "appendices" },
+        "content": [
+          { "type": "text", "text": "randomisation_seed = 20260120\nblock_size = 4" }
+        ]
+      }
+    ]
+  }
+}

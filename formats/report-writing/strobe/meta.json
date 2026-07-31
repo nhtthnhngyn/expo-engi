@@ -1,0 +1,43 @@
+{
+  "formatId": "report-writing.strobe",
+  "phaseId": "report-writing",
+  "sourcePlatform": "STROBE Initiative",
+  "addedBy": "u_marta_oliveira",
+  "addedAt": "2026-01-21T14:40:00.000Z",
+  "status": "active",
+  "notes": "The third format onboarded, and the one that closed the genericity checkpoint: config + template only, zero renderer changes. Shares the checklist-item block plugin with CONSORT and PRISMA.",
+  "sectionOrder": [
+    "title-and-abstract",
+    "introduction",
+    "methods",
+    "results",
+    "discussion",
+    "other-information",
+    "strobe-checklist",
+    "references"
+  ],
+  "requiredBlocks": [
+    "strobe-checklist",
+    "methods",
+    "results"
+  ],
+  "numbering": {
+    "checklistItem": {
+      "scheme": "strobe-item-number",
+      "source": "attrs.checklistNo",
+      "suffix": ". "
+    }
+  },
+  "fallback": {
+    "unknownBlockKind": "renderAsPlainParagraph"
+  },
+  "entitlement": {
+    "tier": "paid"
+  },
+  "provenance": {
+    "authoredBy": "u_marta_oliveira",
+    "reviewedBy": "u_arun_kapoor",
+    "addedAt": "2026-01-21T14:40:00.000Z",
+    "extractionAssisted": false
+  }
+}

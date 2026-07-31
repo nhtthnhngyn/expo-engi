@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/canonical-ir.schema.json",
+  "title": "Canonical Document IR",
+  "description": "The only thing the renderer ever reads. Pure content — no Word concepts (style names, fonts, page numbers) ever appear here.",
+  "type": "object",
+  "required": ["meta", "blocks"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["formatId", "documentTitle", "projectId", "generatedAt", "sourceDocVersion"],
+      "additionalProperties": false,
+      "properties": {
+        "formatId": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$" },
+        "documentTitle": { "type": "string" },
+        "projectId": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "sourceDocVersion": { "type": "string" }
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/block" }
+    }
+  },
+  "definitions": {
+    "run": {
+      "type": "object",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string" },
+        "marks": {
+          "type": "array",
+          "description": "Simple marks are bare names (`bold`). Parameterised marks use `name:value` (`link:https://…`, `footnote:…`, `citation:…`).",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "block": {
+      "type": "object",
+      "required": ["id", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": {
+          "enum": [
+            "heading",
+            "paragraph",
+            "table",
+            "tableRow",
+            "tableCell",
+            "figure",
+            "list",
+            "listItem",
+            "checklistItem",
+            "blockquote",
+            "codeBlock",
+            "horizontalRule",
+            "customBlock"
+          ]
+        },
+        "level": { "type": "integer", "minimum": 1, "maximum": 6 },
+        "runs": { "type": "array", "items": { "$ref": "#/definitions/run" } },
+        "children": { "type": "array", "items": { "$ref": "#/definitions/block" } },
+        "attrs": { "type": "object", "additionalProperties": true }
+      }
+    }
+  }
+}

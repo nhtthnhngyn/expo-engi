@@ -1,0 +1,13 @@
+{
+  "formatId": "protocol-design.vn-academic-thesis-protocol",
+  "standard": "VN academic research protocol (config.json, FORMAT_CONFIG_GUIDE.md worked example)",
+  "checks": [
+    { "id": "heading-1-styled", "description": "Level-1 heading uses Heading1.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:pStyle w:val=\"Heading1\"/>" } },
+    { "id": "heading-1-direct-bold-center", "description": "headings.1 specifies bold + center; both are applied as direct formatting on top of Heading1.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/>" } },
+    { "id": "heading-1-centered", "description": "headings.1's align: center produces a <w:jc val=\"center\"/> paragraph override.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:jc w:val=\"center\"/>" } },
+    { "id": "heading-3-justified", "description": "headings.3 specifies align: justify, applied as a direct paragraph override.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:jc w:val=\"justify\"/>" } },
+    { "id": "reference-styled-bibliography", "description": "A paragraph tagged attrs.role='reference' resolves via the top-level `reference` block to the Bibliography style.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:pStyle w:val=\"Bibliography\"/>" } },
+    { "id": "letter-page-custom-margins", "description": "page.margins.leftTwips = 1985 is honoured exactly.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:left=\"1985\"" } },
+    { "id": "vietnamese-text-present", "description": "Vietnamese diacritics survive normalization and rendering unescaped.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Đặt vấn đề" } }
+  ]
+}

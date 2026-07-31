@@ -1,0 +1,78 @@
+{
+  "formatId": "protocol-design.default",
+  "displayName": "Standard Study Protocol",
+  "phaseId": "protocol-design",
+  "version": "v1",
+  "templateFile": "template.dotx",
+  "page": {
+    "size": "letter",
+    "widthTwips": 12240,
+    "heightTwips": 15840,
+    "orientation": "portrait",
+    "margins": {
+      "topTwips": 1440,
+      "rightTwips": 1440,
+      "bottomTwips": 1440,
+      "leftTwips": 1440
+    }
+  },
+  "typography": {
+    "defaultFont": "Calibri",
+    "defaultSizePt": 11,
+    "defaultLineSpacing": "single",
+    "defaultAlignment": "left",
+    "language": null
+  },
+  "headings": {
+    "1": {
+      "wordStyle": "Protocol Heading 1"
+    },
+    "2": {
+      "wordStyle": "Protocol Heading 2"
+    },
+    "3": {
+      "wordStyle": "Protocol Heading 3"
+    },
+    "4": {
+      "wordStyle": "Protocol Heading 4"
+    },
+    "5": {
+      "wordStyle": "Protocol Heading 5"
+    },
+    "6": {
+      "wordStyle": "Protocol Heading 6"
+    }
+  },
+  "styleMap": {
+    "title": "Protocol Title",
+    "subtitle": "Protocol Subtitle",
+    "paragraph": "Protocol Body",
+    "list:bullet": "Protocol Bullet",
+    "list:ordered": "Protocol Numbered",
+    "table": "Protocol Table",
+    "tableHeader": "Protocol Table Header",
+    "figure": "Protocol Figure",
+    "caption": "Protocol Caption",
+    "blockquote": "Protocol Quote",
+    "codeBlock": "Protocol Code",
+    "toc:1": "Protocol Contents Entry",
+    "toc:2": "Protocol Contents Entry",
+    "toc:3": "Protocol Contents Entry",
+    "footnote": "Protocol Footnote"
+  },
+  "toc": {
+    "enabled": true,
+    "depth": 3,
+    "autoGenerateFromHeadings": true
+  },
+  "headingNumbering": {
+    "auto": false,
+    "note": "Headings use direct Word styles only; no automatic multilevel numbering is linked to them."
+  },
+  "citationStyle": "vancouver",
+  "pageNumbering": "arabic",
+  "docFeatures": {
+    "coverPage": true,
+    "footer": "{documentTitle} — v{sourceDocVersion}"
+  }
+}

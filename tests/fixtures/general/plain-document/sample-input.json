@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "formatId": "general.plain-document",
+    "documentTitle": "Interim Progress Note",
+    "projectId": "proj_demo",
+    "generatedAt": "2026-07-31T00:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h1", "level": 1 },
+        "content": [{ "type": "text", "text": "Overview" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "This is a plain paragraph rendered with no direct formatting beyond the template's own Normal style." }]
+      },
+      {
+        "type": "heading",
+        "attrs": { "id": "h2", "level": 2 },
+        "content": [{ "type": "text", "text": "Details" }]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Item" }] }] },
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Status" }] }] }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Data collection" }] }] },
+              { "type": "tableCell", "content": [{ "type": "paragraph", "content": [{ "type": "text", "text": "Complete" }] }] }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "attrs": { "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=", "caption": "Figure 1. Sample chart." }
+      }
+    ]
+  }
+}

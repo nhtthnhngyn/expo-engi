@@ -1,0 +1,78 @@
+{
+  "formatId": "data-processing.log-default",
+  "displayName": "Data Processing Log",
+  "phaseId": "data-processing",
+  "version": "v1",
+  "templateFile": "template.dotx",
+  "page": {
+    "size": "letter",
+    "widthTwips": 12240,
+    "heightTwips": 15840,
+    "orientation": "portrait",
+    "margins": {
+      "topTwips": 1440,
+      "rightTwips": 1440,
+      "bottomTwips": 1440,
+      "leftTwips": 1440
+    }
+  },
+  "typography": {
+    "defaultFont": "Calibri",
+    "defaultSizePt": 10,
+    "defaultLineSpacing": "single",
+    "defaultAlignment": "left",
+    "language": null
+  },
+  "headings": {
+    "1": {
+      "wordStyle": "Log Heading 1"
+    },
+    "2": {
+      "wordStyle": "Log Heading 2"
+    },
+    "3": {
+      "wordStyle": "Log Heading 3"
+    },
+    "4": {
+      "wordStyle": "Log Heading 4"
+    },
+    "5": {
+      "wordStyle": "Log Heading 5"
+    },
+    "6": {
+      "wordStyle": "Log Heading 6"
+    }
+  },
+  "styleMap": {
+    "title": "Log Title",
+    "subtitle": "Log Subtitle",
+    "paragraph": "Log Body",
+    "list:bullet": "Log Bullet",
+    "list:ordered": "Log Numbered",
+    "table": "Log Table",
+    "tableHeader": "Log Table Header",
+    "figure": "Log Figure",
+    "caption": "Log Caption",
+    "blockquote": "Log Note",
+    "codeBlock": "Log Code",
+    "toc:1": "Log Contents Entry",
+    "toc:2": "Log Contents Entry",
+    "toc:3": "Log Contents Entry",
+    "footnote": "Log Footnote"
+  },
+  "toc": {
+    "enabled": true,
+    "depth": 2,
+    "autoGenerateFromHeadings": true
+  },
+  "headingNumbering": {
+    "auto": false,
+    "note": "Headings use direct Word styles only; no automatic multilevel numbering is linked to them."
+  },
+  "citationStyle": "none",
+  "pageNumbering": "arabic",
+  "docFeatures": {
+    "coverPage": false,
+    "footer": "Processing log — {projectId}"
+  }
+}

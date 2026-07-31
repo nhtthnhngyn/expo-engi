@@ -1,0 +1,12 @@
+{
+  "formatId": "stat-analysis.default",
+  "standard": "Internal statistical analysis report",
+  "checks": [
+    { "id": "summary-required", "description": "analysis-summary (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Intention-to-treat analysis" } },
+    { "id": "primary-outcome-required", "description": "primary-outcome (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Primary outcome" } },
+    { "id": "table-header-row", "description": "The result table's header row is present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Mean LOS (days)" } },
+    { "id": "table-numbered", "description": "External numbering reads attrs.tableNumber verbatim.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Table 1. " } },
+    { "id": "caption-present", "description": "The table caption renders as its own paragraph.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Primary outcome by treatment group." } },
+    { "id": "author-year-citation", "description": "docProperties.citationStyle = apa renders a parenthetical author-year style marker.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "(ich-e9)" } }
+  ]
+}

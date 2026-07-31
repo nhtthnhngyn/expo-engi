@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.vitest/
+coverage/
+
+# Local scratch output from `npm run render:fixture` / manual test renders
+out/
+tmp/
+*.local.docx

@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "formatId": "report-writing.prisma",
+    "documentTitle": "Efficacy of telerehabilitation after stroke: a systematic review",
+    "projectId": "proj_telerehab",
+    "generatedAt": "2026-02-08T09:00:00.000Z",
+    "sourceDocVersion": "2"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "heading",
+        "attrs": { "id": "h_methods", "level": 1, "sectionId": "methods" },
+        "content": [{ "type": "text", "text": "Methods" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "sectionId": "methods" },
+        "content": [{ "type": "text", "text": "We searched MEDLINE, EMBASE and CENTRAL from inception to December 2025." }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": {
+          "id": "b_flow",
+          "blockKind": "prismaFlowDiagram",
+          "sectionId": "prisma-flow-diagram",
+          "caption": "Figure 1. Study selection.",
+          "stages": [
+            { "label": "Records identified", "count": 1834 },
+            { "label": "Records after duplicates removed", "count": 1210 },
+            { "label": "Studies included in review", "count": 14 }
+          ]
+        }
+      },
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "b_item3", "blockKind": "prismaChecklistItem", "checklistNo": "3", "sectionId": "prisma-checklist" },
+        "content": [{ "type": "text", "text": "State the objectives and any prespecified hypotheses" }]
+      }
+    ]
+  }
+}

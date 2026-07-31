@@ -1,0 +1,42 @@
+{
+  "sourceFile": "Phase_5_-_Viết_báo.docx",
+  "extractionMethod": "deterministic OOXML parse (styles.xml, document.xml, sectPr) — no ML/LLM involved",
+  "namedStylesFoundInStylesXml": ["TableNormal", "Normal", "Heading1", "Heading2", "Heading3", "Heading4", "Heading5", "Heading6", "Title", "Subtitle"],
+  "namedStylesActuallyUsedInBody": {
+    "note": "grep for w:pStyle in word/document.xml returned ZERO matches. Every paragraph in the document body — including what visually read as section headings (TÓM TẮT, ĐẶT VẤN ĐỀ, KẾT QUẢ, etc.) — carries no pStyle reference at all, meaning it defaults to Normal with direct run-level formatting (bold/italic) applied per-run.",
+    "consequence": "This template cannot be represented with a plain string styleMap the way the vn-academic-thesis family can. It requires mapping a block type to a style name PLUS a direct-formatting override (see SCHEMA_PATCH_NOTES.md)."
+  },
+  "tableStylesUsed": { "Table1": 1, "Table2": 1, "Table3": 1, "note": "auto-generated Word table style names from pasted/inserted tables, not a meaningful shared convention — treat tables as direct-bordered, not style-driven." },
+  "pageSetup": {
+    "pgSz": { "w": 11909, "h": 16834, "orient": "portrait" },
+    "pgMar": { "top": 1440, "right": 1440, "bottom": 1440, "left": 1699, "header": 720, "footer": 720 }
+  },
+  "documentDefaultsFromDocDefaults": { "font": "Calibri", "sizeHalfPoints": 22 },
+  "directFormattingObservedOnBodyParagraphs": {
+    "font": "Times New Roman", "sizeHalfPoints": 24, "alignment": "both (justify)",
+    "note": "Overrides the Calibri 11pt docDefault on essentially every paragraph — the direct override is the real convention in use."
+  },
+  "sectionLabelsObservedInOrder": [
+    "Title (VN, bold)", "Title (EN, bold+italic)", "Author list", "Affiliation",
+    "Tác giả liên hệ: (corresponding author block)", "Nguồn tài trợ: (funding statement)",
+    "TÓM TẮT (with inline bold sub-labels: Đặt vấn đề / Mục tiêu / Đối tượng và phương pháp nghiên cứu / Kết luận / Từ khóa)",
+    "ABSTRACT (with inline bold sub-labels: Background / Objectives / Methods / Results / Conclusions / Keywords)",
+    "ĐẶT VẤN ĐỀ", "Mục tiêu nghiên cứu", "ĐỐI TƯỢNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU",
+    "Giai đoạn 1 / Giai đoạn 2 (sub-labels within methods)", "KẾT QUẢ", "BÀN LUẬN",
+    "So sánh với các nghiên cứu tương tự (sub-label, bold+italic)", "KẾT LUẬN", "LỜI CẢM ƠN",
+    "TÀI LIỆU THAM KHẢO"
+  ],
+  "figureCaptionFormattingObserved": {
+    "inconsistencyFound": "One figure caption used bold-only ('**Hình 1: ...**'), another used bold+italic ('***Hình 2: ...***'). This is author inconsistency in the source document, not a deliberate rule.",
+    "authoringDecision": "config.json standardizes on bold+italic, centered, for all figure/table captions going forward — flagged here so a reviewer knows this was a normalization choice, not a verified fixed rule from the source."
+  },
+  "referencesObserved": {
+    "citationMarkerInText": "bracketed numbers, e.g. [1], [1,2]",
+    "referenceListFormat": "plain numbered paragraphs, Normal style, no Bibliography style used"
+  },
+  "notFoundInThisTemplate": [
+    "table of contents", "list of tables", "list of figures", "cover/title page separate from first content page",
+    "any named heading style actually applied to a paragraph"
+  ],
+  "authoringDisclaimer": "This file is read-only reference output from deterministic parsing. It contains NO sectionOrder, requiredBlocks, or styleMap decisions — those fields in config.json were written by a human author using this outline as reference, per the no-AI onboarding process in AGENT_BUILD_SPEC.md section 7."
+}
