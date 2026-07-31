@@ -106,18 +106,22 @@ block of content, what does it look like in Word?"
   "pageNumbering": "arabic"
 }
 ```
-For a **direct-formatting** format, `headings`/`styleMap` entries look like this instead (every
-value real, extracted, never invented):
+For a **direct-formatting** format, don't set `headings` at all — a format with zero named Word
+heading styles has nothing for it to reference. Instead, every section label is a `researchBlock`
+node (see "The four files" below), and `styleMap` carries one **`custom:<blockKind>`** entry per
+distinct label role (every value real, extracted, never invented):
 ```json
-"headings": {
-  "method": "directFormatting",
-  "sectionLabel": { "wordStyle": "Normal", "bold": true, "align": "center" }
-},
 "styleMap": {
   "paragraph": "Normal",
-  "sectionLabel": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } }
+  "custom:sectionLabel": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "justify" } }
 }
 ```
+The `custom:` prefix is not optional — the renderer looks up `styleMap["custom:" + blockKind]`
+specifically; a bare `styleMap.sectionLabel` (no prefix) is silently never matched, and the block
+renders as plain unstyled text with no error. (`headings.<role>` with `headings.method:
+"directFormatting"` is a *different* mechanism, for formats that use ProseMirror `heading` nodes
+tagged with `attrs.role` instead of `researchBlock`/`blockKind` — don't mix the two into one
+format; pick whichever your skeleton actually uses.)
 
 ### 2. `document-skeleton.json` — the starting document a new document begins from
 
@@ -155,9 +159,14 @@ genuinely standard heading open throws away real value the template offered.
 }
 ```
 Use `heading` nodes for named-style formats. For direct-formatting formats, use `researchBlock`
-nodes instead, with `attrs.blockKind` matching a `styleMap` key:
+nodes instead. **The `styleMap` key must be `custom:<blockKind>`, not the bare blockKind** — the
+renderer looks up `styleMap["custom:" + attrs.blockKind]` for any `researchBlock`, so a key without
+the `custom:` prefix is silently never found and the block falls back to plain, unstyled text:
 ```json
 { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true }, "content": [{ "type": "text", "text": "Introduction" }] }
+```
+```json
+"styleMap": { "custom:sectionLabel": { "style": "Normal", "runFormatting": { "bold": true } } }
 ```
 A mark on a text node can be written as a bare string shorthand — `"marks": ["bold"]` — or the full
 object form `"marks": [{ "type": "bold" }]`; both are valid.

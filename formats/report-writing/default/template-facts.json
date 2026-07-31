@@ -1,0 +1,85 @@
+{
+  "formatId": "report-writing.default",
+  "bodyFont": "Times New Roman",
+  "bodySizeHalfPoints": 26,
+  "styles": [
+    {
+      "name": "Heading1",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26,
+      "bold": true,
+      "alignment": "center",
+      "outlineLevel": 0,
+      "keepNext": true
+    },
+    {
+      "name": "Heading2",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26,
+      "bold": true,
+      "outlineLevel": 1,
+      "keepNext": true
+    },
+    {
+      "name": "Heading3",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26,
+      "bold": true,
+      "alignment": "both",
+      "outlineLevel": 2,
+      "keepNext": true
+    },
+    {
+      "name": "Caption",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "italic": true,
+      "sizeHalfPoints": 18
+    },
+    {
+      "name": "Bibliography",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26,
+      "indentLeft": 504,
+      "indentHanging": 504
+    },
+    {
+      "name": "TableGrid",
+      "type": "table",
+      "font": "Times New Roman",
+      "sizeHalfPoints": 26
+    },
+    {
+      "name": "TOCHeading",
+      "type": "paragraph",
+      "basedOn": "Heading1",
+      "sizeHalfPoints": 32,
+      "bold": true,
+      "outlineLevel": 0
+    },
+    {
+      "name": "TOC1",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26
+    },
+    {
+      "name": "TOC2",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26,
+      "indentLeft": 240
+    },
+    {
+      "name": "TOC3",
+      "type": "paragraph",
+      "basedOn": "Normal",
+      "sizeHalfPoints": 26,
+      "indentLeft": 480
+    }
+  ]
+}

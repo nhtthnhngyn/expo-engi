@@ -1,7 +1,7 @@
 {
-  "formatId": "protocol-design.default",
-  "displayName": "Đề cương nghiên cứu (VN academic protocol)",
-  "phaseId": "protocol-design",
+  "formatId": "report-writing.default",
+  "displayName": "Luận văn (VN academic thesis)",
+  "phaseId": "report-writing",
   "version": "v1",
   "templateFile": "template.dotx",
   "page": {
@@ -36,5 +36,9 @@
   "toc": { "enabled": true, "depth": 3, "autoGenerateFromHeadings": true },
   "headingNumbering": { "auto": false },
   "citationStyle": "vancouver",
-  "pageNumbering": "arabic"
+  "pageNumbering": "arabic",
+  "sharedFormattingWith": "protocol-design.default",
+  "formatFamily": "vn-academic-thesis",
+  "familyRole": "full-thesis-writeup",
+  "diffFromFamilyBase": "Chapter III is real Results (not Expected Results) and Chapter IV is Discussion (not Implementation Plan) — see document-skeleton.json. Page/typography/named styles are identical to protocol-design.default; see GENERAL_VS_PRIVATE_NOTES.md."
 }

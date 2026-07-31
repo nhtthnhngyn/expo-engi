@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "formatId": "journal-submission.default",
+    "documentTitle": "Xây dựng ứng dụng chẩn đoán viêm da cơ địa dựa trên trí tuệ nhân tạo",
+    "projectId": "proj_journal_default",
+    "generatedAt": "2026-07-31T00:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "title", "blockKind": "title" },
+        "content": [{ "type": "text", "text": "Xây dựng ứng dụng chẩn đoán viêm da cơ địa dựa trên trí tuệ nhân tạo" }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "sec1", "blockKind": "sectionLabel" },
+        "content": [{ "type": "text", "text": "ĐẶT VẤN ĐỀ" }]
+      },
+      {
+        "type": "paragraph",
+        "content": [{ "type": "text", "text": "Viêm da cơ địa (VDCĐ) là một bệnh lý viêm da mạn tính phổ biến trên toàn thế giới." }]
+      },
+      {
+        "type": "researchBlock",
+        "attrs": { "id": "sec2", "blockKind": "sectionLabel" },
+        "content": [{ "type": "text", "text": "TÀI LIỆU THAM KHẢO" }]
+      },
+      {
+        "type": "paragraph",
+        "attrs": { "id": "ref1", "role": "reference" },
+        "content": [{ "type": "text", "text": "A. Akan, E. Dibek-Mısırlıoğlu, E. Civelek, E. Vezir, and C. N. Kocabaş, \"Diagnosis of atopic dermatitis,\" 2020." }]
+      }
+    ]
+  }
+}

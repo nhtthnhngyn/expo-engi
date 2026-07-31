@@ -1,0 +1,8 @@
+{
+  "formatId": "journal-submission.default",
+  "bodyFont": "Times New Roman",
+  "bodySizeHalfPoints": 24,
+  "styles": [
+    { "name": "Table1", "type": "table", "font": "Calibri", "sizeHalfPoints": 22 }
+  ]
+}

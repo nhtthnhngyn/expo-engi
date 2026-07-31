@@ -1,0 +1,11 @@
+{
+  "formatId": "journal-submission.default",
+  "standard": "VN IMRaD manuscript (Viết báo), extracted from a real University of Medicine and Pharmacy reference document — no named Word heading styles, direct formatting throughout",
+  "checks": [
+    { "id": "title-bold-centered", "description": "custom:title styleMap entry applies bold + center directly on Normal (no named heading style exists in the source document).", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:jc w:val=\"center\"" } },
+    { "id": "section-label-bold", "description": "custom:sectionLabel styleMap entry makes 'ĐẶT VẤN ĐỀ' bold — regression check for the custom:<blockKind> styleMap key convention (a bare key without the prefix is silently never matched).", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/>" } },
+    { "id": "no-named-heading-style", "description": "This format has zero named heading styles — confirms direct formatting, not named-style, is the actual mechanism in play.", "assert": { "kind": "notContains", "part": "word/document.xml", "value": "w:pStyle w:val=\"Heading1\"" } },
+    { "id": "a4-page-size", "description": "page.widthTwips=11909/heightTwips=16834 (real A4 from the source document's pgSz) is honoured.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:w=\"11909\"" } },
+    { "id": "vietnamese-text-present", "description": "Vietnamese diacritics survive normalization and rendering unescaped.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "viêm da mạn tính" } }
+  ]
+}

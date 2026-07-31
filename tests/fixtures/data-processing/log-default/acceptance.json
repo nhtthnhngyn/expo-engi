@@ -1,9 +1,0 @@
-{
-  "formatId": "data-processing.log-default",
-  "standard": "Internal data-processing log",
-  "checks": [
-    { "id": "summary-required", "description": "dataset-summary (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "412 participant records" } },
-    { "id": "cleaning-required", "description": "cleaning-steps (required) present.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Removed 3 duplicate participant ids" } },
-    { "id": "code-preserved", "description": "The cleaning code block preserves both lines.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "duplicated(df$participant_id)" } }
-  ]
-}

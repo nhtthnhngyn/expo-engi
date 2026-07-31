@@ -1,0 +1,74 @@
+{
+  "formatId": "protocol-design.default",
+  "skeletonVersion": "v1",
+  "note": "Extracted from a real Đề cương nghiên cứu (research protocol) reference document. Chapter I-II structure and the four Chapter IV subsections are the institution's standard convention; Chapter III/IV framing (Expected Results / Implementation Plan) is what distinguishes a protocol from the full thesis write-up (report-writing.default) — see GENERAL_VS_PRIVATE_NOTES.md.",
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "blockKind": "tableOfContentsField", "locked": true } },
+      { "type": "researchBlock", "attrs": { "blockKind": "listOfTablesField", "locked": true } },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "problemStatement" },
+        "content": [{ "type": "text", "text": "ĐẶT VẤN ĐỀ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "researchObjectives" },
+        "content": [{ "type": "text", "text": "Mục tiêu nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "literatureReview" },
+        "content": [{ "type": "text", "text": "CHƯƠNG I: TỔNG QUAN TÀI LIỆU" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — topic-dependent literature review; real subsections in the reference document (1.1, 1.1.1, 1.1.2, 1.2, 1.2.1) are specific to the gait-analysis study it came from, not a universal structure." }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "methods" },
+        "content": [{ "type": "text", "text": "CHƯƠNG II: PHƯƠNG PHÁP NGHIÊN CỨU" }] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
+        "content": [{ "type": "text", "text": "2.1. Thiết kế nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
+        "content": [{ "type": "text", "text": "2.2. Thời gian và địa điểm nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
+        "content": [{ "type": "text", "text": "2.3. Đối tượng nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
+        "content": [{ "type": "text", "text": "2.4. Cỡ mẫu và phương pháp chọn mẫu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "expectedResults" },
+        "content": [{ "type": "text", "text": "CHƯƠNG III: DỰ KIẾN KẾT QUẢ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — real subsections in the source document are tied 1:1 to this study's own two objectives (gait abnormality description, AI/MediaPipe-derived parameters); not a fixed structure." }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "implementationPlan" },
+        "content": [{ "type": "text", "text": "CHƯƠNG IV: KẾ HOẠCH THỰC HIỆN" }] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "implementationSubsection" },
+        "content": [{ "type": "text", "text": "4.1. Nhân lực" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "implementationSubsection" },
+        "content": [{ "type": "text", "text": "4.2. Phương tiện thực hiện" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "implementationSubsection" },
+        "content": [{ "type": "text", "text": "4.3. Kinh phí" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "implementationSubsection" },
+        "content": [{ "type": "text", "text": "4.4. Thời gian biểu các hoạt động" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "implementationSubsection" },
+        "content": [{ "type": "text", "text": "4.5. Dự trù khó khăn" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "references" },
+        "content": [{ "type": "text", "text": "TÀI LIỆU THAM KHẢO" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] }
+    ]
+  }
+}

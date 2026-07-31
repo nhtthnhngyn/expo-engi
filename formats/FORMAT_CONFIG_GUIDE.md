@@ -124,9 +124,11 @@ document), where every node carries one of two markers:
 
 For a format whose real headings use named Word styles (see the thesis-family formats), locked
 nodes are ordinary `heading` nodes. For a format with no named heading styles (see the manuscript
-format), locked nodes are `researchBlock` nodes whose `attrs.blockKind` matches a key in that
-format's `styleMap` — the skeleton and the style config always share the same block-kind
-vocabulary.
+format), locked nodes are `researchBlock` nodes whose `attrs.blockKind` corresponds to a
+**`custom:<blockKind>`** key in that format's `styleMap` (`renderer/style-resolver.ts` looks up
+`styleMap["custom:" + attrs.blockKind]` specifically — a bare `styleMap.<blockKind>` key, without
+the prefix, is silently never matched and the block renders unstyled). The skeleton and the style
+config always share the same block-kind vocabulary, just under that prefixed key.
 
 ### The one judgment call every skeleton requires
 

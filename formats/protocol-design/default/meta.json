@@ -1,41 +1,7 @@
 {
   "formatId": "protocol-design.default",
   "phaseId": "protocol-design",
-  "sourcePlatform": "Internal — research platform default",
-  "addedBy": "u_arun_kapoor",
-  "addedAt": "2026-01-09T11:05:00.000Z",
-  "status": "active",
-  "notes": "The platform's own protocol layout, authored fully manually (no reference document to extract from). Section order follows SPIRIT's recommended protocol structure.",
-  "sectionOrder": [
-    "administrative-information",
-    "background-and-rationale",
-    "objectives",
-    "study-design",
-    "participants",
-    "interventions",
-    "outcomes",
-    "sample-size",
-    "statistical-methods",
-    "data-management",
-    "ethics-and-dissemination",
-    "references",
-    "appendices"
-  ],
-  "requiredBlocks": [
-    "objectives",
-    "study-design",
-    "ethics-approval"
-  ],
-  "fallback": {
-    "unknownBlockKind": "renderAsPlainParagraph"
-  },
-  "entitlement": {
-    "tier": "free"
-  },
-  "provenance": {
-    "authoredBy": "u_arun_kapoor",
-    "reviewedBy": "u_marta_oliveira",
-    "addedAt": "2026-01-09T11:05:00.000Z",
-    "extractionAssisted": false
-  }
+  "displayName": "Đề cương nghiên cứu (VN academic protocol)",
+  "status": "draft",
+  "reviewedBy": null
 }

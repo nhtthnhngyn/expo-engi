@@ -1,0 +1,76 @@
+{
+  "formatId": "journal-submission.default",
+  "skeletonVersion": "v1",
+  "note": "Extracted from a real IMRaD manuscript reference document (University of Medicine and Pharmacy). No named Word heading styles anywhere in the source file — every section label is direct bold formatting on Normal, hence researchBlock nodes throughout rather than heading nodes. Bilingual structured abstract sub-labels (Đặt vấn đề/Mục tiêu/... and Background/Objectives/...) are a fixed convention of this journal's abstract format, not placeholder text.",
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "blockKind": "title", "fillIn": true, "note": "Manuscript title, Vietnamese and English — no standing label, purely user content." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "authorBlock", "fillIn": true, "note": "Author names, affiliations." }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "correspondingAuthor", "locked": true },
+        "content": [{ "type": "text", "text": "Tác giả liên hệ:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "funding", "locked": true },
+        "content": [{ "type": "text", "text": "Nguồn tài trợ:" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "TÓM TẮT" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Structured abstract — bold inline sub-labels below are the journal's fixed convention, not placeholder hints." },
+        "content": [
+          { "type": "text", "text": "Đặt vấn đề: ", "marks": ["bold"] },
+          { "type": "text", "text": "Mục tiêu: ", "marks": ["bold"] },
+          { "type": "text", "text": "Đối tượng và phương pháp nghiên cứu: ", "marks": ["bold"] },
+          { "type": "text", "text": "Kết luận: ", "marks": ["bold"] }
+        ] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Từ khóa: ", "marks": ["bold"] }] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "ABSTRACT" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [
+          { "type": "text", "text": "Background: ", "marks": ["bold"] },
+          { "type": "text", "text": "Objectives: ", "marks": ["bold"] },
+          { "type": "text", "text": "Methods: ", "marks": ["bold"] },
+          { "type": "text", "text": "Results: ", "marks": ["bold"] },
+          { "type": "text", "text": "Conclusions: ", "marks": ["bold"] }
+        ] },
+      { "type": "paragraph", "attrs": { "fillIn": true },
+        "content": [{ "type": "text", "text": "Keywords: ", "marks": ["bold"] }] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "ĐẶT VẤN ĐỀ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true, "sectionKind": "researchObjectives" },
+        "content": [{ "type": "text", "text": "Mục tiêu nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "ĐỐI TƯỢNG VÀ PHƯƠNG PHÁP NGHIÊN CỨU" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — this study's real subsections (multi-phase design, model training, evaluation) are topic-specific, not universal." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "KẾT QUẢ" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "BÀN LUẬN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "KẾT LUẬN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true },
+        "content": [{ "type": "text", "text": "LỜI CẢM ƠN" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "sectionLabel", "locked": true, "sectionKind": "references" },
+        "content": [{ "type": "text", "text": "TÀI LIỆU THAM KHẢO" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "role": "reference" }, "content": [] }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "formatId": "journal-submission.default",
+  "displayName": "Bài báo khoa học (VN IMRaD manuscript)",
+  "phaseId": "journal-submission",
+  "version": "v1",
+  "templateFile": "template.dotx",
+  "page": {
+    "size": "a4",
+    "widthTwips": 11909,
+    "heightTwips": 16834,
+    "orientation": "portrait",
+    "margins": { "topTwips": 1440, "rightTwips": 1440, "bottomTwips": 1440, "leftTwips": 1699 }
+  },
+  "typography": {
+    "defaultFont": "Times New Roman",
+    "defaultSizePt": 12,
+    "defaultLineSpacing": "double",
+    "defaultAlignment": "justify"
+  },
+  "table": { "wordStyle": "Table1" },
+  "styleMap": {
+    "paragraph": "Normal",
+    "custom:title": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } },
+    "custom:authorBlock": { "style": "Normal", "runFormatting": {}, "paragraphFormatting": { "alignment": "justify" } },
+    "custom:correspondingAuthor": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "justify" } },
+    "custom:funding": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "justify" } },
+    "custom:sectionLabel": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "justify" } },
+    "reference": { "style": "Normal", "runFormatting": {}, "paragraphFormatting": { "alignment": "left" } }
+  },
+  "toc": { "enabled": false, "depth": 0, "autoGenerateFromHeadings": false },
+  "headingNumbering": { "auto": false },
+  "citationStyle": "vancouver",
+  "pageNumbering": "arabic"
+}

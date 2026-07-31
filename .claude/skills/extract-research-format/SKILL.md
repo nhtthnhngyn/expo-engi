@@ -66,9 +66,10 @@ examples for `config.json`/`document-skeleton.json` only.
    each into locked (standard, same wording regardless of topic/field) or fillIn (open, no
    pre-filled text) per the hard rule above, and build the ProseMirror `doc` tree accordingly.
    Use `heading` nodes for named-style formats, `researchBlock` nodes (with `attrs.blockKind`
-   matching a `styleMap` key) for direct-formatting formats. Never put placeholder/hint text
-   inside a `fillIn` node — leave `content: []` or, if a locked label needs a following blank, an
-   empty paragraph right after it.
+   matching a `styleMap` key of the form **`custom:<blockKind>`** — the `custom:` prefix is
+   required; the renderer never matches a bare `styleMap.<blockKind>` key) for direct-formatting
+   formats. Never put placeholder/hint text inside a `fillIn` node — leave `content: []` or, if a
+   locked label needs a following blank, an empty paragraph right after it.
 5. **Write `template-facts.json`**, matching `/schemas/template-facts.schema.json`: `formatId`,
    `bodyFont`/`bodySizeHalfPoints` (the document's real default/`Normal` font and size), and one
    `styles` entry for every style name referenced anywhere in `config.json`'s `styleMap`/`headings`/

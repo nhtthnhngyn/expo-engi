@@ -21,8 +21,6 @@ import { readFixtureInput } from '../format-registry/publish.js';
 import { FORMATS_DIR, checkRegistrySync } from '../format-registry/resolver.js';
 
 const registered = scanFormats(FORMATS_DIR);
-const active = registered.filter((entry) => entry.status === 'active');
-const drafts = registered.filter((entry) => entry.status === 'draft');
 
 describe('registry sync', () => {
   it('_registry.json matches what is on disk under /formats', () => {
@@ -30,9 +28,11 @@ describe('registry sync', () => {
     expect(report.ok, JSON.stringify(report, null, 2)).toBe(true);
   });
 
-  it('has at least the ten active formats set up during onboarding, plus draft formats awaiting review', () => {
-    expect(active.length).toBeGreaterThanOrEqual(10);
-    expect(drafts.length).toBeGreaterThanOrEqual(1);
+  it('has at least one registered format', () => {
+    // The registry was intentionally reset to one real, reference-document-extracted format per
+    // phase (see GENERAL_VS_PRIVATE_NOTES.md) — freshly extracted formats start as drafts, so this
+    // no longer asserts a minimum active count the way earlier synthetic formats did.
+    expect(registered.length).toBeGreaterThanOrEqual(1);
   });
 
   it('every format scanFormats finds also resolves cleanly via resolveFormat', () => {
@@ -127,8 +127,8 @@ describe.each(withSkeleton)('document skeleton: $formatId ($status)', (entry) =>
     // "Đặt vấn đề:" bold lead-in) while the rest of the paragraph is open — that's a real
     // structural convention, not placeholder/hint text.
     //
-    // A mix of both kinds is not required in every format: general.plain-document is deliberately
-    // structureless (see its own document-skeleton.json note) and is 100% fillIn, by design.
+    // A mix of both kinds is not required in every format — a format could legitimately be 100%
+    // fillIn (no standard structure at all) or, less commonly, 100% locked.
     //
     // The "never both at once" invariant itself isn't re-checked here — resolveSkeleton() already
     // enforces it via checkSkeletonInvariants() (format-registry/skeleton-invariants.ts), and would
@@ -148,15 +148,15 @@ describe.each(withSkeleton)('document skeleton: $formatId ($status)', (entry) =>
 });
 
 describe('genericity checkpoint', () => {
-  it('protocol-design.default and report-writing.consort render through the identical renderer binary', async () => {
+  it('protocol-design.default (named styles) and journal-submission.default (direct formatting) render through the identical renderer binary', async () => {
     const { renderToDocx: renderFn } = await import('../renderer/index.js');
     // There is only one exported render function in the whole codebase — importing it twice from
     // the same module path and using it for two structurally unrelated formats *is* the proof.
     expect(renderFn).toBe(renderToDocx);
 
-    for (const formatId of ['protocol-design.default', 'report-writing.consort']) {
+    for (const formatId of ['protocol-design.default', 'journal-submission.default']) {
       const fixture = readFixtureInput(formatId);
-      const format = resolveFormat(formatId);
+      const format = resolveFormat(formatId, { allowInactive: true });
       const ir = normalize(fixture.doc, { meta: { ...fixture.meta, formatId } });
       validateIr(ir, format.meta);
       const rendered = renderFn(ir, format);

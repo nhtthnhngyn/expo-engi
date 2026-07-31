@@ -1,68 +1,12 @@
 {
   "formatId": "protocol-design.default",
-  "standard": "SPIRIT-informed protocol structure (internal default)",
+  "standard": "VN academic research protocol (Đề cương nghiên cứu), extracted from a real reference document",
   "checks": [
-    {
-      "id": "objectives-required-present",
-      "description": "The objectives section (a required block) is present.",
-      "assert": {
-        "kind": "contains",
-        "part": "word/document.xml",
-        "value": "Determine whether early mobilisation reduces ICU length of stay."
-      }
-    },
-    {
-      "id": "study-design-required-present",
-      "description": "The study-design section (a required block) is present.",
-      "assert": {
-        "kind": "contains",
-        "part": "word/document.xml",
-        "value": "A multicentre, parallel-group, randomised controlled trial"
-      }
-    },
-    {
-      "id": "ethics-approval-required-present",
-      "description": "The ethics-approval labelled-value block (a required block) is present.",
-      "assert": { "kind": "contains", "part": "word/document.xml", "value": "REC ref 25/LO/0042" }
-    },
-    {
-      "id": "funding-statement-present",
-      "description": "The funding statement renders via the shared labelled-value plugin.",
-      "assert": { "kind": "contains", "part": "word/document.xml", "value": "National Institute for Health and Care Research" }
-    },
-    {
-      "id": "ordered-list-present",
-      "description": "The objectives ordered list renders using this template's own numbered-list style.",
-      "assert": { "kind": "contains", "part": "word/document.xml", "value": "ProtocolNumbered" }
-    },
-    {
-      "id": "no-checklist-numbering",
-      "description": "Unlike CONSORT, this format has no numbering config, so no external item-number prefix appears.",
-      "assert": { "kind": "notContains", "part": "word/document.xml", "value": "Item 4" }
-    },
-    {
-      "id": "cover-page-present",
-      "description": "docProperties.coverPage = true renders the protocol title as a cover.",
-      "assert": {
-        "kind": "contains",
-        "part": "word/document.xml",
-        "value": "Early Mobilisation in the ICU: Study Protocol"
-      }
-    },
-    {
-      "id": "toc-present",
-      "description": "docProperties.tocDepth = 3 emits a TOC field at depth 3, unlike CONSORT's depth 2.",
-      "assert": { "kind": "contains", "part": "word/document.xml", "value": "TOC \\o &quot;1-3&quot;" }
-    },
-    {
-      "id": "code-block-present",
-      "description": "The appendix code block renders with line breaks preserved.",
-      "assert": { "kind": "contains", "part": "word/document.xml", "value": "randomisation_seed" }
-    },
-    {
-      "id": "blockquote-present",
-      "description": "The protocol-amendment blockquote renders as its own paragraph style.",
-      "assert": { "kind": "contains", "part": "word/document.xml", "value": "Protocol amendments will be logged" }
-    }
+    { "id": "chapter-heading-styled", "description": "Chapter heading uses Heading1.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:pStyle w:val=\"Heading1\"/>" } },
+    { "id": "chapter-heading-centered", "description": "Heading1 is centered, matching the real reference document's direct formatting.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:jc w:val=\"center\"" } },
+    { "id": "expected-results-chapter", "description": "Chapter III is 'DỰ KIẾN KẾT QUẢ' (Expected Results) — the protocol-specific wording, distinct from report-writing.default's real 'KẾT QUẢ'.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "DỰ KIẾN KẾT QUẢ" } },
+    { "id": "reference-styled-bibliography", "description": "A paragraph tagged attrs.role='reference' resolves to the Bibliography style.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:pStyle w:val=\"Bibliography\"/>" } },
+    { "id": "custom-margins", "description": "page.margins.leftTwips = 1985 (real value from the reference document's pgMar) is honoured.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:left=\"1985\"" } },
+    { "id": "vietnamese-text-present", "description": "Vietnamese diacritics survive normalization and rendering unescaped.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "chức năng vận động" } }
   ]
 }

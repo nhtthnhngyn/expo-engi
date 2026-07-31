@@ -1,8 +1,8 @@
 {
   "meta": {
-    "formatId": "protocol-design.default",
-    "documentTitle": "Đề cương: Đặc điểm dáng đi sau đột quỵ",
-    "projectId": "proj_protocol_default",
+    "formatId": "report-writing.default",
+    "documentTitle": "Luận văn: Đặc điểm dáng đi sau đột quỵ",
+    "projectId": "proj_report_default",
     "generatedAt": "2026-07-31T00:00:00.000Z",
     "sourceDocVersion": "1"
   },
@@ -12,20 +12,20 @@
       {
         "type": "heading",
         "attrs": { "id": "h1", "level": 1 },
-        "content": [{ "type": "text", "text": "CHƯƠNG III: DỰ KIẾN KẾT QUẢ" }]
+        "content": [{ "type": "text", "text": "CHƯƠNG III: KẾT QUẢ" }]
       },
       {
         "type": "paragraph",
-        "content": [{ "type": "text", "text": "Mô tả đặc điểm lâm sàng và chức năng vận động của người bệnh sau đột quỵ tham gia nghiên cứu." }]
+        "content": [{ "type": "text", "text": "Tỷ lệ nam và nữ trong mẫu nghiên cứu tương đương nhau (mỗi giới 14/28 người, chiếm 50,0%)." }]
       },
       {
         "type": "heading",
         "attrs": { "id": "h2", "level": 1 },
-        "content": [{ "type": "text", "text": "CHƯƠNG IV: KẾ HOẠCH THỰC HIỆN" }]
+        "content": [{ "type": "text", "text": "CHƯƠNG IV: BÀN LUẬN" }]
       },
       {
         "type": "paragraph",
-        "content": [{ "type": "text", "text": "Dự trù thời gian, nhân lực và kinh phí thực hiện nghiên cứu." }]
+        "content": [{ "type": "text", "text": "Kết quả nghiên cứu này phù hợp với các nghiên cứu quốc tế trước đây về bất thường dáng đi sau đột quỵ." }]
       },
       {
         "type": "heading",
