@@ -1,0 +1,11 @@
+{
+  "formatId": "defense-report.default",
+  "standard": "Thesis defense report (Báo cáo bảo vệ luận văn), converted from a real slide-deck-style defense presentation (Phase_6.pdf)",
+  "checks": [
+    { "id": "section-heading-styled", "description": "Section heading uses Heading1.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:pStyle w:val=\"Heading1\"/>" } },
+    { "id": "title-block-centered", "description": "custom:titleBlockField styleMap entry centers the title block.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:jc w:val=\"center\"" } },
+    { "id": "header-field-bold", "description": "custom:crfHeaderField styleMap entry (reused from research-implementation.default's convention) makes Học viên/Người hướng dẫn labels bold.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/>" } },
+    { "id": "strobe-flow-diagram-section", "description": "'Sơ đồ nghiên cứu' — the STROBE-style flow diagram section, a recognized reporting convention for cross-sectional studies, not this one study's invention.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Sơ đồ nghiên cứu" } },
+    { "id": "vietnamese-text-present", "description": "Vietnamese diacritics survive normalization and rendering unescaped.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "rối loạn nuốt" } }
+  ]
+}

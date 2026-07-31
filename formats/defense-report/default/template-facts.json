@@ -1,0 +1,10 @@
+{
+  "formatId": "defense-report.default",
+  "bodyFont": "Times New Roman",
+  "bodySizeHalfPoints": 26,
+  "styles": [
+    { "name": "Heading1", "type": "paragraph", "basedOn": "Normal", "sizeHalfPoints": 26, "bold": true, "alignment": "center", "outlineLevel": 0, "keepNext": true },
+    { "name": "Heading2", "type": "paragraph", "basedOn": "Normal", "sizeHalfPoints": 26, "bold": true, "outlineLevel": 1, "keepNext": true },
+    { "name": "TableGrid", "type": "table", "font": "Times New Roman", "sizeHalfPoints": 26 }
+  ]
+}

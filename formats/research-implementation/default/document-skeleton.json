@@ -1,0 +1,29 @@
+{
+  "formatId": "research-implementation.default",
+  "skeletonVersion": "v1",
+  "note": "Models artifact A03 (Phiếu thu thập số liệu / CRF) from Phase_3.pdf's artifact catalog — the one genuinely Word-renderable, human-facing deliverable of the phase's own 'reader layer' that plausibly starts from a fill-in-the-blanks template. The other five .docx artifacts that spec names (A05 consent form, A08 readable analysis plan, B03 standardization minutes, B04 research diary, D03 results tables) are either machine-rendered from a JSON source of truth (codebook.json/analysis_plan.json/results.json) rather than user-typed content, or need their own separate format entries — flagged for a human decision, not silently built here. The actual variable list (age, sex, VAS, BMI, etc. in the phase's own codebook.json example) is inherently study-specific — different studies collect different variables — so only the universal CRF header/footer convention is locked; the variable list itself is entirely open.",
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "heading", "attrs": { "level": 1, "locked": true }, "content": [{ "type": "text", "text": "PHIẾU THU THẬP SỐ LIỆU" }] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Mã nghiên cứu: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Mã đối tượng: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Study-assigned subject code, e.g. NC001 — never a name or patient record number, per Phase_3.pdf section 2.4." }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Ngày thu thập: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 2, "locked": true },
+        "content": [{ "type": "text", "text": "Biến số nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — the actual variable list is entirely defined by this study's own codebook.json (variable name, label, type, valid values); it cannot be fixed here without assuming a specific study." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "signatureLine", "locked": true },
+        "content": [{ "type": "text", "text": "Chữ ký người thu thập số liệu: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] }
+    ]
+  }
+}

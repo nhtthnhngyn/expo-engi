@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "formatId": "research-implementation.default",
+    "documentTitle": "Phiếu thu thập số liệu — NC-2026-001",
+    "projectId": "proj_research_implementation_default",
+    "generatedAt": "2026-07-31T00:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "heading", "attrs": { "id": "h1", "level": 1 }, "content": [{ "type": "text", "text": "PHIẾU THU THẬP SỐ LIỆU" }] },
+      { "type": "researchBlock", "attrs": { "id": "f1", "blockKind": "crfHeaderField" }, "content": [{ "type": "text", "text": "Mã nghiên cứu: NC-2026-001" }] },
+      { "type": "researchBlock", "attrs": { "id": "f2", "blockKind": "crfHeaderField" }, "content": [{ "type": "text", "text": "Mã đối tượng: NC001" }] },
+      { "type": "heading", "attrs": { "id": "h2", "level": 2 }, "content": [{ "type": "text", "text": "Biến số nghiên cứu" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Tuổi: ____  Giới tính: Nam / Nữ  Mức độ đau theo thang VAS: ____" }] },
+      { "type": "researchBlock", "attrs": { "id": "f3", "blockKind": "signatureLine" }, "content": [{ "type": "text", "text": "Chữ ký người thu thập số liệu: ____________" }] }
+    ]
+  }
+}

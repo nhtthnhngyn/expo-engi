@@ -1,0 +1,8 @@
+{
+  "formatId": "research-implementation.default",
+  "phaseId": "research-implementation",
+  "displayName": "Phiếu thu thập số liệu / CRF (Triển khai nghiên cứu)",
+  "status": "draft",
+  "reviewedBy": null,
+  "notes": "Built from Phase_3.pdf's artifact A03 (CRF). This spec document also names five OTHER Word-renderable artifacts (A05 consent form, A08 readable analysis plan, B03 standardization minutes, B04 research diary, D03 results tables) that are NOT built here — most are described as machine-rendered from codebook.json/analysis_plan.json/results.json rather than user-authored ProseMirror content, which is a different kind of system than this export engine. A human should decide whether any of those need their own format entries, and whether this phase belongs in the registry as one format or several."
+}

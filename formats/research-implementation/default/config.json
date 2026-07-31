@@ -1,0 +1,35 @@
+{
+  "formatId": "research-implementation.default",
+  "displayName": "Phiếu thu thập số liệu / CRF (Triển khai nghiên cứu)",
+  "phaseId": "research-implementation",
+  "version": "v1",
+  "templateFile": "template.dotx",
+  "page": {
+    "size": "letter",
+    "widthTwips": 12240,
+    "heightTwips": 15840,
+    "orientation": "portrait",
+    "margins": { "topTwips": 1987, "rightTwips": 1134, "bottomTwips": 1699, "leftTwips": 1985 }
+  },
+  "typography": {
+    "defaultFont": "Times New Roman",
+    "defaultSizePt": 13,
+    "defaultLineSpacing": "1.5",
+    "defaultAlignment": "justify"
+  },
+  "headings": {
+    "1": { "wordStyle": "Heading1", "font": "Times New Roman", "sizePt": 13, "bold": true, "align": "center" },
+    "2": { "wordStyle": "Heading2", "font": "Times New Roman", "sizePt": 13, "bold": true }
+  },
+  "table": { "wordStyle": "TableGrid" },
+  "styleMap": {
+    "paragraph": "Normal",
+    "custom:crfHeaderField": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "left" } },
+    "custom:signatureLine": { "style": "Normal", "runFormatting": {}, "paragraphFormatting": { "alignment": "left" } }
+  },
+  "toc": { "enabled": false, "depth": 0, "autoGenerateFromHeadings": false },
+  "headingNumbering": { "auto": false },
+  "citationStyle": "none",
+  "pageNumbering": "arabic",
+  "reusabilityNote": "This phase's own reference material (Phase_3.pdf) is a data-pipeline specification, not a Word template — it has no real OOXML styles to extract facts from. Styling here is a disclosed assumption: it reuses protocol-design.default's verified real institutional convention (same page geometry, same Heading1/2, Times New Roman 13pt/1.5 spacing) on the reasoning that a CRF produced within the same research package would follow the same document convention. This is NOT independently verified against a real CRF template and should be confirmed by a human reviewer before this format goes active."
+}

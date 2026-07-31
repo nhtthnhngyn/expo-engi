@@ -1,0 +1,58 @@
+{
+  "formatId": "defense-report.default",
+  "skeletonVersion": "v1",
+  "note": "Extracted from a real defense presentation (Phase_6.pdf) converted to its written-report structure. The section flow (Đặt vấn đề / Mục tiêu / Đối tượng và phương pháp / Sơ đồ nghiên cứu / results / Bàn luận / Kết luận / Kiến nghị / closing remark) is a genuinely standard convention for a cross-sectional-study defense report — 'Sơ đồ nghiên cứu' specifically mirrors the STROBE flow diagram convention, a recognized reporting standard for this study design, not this one study's invention. The actual results subsection headings (population characteristics, GUSS score distribution, associated-factors table) are entirely tied to this one study's swallowing-disorder topic and are left open.",
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "blockKind": "titleBlockField", "fillIn": true, "note": "Institution name — study-specific." }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "titleBlockField", "locked": true },
+        "content": [{ "type": "text", "text": "BÁO CÁO BẢO VỆ LUẬN VĂN" }] },
+      { "type": "researchBlock", "attrs": { "blockKind": "titleBlockField", "fillIn": true, "note": "Thesis title — study-specific." }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Học viên: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Người hướng dẫn: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+        "content": [{ "type": "text", "text": "Chuyên ngành: " }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Đặt vấn đề" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Mục tiêu nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — real number and wording of objectives is study-specific (the source document has two, other studies may have one or three)." }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Đối tượng và phương pháp nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — design/subjects/inclusion-exclusion/instrument/sample-size/analysis method are study-specific, even though this exact table shape (Thiết kế/Đối tượng/Tiêu chuẩn chọn/Tiêu chuẩn loại/Công cụ/Cỡ mẫu/Xử lý số liệu rows) is a very common convention." }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Sơ đồ nghiên cứu" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — a STROBE-style participant flow diagram; the actual screened/enrolled/analyzed counts are this study's own data." }, "content": [] },
+
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — results content and subheadings (population characteristics, primary outcome distribution, associated-factors table) are entirely tied to this study's own topic; no fixed subheading is imposed." }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Bàn luận" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Kết luận" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "heading", "attrs": { "level": 1, "locked": true },
+        "content": [{ "type": "text", "text": "Kiến nghị" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+
+      { "type": "researchBlock", "attrs": { "blockKind": "closingRemark", "locked": true },
+        "content": [{ "type": "text", "text": "TRÂN TRỌNG CẢM ƠN HỘI ĐỒNG" }] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Optional closing remark to the committee." }, "content": [] }
+    ]
+  }
+}

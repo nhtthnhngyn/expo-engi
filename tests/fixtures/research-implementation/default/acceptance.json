@@ -1,0 +1,11 @@
+{
+  "formatId": "research-implementation.default",
+  "standard": "CRF (Phiếu thu thập số liệu) — artifact A03 from Phase_3.pdf's own artifact catalog",
+  "checks": [
+    { "id": "title-heading-styled", "description": "Title uses Heading1.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:pStyle w:val=\"Heading1\"/>" } },
+    { "id": "header-field-bold", "description": "custom:crfHeaderField styleMap entry makes the study/subject-code labels bold.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "<w:b/>" } },
+    { "id": "subject-code-present", "description": "The study-assigned subject code convention (NC001-style, never a name) survives rendering.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "NC001" } },
+    { "id": "custom-margins", "description": "page.margins.leftTwips = 1985, the same disclosed-assumption institutional geometry as protocol-design.default.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "w:left=\"1985\"" } },
+    { "id": "vietnamese-text-present", "description": "Vietnamese diacritics survive normalization and rendering unescaped.", "assert": { "kind": "contains", "part": "word/document.xml", "value": "Mức độ đau" } }
+  ]
+}

@@ -1,5 +1,12 @@
 [
   {
+    "formatId": "defense-report.default",
+    "phaseId": "defense-report",
+    "displayName": "Báo cáo bảo vệ luận văn (Thesis defense report)",
+    "version": "v1",
+    "status": "draft"
+  },
+  {
     "formatId": "journal-submission.default",
     "phaseId": "journal-submission",
     "displayName": "Bài báo khoa học (VN IMRaD manuscript)",
@@ -18,6 +25,13 @@
     "formatId": "report-writing.default",
     "phaseId": "report-writing",
     "displayName": "Luận văn (VN academic thesis)",
+    "version": "v1",
+    "status": "draft"
+  },
+  {
+    "formatId": "research-implementation.default",
+    "phaseId": "research-implementation",
+    "displayName": "Phiếu thu thập số liệu / CRF (Triển khai nghiên cứu)",
     "version": "v1",
     "status": "draft"
   }

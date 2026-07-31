@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "formatId": "defense-report.default",
+    "documentTitle": "Đặc điểm rối loạn nuốt và một số yếu tố liên quan ở người bệnh đột quỵ não giai đoạn bán cấp",
+    "projectId": "proj_defense_report_default",
+    "generatedAt": "2026-07-31T00:00:00.000Z",
+    "sourceDocVersion": "1"
+  },
+  "doc": {
+    "type": "doc",
+    "content": [
+      { "type": "researchBlock", "attrs": { "id": "t1", "blockKind": "titleBlockField" }, "content": [{ "type": "text", "text": "BỆNH VIỆN PHỤC HỒI CHỨC NĂNG TỈNH X" }] },
+      { "type": "researchBlock", "attrs": { "id": "t2", "blockKind": "titleBlockField" }, "content": [{ "type": "text", "text": "BÁO CÁO BẢO VỆ LUẬN VĂN CHUYÊN KHOA CẤP I" }] },
+      { "type": "researchBlock", "attrs": { "id": "t3", "blockKind": "titleBlockField" }, "content": [{ "type": "text", "text": "ĐẶC ĐIỂM RỐI LOẠN NUỐT VÀ MỘT SỐ YẾU TỐ LIÊN QUAN Ở NGƯỜI BỆNH ĐỘT QUỴ NÃO GIAI ĐOẠN BÁN CẤP" }] },
+      { "type": "researchBlock", "attrs": { "id": "f1", "blockKind": "crfHeaderField" }, "content": [{ "type": "text", "text": "Học viên: Nguyễn Văn A" }] },
+      { "type": "researchBlock", "attrs": { "id": "f2", "blockKind": "crfHeaderField" }, "content": [{ "type": "text", "text": "Người hướng dẫn: PGS.TS. Trần Thị B" }] },
+      { "type": "researchBlock", "attrs": { "id": "f3", "blockKind": "crfHeaderField" }, "content": [{ "type": "text", "text": "Chuyên ngành: Phục hồi chức năng" }] },
+
+      { "type": "heading", "attrs": { "id": "h1", "level": 1 }, "content": [{ "type": "text", "text": "Đặt vấn đề" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Rối loạn nuốt là biến chứng thường gặp sau đột quỵ não, liên quan trực tiếp đến viêm phổi hít, suy dinh dưỡng và kéo dài thời gian nằm viện." }] },
+
+      { "type": "heading", "attrs": { "id": "h2", "level": 1 }, "content": [{ "type": "text", "text": "Mục tiêu nghiên cứu" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Mục tiêu 1: Mô tả đặc điểm rối loạn nuốt ở người bệnh đột quỵ não giai đoạn bán cấp." }] },
+
+      { "type": "heading", "attrs": { "id": "h3", "level": 1 }, "content": [{ "type": "text", "text": "Đối tượng và phương pháp nghiên cứu" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Thiết kế: Mô tả cắt ngang. Cỡ mẫu: ước lượng một tỷ lệ; thực tế thu được 372 người bệnh." }] },
+
+      { "type": "heading", "attrs": { "id": "h4", "level": 1 }, "content": [{ "type": "text", "text": "Sơ đồ nghiên cứu" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Sàng lọc: 456 người bệnh. Đủ tiêu chuẩn: 408. Đồng ý tham gia: 387. Đưa vào phân tích: 372. Tỷ lệ đáp ứng: 94,9%." }] },
+
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Tỷ lệ rối loạn nuốt chung: 58,6% (n = 372)." }] },
+
+      { "type": "heading", "attrs": { "id": "h5", "level": 1 }, "content": [{ "type": "text", "text": "Bàn luận" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Đột quỵ thân não là yếu tố liên quan mạnh nhất, phù hợp với cơ chế tổn thương trung tâm điều khiển nuốt." }] },
+
+      { "type": "heading", "attrs": { "id": "h6", "level": 1 }, "content": [{ "type": "text", "text": "Kết luận" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Tỷ lệ rối loạn nuốt ở người bệnh đột quỵ não giai đoạn bán cấp là 58,6%, trong đó mức độ nặng chiếm 11,3%." }] },
+
+      { "type": "heading", "attrs": { "id": "h7", "level": 1 }, "content": [{ "type": "text", "text": "Kiến nghị" }] },
+      { "type": "paragraph", "content": [{ "type": "text", "text": "Áp dụng sàng lọc nuốt bằng thang GUSS thường quy cho người bệnh đột quỵ trong 48 giờ đầu nhập khoa." }] },
+
+      { "type": "researchBlock", "attrs": { "id": "c1", "blockKind": "closingRemark" }, "content": [{ "type": "text", "text": "TRÂN TRỌNG CẢM ƠN HỘI ĐỒNG" }] }
+    ]
+  }
+}
