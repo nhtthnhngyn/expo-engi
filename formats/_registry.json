@@ -4,21 +4,21 @@
     "phaseId": "defense-report",
     "displayName": "Báo cáo bảo vệ luận văn (Thesis defense report)",
     "version": "v1",
-    "status": "draft"
+    "status": "active"
   },
   {
     "formatId": "idea-proposal.default",
     "phaseId": "idea-proposal",
     "displayName": "Phiếu trình ý tưởng đề tài nghiên cứu (Research idea proposal)",
     "version": "v1",
-    "status": "draft"
+    "status": "active"
   },
   {
     "formatId": "journal-submission.default",
     "phaseId": "journal-submission",
     "displayName": "Bài báo khoa học (VN IMRaD manuscript)",
     "version": "v1",
-    "status": "draft",
+    "status": "active",
     "sourcePlatform": "Đại học Y Dược Thành phố Hồ Chí Minh"
   },
   {
@@ -26,20 +26,20 @@
     "phaseId": "protocol-design",
     "displayName": "Đề cương nghiên cứu (VN academic protocol)",
     "version": "v1",
-    "status": "draft"
+    "status": "active"
   },
   {
     "formatId": "report-writing.default",
     "phaseId": "report-writing",
     "displayName": "Luận văn (VN academic thesis)",
     "version": "v1",
-    "status": "draft"
+    "status": "active"
   },
   {
     "formatId": "research-implementation.default",
     "phaseId": "research-implementation",
     "displayName": "Phiếu thu thập số liệu / CRF (Triển khai nghiên cứu)",
     "version": "v1",
-    "status": "draft"
+    "status": "active"
   }
 ]

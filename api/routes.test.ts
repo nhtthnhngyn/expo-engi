@@ -6,7 +6,7 @@ import { createRouter, principalFrom, type ApiRequest } from './routes.js';
 import { ExportService } from './export-service.js';
 import { buildDotx } from '../tools/dotx-builder.js';
 import { ExportEngineError } from '../core/errors.js';
-import type { FormatConfig, FormatMeta } from '../core/types.js';
+import type { DocumentSkeleton, FormatConfig, FormatMeta } from '../core/types.js';
 
 const TEMPLATE = buildDotx({ bodyFont: 'Calibri', bodySizeHalfPoints: 22, styles: [{ name: 'Body Text' }] });
 
@@ -146,5 +146,73 @@ describe('router', () => {
   it('GET on an unknown route returns 404', () => {
     const response = router()({ method: 'GET', path: '/nope', headers: {} });
     expect(response.status).toBe(404);
+  });
+
+  describe('POST /exports/from-answers', () => {
+    const SKELETON: DocumentSkeleton = {
+      formatId: 'phase-a.format-a',
+      skeletonVersion: 'v1',
+      doc: {
+        type: 'doc',
+        content: [
+          { type: 'heading', attrs: { level: 1, locked: true }, content: [{ type: 'text', text: 'Title' }] },
+          { type: 'paragraph', attrs: { fillIn: true, slotId: 'body' }, content: [] },
+        ],
+      },
+    };
+
+    beforeEach(() => {
+      writeFileSync(join(root, 'phase-a', 'format-a', 'document-skeleton.json'), JSON.stringify(SKELETON, null, 2));
+    });
+
+    it('merges the platform-supplied private answers into the shared skeleton and returns a docx', () => {
+      const request: ApiRequest = {
+        method: 'POST',
+        path: '/exports/from-answers',
+        headers: { 'x-user-id': 'u1', 'x-user-role': 'owner', 'x-project-id': 'p1', 'x-project-tier': 'free' },
+        body: {
+          formatId: 'phase-a.format-a',
+          answers: { body: 'What the user actually typed on the platform.' },
+          documentTitle: 'Doc',
+          sourceDocVersion: '1',
+        },
+      };
+      const response = router()(request);
+      expect(response.status).toBe(200);
+      expect(response.headers['Content-Type']).toContain('wordprocessingml');
+      expect(Buffer.isBuffer(response.body)).toBe(true);
+    });
+
+    it('without identity headers returns 400', () => {
+      const request: ApiRequest = {
+        method: 'POST',
+        path: '/exports/from-answers',
+        headers: {},
+        body: { formatId: 'phase-a.format-a', answers: { body: 'x' }, documentTitle: 't', sourceDocVersion: '1' },
+      };
+      const response = router()(request);
+      expect(response.status).toBe(400);
+    });
+
+    it('a format with no skeleton returns a structured error, not a crash', () => {
+      const bareRoot = mkdtempSync(join(tmpdir(), 'export-engine-routes-bare-'));
+      const dir = join(bareRoot, 'phase-a', 'format-a');
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(join(dir, 'config.json'), JSON.stringify(config(), null, 2));
+      writeFileSync(join(dir, 'meta.json'), JSON.stringify(meta(), null, 2));
+      writeFileSync(join(dir, 'template.dotx'), TEMPLATE);
+
+      const bareRouter = createRouter({ service: new ExportService({ resolveOptions: { root: bareRoot } }) });
+      const request: ApiRequest = {
+        method: 'POST',
+        path: '/exports/from-answers',
+        headers: { 'x-user-id': 'u1', 'x-user-role': 'owner', 'x-project-id': 'p1' },
+        body: { formatId: 'phase-a.format-a', answers: { body: 'x' }, documentTitle: 't', sourceDocVersion: '1' },
+      };
+      const response = bareRouter(request);
+      expect(response.status).toBe(404);
+      expect((response.body as { error: { code: string } }).error.code).toBe('UNKNOWN_FORMAT');
+      rmSync(bareRoot, { recursive: true, force: true });
+    });
   });
 });

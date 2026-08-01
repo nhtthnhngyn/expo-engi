@@ -41,8 +41,9 @@ x-project-tier: free | paid          # optional, defaults to "free"
 | GET | `/formats` | list every **active** format: `{ formats: RegistryEntry[] }` |
 | GET | `/formats/:formatId` | resolved format summary (styling toggles, sectionOrder, requiredBlocks, entitlement) |
 | GET | `/formats/:formatId/skeleton` | the format's `document-skeleton.json`, if it has one — works for `draft` formats too, so a reviewer can preview before publishing |
-| POST | `/exports` | run the pipeline; returns a `.docx` (sync) or a job (async) — see below |
-| GET | `/exports/jobs/:jobId` | poll an async job's status |
+| POST | `/exports` | run the pipeline on a complete ProseMirror doc; returns a `.docx` (sync) or a job (async) — see below |
+| POST | `/exports/from-answers` | **the real "click export" entry point** — same as `/exports`, but takes the user's private, slotId-keyed answers instead of a complete doc; merges them into the shared skeleton first — see below |
+| GET | `/exports/jobs/:jobId` | poll an async job's status (works for jobs from either export route) |
 | GET | `/exports/jobs/:jobId/download` | download an async job's finished `.docx` |
 | POST | `/onboarding/extract` *(admin)* | run the deterministic structural-extraction tool over an uploaded reference doc |
 | GET/PUT | `/staging/drafts[/:draftId]` *(admin)* | the formal staging flow — see `AGENT_BUILD_SPEC.md` Section 7 Path B |
@@ -84,6 +85,43 @@ Poll `GET /exports/jobs/:jobId` — status transitions `pending → running → 
 until `"status": "done"`, then `GET .../download` for the bytes. A failed job carries
 `"status": "failed"` and an `error` object in the same structured shape as a synchronous rejection
 (see Error handling, below).
+
+#### `POST /exports/from-answers` — what the platform's export button actually calls
+
+This is the route built for the real flow: a user fills in a document on the platform's own editor
+(using whatever slotId each fillIn block is tagged with — the same skeleton the platform got from
+`GET /formats/:formatId/skeleton`), clicks Export, and the platform sends **just that private
+content**, not a reconstructed full document:
+
+```json
+{
+  "formatId": "idea-proposal.default",
+  "documentTitle": "Đặc điểm rối loạn nuốt sau đột quỵ",
+  "sourceDocVersion": "42",
+  "answers": {
+    "studentName": "Nguyễn Văn A",
+    "rationale": "Rối loạn nuốt là biến chứng thường gặp sau đột quỵ não…",
+    "sampleSizeFeasibility": [ { "type": "table", "content": [ /* a real ProseMirror table node */ ] } ]
+  }
+}
+```
+
+`answers` is keyed by `attrs.slotId` (schemas/document-answers.schema.json) — each value is either a
+plain string (becomes one text run) or an array of ProseMirror block/inline nodes for richer content
+(tables, images, code blocks, lists, blockquotes — anything `normalizer/node-mappers` supports).
+
+Internally this route:
+1. Resolves the format's `document-skeleton.json` (the shared, general content — 404s as
+   `UNKNOWN_FORMAT` if the format has none).
+2. Validates `answers` against `document-answers.schema.json`.
+3. Calls `format-registry/answers-merge.ts`'s `mergeAnswersIntoSkeleton(skeleton, { formatId, answers })`
+   to produce a complete document.
+4. Hands that document to the exact same `ExportService.export()` used by `POST /exports` — same
+   RBAC gate, same entitlement gate, same audit entry, same sync/async routing, same response shapes
+   (sync 200 with `.docx` bytes, or async 202 with a `jobId` pollable at `GET /exports/jobs/:jobId`).
+
+Nothing about the response differs from `POST /exports` — a caller who already handles that route's
+sync/async shapes needs no new response-handling logic, only a different request body shape.
 
 ### B. As an in-process library (no HTTP layer)
 
@@ -154,23 +192,30 @@ stateless and doesn't prescribe where). Its shape is `schemas/document-answers.s
 }
 ```
 
-The key into `answers` is `attrs.slotId` — every `fillIn` node in a `document-skeleton.json` now
-carries a stable `slotId` alongside `fillIn: true`. `format-registry/answers-merge.ts`'s
+The key into `answers` is `attrs.slotId` — every `fillIn` node in a `document-skeleton.json` carries
+a stable `slotId` alongside `fillIn: true`. `format-registry/answers-merge.ts`'s
 `mergeAnswersIntoSkeleton(skeleton, answers)` is a pure function that walks the skeleton, and for
-each `fillIn` node whose `slotId` has a matching answer, **appends** the answer's content after
-whatever the skeleton node already contains (a plain string answer becomes one text run; an array of
-ProseMirror inline nodes is used as-is for richer content). Append, not replace, matters for nodes
-like a journal's structured-abstract paragraph that already carries fixed bold lead-in labels
-(`Đặt vấn đề:`, `Mục tiêu:`, …) — those labels are permanent structure, not placeholder text, and
-must survive the merge. The result also reports `unfilledSlots` (skeleton slots with no matching
-answer — the seed's original content is left as-is) and `unmatchedAnswers` (answer keys with no
-matching slot — almost always a typo), so a caller can validate before rendering.
+each `fillIn` node whose `slotId` has a matching answer, decides **inline vs. block** by shape:
+
+- A plain string, or an array whose nodes are all `text`, is inline content — it's **appended** into
+  the fillIn node's existing content, never replacing it. This is what keeps a journal's
+  structured-abstract paragraph's fixed bold lead-in labels (`Đặt vấn đề:`, `Mục tiêu:`, …) intact —
+  those labels are permanent structure, not placeholder text.
+- An array containing any non-`text` node (`table`, `image`, `codeBlock`, `bulletList`/
+  `orderedList`, `blockquote`, `horizontalRule`, …) is block content — the same vocabulary the
+  platform's own editor produces. It's **spliced in as new sibling nodes** right after the fillIn
+  node, so a user's private answer can be as rich as anything they typed, not just plain text.
+
+The result also reports `unfilledSlots` (skeleton slots with no matching answer — left as-is) and
+`unmatchedAnswers` (answer keys with no matching slot — almost always a typo on the caller's side),
+so a caller can surface data-entry mistakes before rendering.
 
 The merged document is an ordinary ProseMirror doc — feed it into `normalize` → `validateIr` →
-`renderToDocx` exactly as shown above. `tools/render-answers.ts`
-(`npm run render:answers -- --format=<formatId> [--answers=<path>]`) is the reference
-implementation of this whole path, and `examples/answers/*.json` are six worked examples (one per
-shipped format) built from real reference documents, proving the merge end-to-end.
+`renderToDocx` exactly as shown above, or just call `POST /exports/from-answers` (above), which does
+exactly that. `tools/render-answers.ts` (`npm run render:answers -- --format=<formatId>
+[--answers=<path>]`) is a CLI-side reference implementation of the same path, and
+`examples/answers/*.json` are worked examples (real per-format content plus a dedicated
+feature-test fixture exercising every block type) proving the merge end-to-end.
 
 ## Error handling
 

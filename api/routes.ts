@@ -17,7 +17,13 @@ import {
   saveDraft,
 } from '../format-registry/publish.js';
 import { extractOutline } from '../template-extraction/index.js';
-import { DOCX_CONTENT_TYPE, ExportService, type ExportRequest, type Principal } from './export-service.js';
+import {
+  DOCX_CONTENT_TYPE,
+  ExportService,
+  type AnswersExportRequest,
+  type ExportRequest,
+  type Principal,
+} from './export-service.js';
 import { toHttpError } from './http-errors.js';
 
 export interface ApiRequest {
@@ -133,6 +139,44 @@ export function createRouter(options: RouterOptions): (request: ApiRequest) => A
       };
 
       const result = service.export(exportRequest);
+      if (result.kind === 'async') {
+        return json(202, {
+          jobId: result.job.id,
+          status: result.job.status,
+          formatId: result.job.formatId,
+          statusUrl: `/exports/jobs/${result.job.id}`,
+        });
+      }
+
+      return {
+        status: 200,
+        headers: {
+          'Content-Type': DOCX_CONTENT_TYPE,
+          'Content-Disposition': `attachment; filename="${result.output.filename}"`,
+          'X-Export-Id': result.output.exportId,
+          'X-Format-Version': result.output.formatVersion,
+        },
+        body: result.output.bytes,
+      };
+    }
+
+    // The collab platform's real "click export" entry point: the platform sends the user's private
+    // fill-in content (keyed by slotId), not a complete doc — this route merges it into the
+    // matching shared skeleton and otherwise behaves exactly like `POST /exports` (same response
+    // shapes, same async job ids usable against the routes below).
+    if (method === 'POST' && path === '/exports/from-answers') {
+      const principal = principalFrom(request.headers);
+      const body = asObject(request.body, 'request body');
+      const answersRequest: AnswersExportRequest = {
+        formatId: requireString(body.formatId, 'formatId'),
+        answers: asObject(body.answers, 'answers') as AnswersExportRequest['answers'],
+        documentTitle: requireString(body.documentTitle, 'documentTitle'),
+        sourceDocVersion: requireString(body.sourceDocVersion, 'sourceDocVersion'),
+        principal,
+        ...(typeof body.mode === 'string' ? { mode: body.mode as AnswersExportRequest['mode'] } : {}),
+      };
+
+      const result = service.exportFromAnswers(answersRequest);
       if (result.kind === 'async') {
         return json(202, {
           jobId: result.job.id,

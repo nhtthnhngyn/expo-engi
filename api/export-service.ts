@@ -7,15 +7,17 @@
  */
 
 import { randomUUID } from 'node:crypto';
-import type { CanonicalIR, IRMeta, PMDoc } from '../core/types.js';
+import type { CanonicalIR, DocumentAnswers, IRMeta, PMDoc, PMNode } from '../core/types.js';
 import { ExportEngineError } from '../core/errors.js';
 import { normalize } from '../normalizer/index.js';
 import { createDefaultPluginRegistry, type BlockPluginRegistry } from '../normalizer/plugins/index.js';
 import { validateIr } from '../validator/index.js';
-import { resolveFormat, type ResolveOptions } from '../format-registry/resolver.js';
+import { resolveFormat, resolveSkeleton, type ResolveOptions } from '../format-registry/resolver.js';
+import { mergeAnswersIntoSkeleton } from '../format-registry/answers-merge.js';
 import { renderToDocx } from '../renderer/index.js';
 import { assertCanExportPhase } from './rbac.js';
 import { assertEntitled } from './entitlements.js';
+import { assertValid, validateDocumentAnswers } from '../schemas/index.js';
 import { InMemoryAuditLog, type AuditEntry, type AuditLog } from './audit-log.js';
 import { InMemoryJobStore, type Job, type JobStore } from './jobs.js';
 
@@ -40,6 +42,20 @@ export interface ExportRequest {
   sourceDocVersion: string;
   principal: Principal;
   /** `auto` (default) sends large documents to the async path. */
+  mode?: 'sync' | 'async' | 'auto';
+}
+
+/**
+ * The platform's real "click export" shape: the user's private, per-project fill-in content
+ * (schemas/document-answers.schema.json's `answers`, keyed by the slotId the platform's own editor
+ * tagged each block with) instead of a complete ProseMirror doc. See `ExportService.exportFromAnswers`.
+ */
+export interface AnswersExportRequest {
+  formatId: string;
+  answers: Record<string, string | PMNode[]>;
+  documentTitle: string;
+  sourceDocVersion: string;
+  principal: Principal;
   mode?: 'sync' | 'async' | 'auto';
 }
 
@@ -127,6 +143,46 @@ export class ExportService {
       return { kind: 'async', job: this.exportAsync(request) };
     }
     return { kind: 'sync', output: this.exportSync(request) };
+  }
+
+  /**
+   * The platform's real "click export" entry point: takes the user's private fill-in content
+   * (already keyed by slotId on the platform's own editor) instead of a complete document, resolves
+   * the matching format's shared skeleton, merges the two with `mergeAnswersIntoSkeleton`, and
+   * hands the resulting complete document to `export()` unchanged — so it goes through the exact
+   * same RBAC gate, entitlement gate, audit entry, and sync/async routing as any other export. This
+   * is the one place "private content" and "shared /formats content" actually meet.
+   */
+  exportFromAnswers(
+    request: AnswersExportRequest,
+  ): { kind: 'sync'; output: ExportOutput } | { kind: 'async'; job: Job } {
+    const format = resolveFormat(request.formatId, this.resolveOptions);
+    const skeleton = resolveSkeleton(request.formatId, this.resolveOptions);
+    if (!skeleton) {
+      throw new ExportEngineError(
+        'UNKNOWN_FORMAT',
+        `Format "${format.config.formatId}" has no document-skeleton.json — there is no shared skeleton to merge private answers into`,
+      );
+    }
+
+    const documentAnswers: DocumentAnswers = { formatId: request.formatId, answers: request.answers };
+    assertValid(
+      validateDocumentAnswers,
+      documentAnswers,
+      'BAD_REQUEST',
+      'answers do not satisfy document-answers.schema.json',
+    );
+
+    const { doc } = mergeAnswersIntoSkeleton(skeleton, documentAnswers);
+
+    return this.export({
+      formatId: request.formatId,
+      doc,
+      documentTitle: request.documentTitle,
+      sourceDocVersion: request.sourceDocVersion,
+      principal: request.principal,
+      ...(request.mode ? { mode: request.mode } : {}),
+    });
   }
 
   private run(request: ExportRequest, mode: 'sync' | 'async'): ExportOutput {

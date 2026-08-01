@@ -11,7 +11,7 @@ import { ExportService, DOCX_CONTENT_TYPE, SYNC_NODE_LIMIT } from './export-serv
 import { InMemoryAuditLog } from './audit-log.js';
 import { buildDotx } from '../tools/dotx-builder.js';
 import { ExportEngineError } from '../core/errors.js';
-import type { FormatConfig, FormatMeta, PMDoc } from '../core/types.js';
+import type { DocumentSkeleton, FormatConfig, FormatMeta, PMDoc } from '../core/types.js';
 
 const TEMPLATE = buildDotx({
   bodyFont: 'Calibri',
@@ -66,13 +66,26 @@ describe('ExportService', () => {
     rmSync(root, { recursive: true, force: true });
   });
 
-  function setup(cfg: FormatConfig, m: FormatMeta) {
+  function setup(cfg: FormatConfig, m: FormatMeta, skeleton?: DocumentSkeleton) {
     const dir = join(root, cfg.phaseId, 'format-a');
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'config.json'), JSON.stringify(cfg, null, 2));
     writeFileSync(join(dir, 'meta.json'), JSON.stringify(m, null, 2));
     writeFileSync(join(dir, 'template.dotx'), TEMPLATE);
+    if (skeleton) writeFileSync(join(dir, 'document-skeleton.json'), JSON.stringify(skeleton, null, 2));
   }
+
+  const SKELETON: DocumentSkeleton = {
+    formatId: 'phase-a.format-a',
+    skeletonVersion: 'v1',
+    doc: {
+      type: 'doc',
+      content: [
+        { type: 'heading', attrs: { level: 1, locked: true }, content: [{ type: 'text', text: 'Standing Title' }] },
+        { type: 'paragraph', attrs: { fillIn: true, slotId: 'body' }, content: [] },
+      ],
+    },
+  };
 
   it('sync path returns a valid .docx with the correct content type for a small document', () => {
     setup(config(), meta());
@@ -244,5 +257,121 @@ describe('ExportService', () => {
       expect(structured.code).toBe('MISSING_REQUIRED_BLOCKS');
       expect(Array.isArray(structured.details)).toBe(true);
     }
+  });
+
+  describe('exportFromAnswers', () => {
+    it('merges private answers into the shared skeleton and renders a valid .docx', () => {
+      setup(config(), meta(), SKELETON);
+      const service = new ExportService({ resolveOptions: { root } });
+      const result = service.exportFromAnswers({
+        formatId: 'phase-a.format-a',
+        answers: { body: 'This is the user\'s own private content.' },
+        documentTitle: 'Doc',
+        sourceDocVersion: '1',
+        principal: { userId: 'u1', role: 'owner', projectId: 'proj1', tier: 'free' },
+      });
+      expect(result.kind).toBe('sync');
+      if (result.kind !== 'sync') throw new Error('expected sync');
+      expect(result.output.bytes.subarray(0, 2).toString('ascii')).toBe('PK');
+    });
+
+    it('goes through the same RBAC gate as a normal export', () => {
+      setup(config(), meta(), SKELETON);
+      const service = new ExportService({ resolveOptions: { root } });
+      try {
+        service.exportFromAnswers({
+          formatId: 'phase-a.format-a',
+          answers: { body: 'x' },
+          documentTitle: 'Doc',
+          sourceDocVersion: '1',
+          principal: { userId: 'u1', role: 'viewer', projectId: 'proj1', tier: 'free' },
+        });
+        throw new Error('expected a throw');
+      } catch (err) {
+        expect(ExportEngineError.is(err)).toBe(true);
+        expect((err as ExportEngineError).code).toBe('FORBIDDEN');
+      }
+    });
+
+    it('goes through the same entitlement gate as a normal export', () => {
+      setup(config(), meta({ entitlement: { tier: 'paid' } }), SKELETON);
+      const service = new ExportService({ resolveOptions: { root } });
+      try {
+        service.exportFromAnswers({
+          formatId: 'phase-a.format-a',
+          answers: { body: 'x' },
+          documentTitle: 'Doc',
+          sourceDocVersion: '1',
+          principal: { userId: 'u1', role: 'owner', projectId: 'proj1', tier: 'free' },
+        });
+        throw new Error('expected a throw');
+      } catch (err) {
+        expect((err as ExportEngineError).code).toBe('ENTITLEMENT_REQUIRED');
+      }
+    });
+
+    it('writes an audit entry, same as a normal export', () => {
+      setup(config(), meta(), SKELETON);
+      const auditLog = new InMemoryAuditLog();
+      const service = new ExportService({ resolveOptions: { root }, auditLog });
+      service.exportFromAnswers({
+        formatId: 'phase-a.format-a',
+        answers: { body: 'x' },
+        documentTitle: 'Doc',
+        sourceDocVersion: '3',
+        principal: { userId: 'u1', role: 'owner', projectId: 'proj1', tier: 'free' },
+      });
+      expect(auditLog.entries).toHaveLength(1);
+      expect(auditLog.entries[0]).toMatchObject({ formatId: 'phase-a.format-a', contentVersion: '3' });
+    });
+
+    it('throws UNKNOWN_FORMAT when the format has no document-skeleton.json to merge into', () => {
+      setup(config(), meta()); // no skeleton this time
+      const service = new ExportService({ resolveOptions: { root } });
+      try {
+        service.exportFromAnswers({
+          formatId: 'phase-a.format-a',
+          answers: { body: 'x' },
+          documentTitle: 'Doc',
+          sourceDocVersion: '1',
+          principal: { userId: 'u1', role: 'owner', projectId: 'proj1', tier: 'free' },
+        });
+        throw new Error('expected a throw');
+      } catch (err) {
+        expect((err as ExportEngineError).code).toBe('UNKNOWN_FORMAT');
+      }
+    });
+
+    it('rejects malformed answers (schema violation) before any merge/render happens', () => {
+      setup(config(), meta(), SKELETON);
+      const service = new ExportService({ resolveOptions: { root } });
+      try {
+        service.exportFromAnswers({
+          formatId: 'phase-a.format-a',
+          // @ts-expect-error deliberately malformed for the test: a number is neither a string nor PMNode[]
+          answers: { body: 42 },
+          documentTitle: 'Doc',
+          sourceDocVersion: '1',
+          principal: { userId: 'u1', role: 'owner', projectId: 'proj1', tier: 'free' },
+        });
+        throw new Error('expected a throw');
+      } catch (err) {
+        expect(ExportEngineError.is(err)).toBe(true);
+        expect((err as ExportEngineError).code).toBe('BAD_REQUEST');
+      }
+    });
+
+    it('an unfilled slot renders using the skeleton\'s own (empty) content, not an error', () => {
+      setup(config(), meta(), SKELETON);
+      const service = new ExportService({ resolveOptions: { root } });
+      const result = service.exportFromAnswers({
+        formatId: 'phase-a.format-a',
+        answers: {}, // "body" left unanswered
+        documentTitle: 'Doc',
+        sourceDocVersion: '1',
+        principal: { userId: 'u1', role: 'owner', projectId: 'proj1', tier: 'free' },
+      });
+      expect(result.kind).toBe('sync');
+    });
   });
 });

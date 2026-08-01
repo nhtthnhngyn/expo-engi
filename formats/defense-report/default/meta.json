@@ -2,7 +2,7 @@
   "formatId": "defense-report.default",
   "phaseId": "defense-report",
   "displayName": "Báo cáo bảo vệ luận văn (Thesis defense report)",
-  "status": "draft",
+  "status": "active",
   "reviewedBy": null,
   "notes": "Built from Phase_6.pdf, a real slide-deck-style thesis defense presentation exported to PDF — no OOXML source to extract real style facts from, so template-facts.json reuses the same institutional convention already verified for protocol-design.default/report-writing.default, disclosed in config.json's reusabilityNote. Confirm this styling assumption before publishing."
 }
