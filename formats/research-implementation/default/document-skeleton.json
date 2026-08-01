@@ -1,21 +1,35 @@
 {
   "formatId": "research-implementation.default",
   "skeletonVersion": "v1",
-  "note": "Models artifact A03 (Phiếu thu thập số liệu / CRF) from Phase_3.pdf's artifact catalog — the one genuinely Word-renderable, human-facing deliverable of the phase's own 'reader layer' that plausibly starts from a fill-in-the-blanks template. The other five .docx artifacts that spec names (A05 consent form, A08 readable analysis plan, B03 standardization minutes, B04 research diary, D03 results tables) are either machine-rendered from a JSON source of truth (codebook.json/analysis_plan.json/results.json) rather than user-typed content, or need their own separate format entries — flagged for a human decision, not silently built here. The actual variable list (age, sex, VAS, BMI, etc. in the phase's own codebook.json example) is inherently study-specific — different studies collect different variables — so only the universal CRF header/footer convention is locked; the variable list itself is entirely open. Every fillIn node carries a stable attrs.slotId — see format-registry/answers-merge.ts, which uses it to merge a separate, private per-project document-answers.json into this shared skeleton at export time.",
+  "note": "Models artifact A03 (Phiếu thu thập số liệu / CRF) from Phase_3.pdf's artifact catalog — the one genuinely Word-renderable, human-facing deliverable of the phase's own 'reader layer' that plausibly starts from a fill-in-the-blanks template. The other five .docx artifacts that spec names (A05 consent form, A08 readable analysis plan, B03 standardization minutes, B04 research diary, D03 results tables) are either machine-rendered from a JSON source of truth (codebook.json/analysis_plan.json/results.json) rather than user-typed content, or need their own separate format entries — flagged for a human decision, not silently built here. The actual variable list (age, sex, VAS, BMI, etc. in the phase's own codebook.json example) is inherently study-specific — different studies collect different variables — so only the universal CRF header/footer convention is locked; the variable list itself is entirely open. The header-field block (study code/subject code/collection date) is a real 2-column table, matching the confirmed-real table layout of idea-proposal.default's own header fields (same 'phiếu' form convention family) — Phase_3.pdf itself is a spec document, not a filled real CRF, so this is a disclosed convention, not an independently-verified fact from this specific phase's own source. The collector-signature line has a small blank space added below it for the actual signature — an enhancement, not extracted content. Every fillIn node carries a stable attrs.slotId — see format-registry/answers-merge.ts, which uses it to merge a separate, private per-project document-answers.json into this shared skeleton at export time.",
   "doc": {
     "type": "doc",
     "content": [
       { "type": "heading", "attrs": { "level": 1, "locked": true }, "content": [{ "type": "text", "text": "PHIẾU THU THẬP SỐ LIỆU" }] },
 
-      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
-        "content": [{ "type": "text", "text": "Mã nghiên cứu: " }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "studyCode" }, "content": [] },
-      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
-        "content": [{ "type": "text", "text": "Mã đối tượng: " }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "subjectCode", "note": "Study-assigned subject code, e.g. NC001 — never a name or patient record number, per Phase_3.pdf section 2.4." }, "content": [] },
-      { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
-        "content": [{ "type": "text", "text": "Ngày thu thập: " }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "collectionDate" }, "content": [] },
+      { "type": "table", "attrs": { "locked": true }, "content": [
+          { "type": "tableRow", "content": [
+              { "type": "tableCell", "content": [
+                  { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+                    "content": [{ "type": "text", "text": "Mã nghiên cứu:" }] } ] },
+              { "type": "tableCell", "content": [
+                  { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "studyCode" }, "content": [] } ] }
+          ] },
+          { "type": "tableRow", "content": [
+              { "type": "tableCell", "content": [
+                  { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+                    "content": [{ "type": "text", "text": "Mã đối tượng:" }] } ] },
+              { "type": "tableCell", "content": [
+                  { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "subjectCode", "note": "Study-assigned subject code, e.g. NC001 — never a name or patient record number, per Phase_3.pdf section 2.4." }, "content": [] } ] }
+          ] },
+          { "type": "tableRow", "content": [
+              { "type": "tableCell", "content": [
+                  { "type": "researchBlock", "attrs": { "blockKind": "crfHeaderField", "locked": true },
+                    "content": [{ "type": "text", "text": "Ngày thu thập:" }] } ] },
+              { "type": "tableCell", "content": [
+                  { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "collectionDate" }, "content": [] } ] }
+          ] }
+      ] },
 
       { "type": "heading", "attrs": { "level": 2, "locked": true },
         "content": [{ "type": "text", "text": "Biến số nghiên cứu" }] },
@@ -23,7 +37,9 @@
 
       { "type": "researchBlock", "attrs": { "blockKind": "signatureLine", "locked": true },
         "content": [{ "type": "text", "text": "Chữ ký người thu thập số liệu: " }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "collectorSignature" }, "content": [] }
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "collectorSignature" }, "content": [] },
+      { "type": "paragraph", "content": [] },
+      { "type": "paragraph", "content": [] }
     ]
   }
 }

@@ -363,7 +363,15 @@ function cellXml(
             if (child.type === 'paragraph') {
               const lead = prefixUsed ? '' : prefixRun;
               prefixUsed = true;
-              const childResolved = resolved.styleId ? resolved : ctx.styles.forBlock(child);
+              // A child with its own blockKind/role (e.g. a signature label, a form-field caption)
+              // always resolves its own style — the cell-level `resolved` is only a shared fallback
+              // for children with no semantic identity of their own (e.g. crfFieldPlugin's plain
+              // prompt/answer cells), never an override for a child that declares one.
+              const childAttrs = (child.attrs ?? {}) as Record<string, unknown>;
+              const childHasOwnStyleHint =
+                typeof childAttrs.blockKind === 'string' || typeof childAttrs.role === 'string';
+              const childResolved =
+                !childHasOwnStyleHint && resolved.styleId ? resolved : ctx.styles.forBlock(child);
               return paragraph(childResolved, `${lead}${runsXml(child.runs, runCtx(ctx, childResolved.direct))}`);
             }
             return blockXml(child, ctx);

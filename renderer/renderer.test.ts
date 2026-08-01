@@ -311,5 +311,73 @@ describe('renderer', () => {
       // rowspan from row 2 must still be inserted so Word's grid stays rectangular.
       expect((xml.match(/<w:tr>/g) ?? []).length).toBe(3);
     });
+
+    it("a table cell's own child keeps its blockKind-specific direct formatting, not the cell's generic fallback style", () => {
+      // Regression test: config.json declares a plain `styleMap.paragraph: "Body Copy"`, which
+      // resolves to a truthy styleId for the CELL itself (via the universal fallback path every
+      // block resolves through) — that used to leak onto every child paragraph inside the cell,
+      // silently discarding a child's own blockKind-specific bold/center/italic formatting the
+      // moment it was nested inside a table (e.g. a signature block placed in a 2-column table).
+      const format = setupFormat(
+        baseConfig({
+          styleMap: {
+            ...baseConfig().styleMap,
+            'custom:signatureBlock': { style: 'Body Copy', runFormatting: { bold: true }, paragraphFormatting: { alignment: 'center' } },
+          },
+        }),
+      );
+      const tableWithSignature: CanonicalIR['blocks'][number] = {
+        id: 't1',
+        type: 'table',
+        children: [
+          {
+            id: 'r1',
+            type: 'tableRow',
+            children: [
+              {
+                id: 'c1',
+                type: 'tableCell',
+                children: [
+                  { id: 'p1', type: 'paragraph', runs: [{ text: 'HỌC VIÊN' }], attrs: { blockKind: 'signatureBlock' } },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const xml = documentXml(renderToDocx(ir([tableWithSignature]), format).bytes);
+      expect(xml).toContain('<w:b/>');
+      expect(xml).toContain('<w:jc w:val="center"/>');
+    });
+
+    it('a plain cell child with no blockKind/role still inherits the cell-level fallback style, unchanged from before this fix', () => {
+      const format = setupFormat(
+        baseConfig({ styleMap: { ...baseConfig().styleMap, tableHeader: 'Heading Two' } }),
+      );
+      const headerCellTable: CanonicalIR['blocks'][number] = {
+        id: 't1',
+        type: 'table',
+        children: [
+          {
+            id: 'r1',
+            type: 'tableRow',
+            children: [
+              {
+                id: 'c1',
+                type: 'tableCell',
+                attrs: { header: true },
+                children: [{ id: 'p1', type: 'paragraph', runs: [{ text: 'plain' }] }],
+              },
+            ],
+          },
+        ],
+      };
+      const xml = documentXml(renderToDocx(ir([headerCellTable]), format).bytes);
+      const headerStyleId = format.styleIds['styleMap.tableHeader'];
+      // The plain child carries no blockKind/role of its own, so it inherits the header CELL's own
+      // resolved style ('styleMap.tableHeader', since attrs.header is true) — cell-level styling
+      // still flows to un-tagged children exactly as before this fix.
+      expect(xml).toContain(`<w:pStyle w:val="${headerStyleId}"/>`);
+    });
   });
 });

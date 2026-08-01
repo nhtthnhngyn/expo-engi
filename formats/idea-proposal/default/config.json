@@ -26,7 +26,7 @@
     "custom:studyTitleValue": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } },
     "custom:subLabel": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "left" } },
     "custom:signatureBlock": { "style": "Normal", "runFormatting": { "bold": true }, "paragraphFormatting": { "alignment": "center" } },
-    "custom:signatureCaption": { "style": "Normal", "runFormatting": {}, "paragraphFormatting": { "alignment": "center" } }
+    "custom:signatureCaption": { "style": "Normal", "runFormatting": { "italic": true }, "paragraphFormatting": { "alignment": "center" } }
   },
   "toc": { "enabled": false, "depth": 0, "autoGenerateFromHeadings": false },
   "headingNumbering": { "auto": false },
