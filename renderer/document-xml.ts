@@ -233,13 +233,13 @@ function drawingXml(relId: string, docPrId: number, cx: number, cy: number, alt:
 
 const TABLE_WIDTH_DXA = 9360; // 6.5in in twentieths of a point
 
-// Bold, single-line borders on every side and between every row/column. Emitted unconditionally so
-// every table gets a fully bordered, clearly visible grid regardless of whether the format's own
-// config declares a named Word table style — a table-shaped block with no named style otherwise
-// renders with no border definition at all, which Word shows as invisible gridlines only on screen
-// and nothing when printed or viewed elsewhere. `sz="12"` is twelfths of a point == 1.5pt, bold
-// enough to read clearly next to Word's own thin 0.5pt "Table Grid" default.
-const TABLE_BORDER_SZ = 12;
+// Single-line borders on every side and between every row/column. Emitted unconditionally so every
+// table gets a fully bordered, visible grid regardless of whether the format's own config declares
+// a named Word table style — a table-shaped block with no named style otherwise renders with no
+// border definition at all, which Word shows as invisible gridlines only on screen and nothing
+// when printed or viewed elsewhere. Per OOXML (ECMA-376 §17.3.3.31), a border's `w:sz` is in
+// eighths of a point, so `sz="2"` == 2/8 == 0.25pt — Word's own "1/4 pt" border-width preset.
+const TABLE_BORDER_SZ = 2;
 const TABLE_BORDERS_XML =
   '<w:tblBorders>' +
   `<w:top w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +

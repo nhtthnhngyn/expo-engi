@@ -249,9 +249,9 @@ describe('renderer', () => {
       const format = setupFormat(baseConfig({ styleMap: { ...baseConfig().styleMap, table: undefined as never } }));
       const xml = documentXml(renderToDocx(ir([simpleTable()]), format).bytes);
       expect(xml).toContain('<w:tblBorders>');
-      expect(xml).toContain('<w:top w:val="single" w:sz="12"');
-      expect(xml).toContain('<w:insideH w:val="single" w:sz="12"');
-      expect(xml).toContain('<w:insideV w:val="single" w:sz="12"');
+      expect(xml).toContain('<w:top w:val="single" w:sz="2"');
+      expect(xml).toContain('<w:insideH w:val="single" w:sz="2"');
+      expect(xml).toContain('<w:insideV w:val="single" w:sz="2"');
     });
 
     it('still gives the full bold border grid when the config does declare a named table style', () => {
