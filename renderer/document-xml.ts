@@ -233,6 +233,23 @@ function drawingXml(relId: string, docPrId: number, cx: number, cy: number, alt:
 
 const TABLE_WIDTH_DXA = 9360; // 6.5in in twentieths of a point
 
+// Bold, single-line borders on every side and between every row/column. Emitted unconditionally so
+// every table gets a fully bordered, clearly visible grid regardless of whether the format's own
+// config declares a named Word table style — a table-shaped block with no named style otherwise
+// renders with no border definition at all, which Word shows as invisible gridlines only on screen
+// and nothing when printed or viewed elsewhere. `sz="12"` is twelfths of a point == 1.5pt, bold
+// enough to read clearly next to Word's own thin 0.5pt "Table Grid" default.
+const TABLE_BORDER_SZ = 12;
+const TABLE_BORDERS_XML =
+  '<w:tblBorders>' +
+  `<w:top w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +
+  `<w:left w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +
+  `<w:bottom w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +
+  `<w:right w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +
+  `<w:insideH w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +
+  `<w:insideV w:val="single" w:sz="${TABLE_BORDER_SZ}" w:space="0" w:color="000000"/>` +
+  '</w:tblBorders>';
+
 function tableXml(block: IRBlock, ctx: BodyContext): string {
   const rows = (block.children ?? []).filter((child) => child.type === 'tableRow');
   const columnCount = Math.max(1, ...rows.map((row) => countColumns(row)));
@@ -244,6 +261,7 @@ function tableXml(block: IRBlock, ctx: BodyContext): string {
   const tblPr =
     `<w:tblPr>${resolved.styleId ? `<w:tblStyle w:val="${escapeXml(resolved.styleId)}"/>` : ''}` +
     `<w:tblW w:w="${TABLE_WIDTH_DXA}" w:type="dxa"/>` +
+    `${TABLE_BORDERS_XML}` +
     '<w:tblLayout w:type="fixed"/></w:tblPr>';
 
   // A table-shaped block (e.g. a CRF field, a numbered stats table) can still have an external

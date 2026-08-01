@@ -1,0 +1,382 @@
+{
+  "formatId": "idea-proposal.default",
+  "documentTitle": "Merge-cell demo — feasibility table with rowspan and colspan",
+  "sourceDocVersion": "1",
+  "answers": {
+    "studentName": "Nguyễn Văn A",
+    "trainingLevel": "Chuyên khoa cấp I",
+    "specialty": "Phục hồi chức năng",
+    "institution": "Bệnh viện Phục hồi chức năng tỉnh X",
+    "expectedSupervisor": "……………………………………………",
+    "submissionDate": "02/08/2026",
+    "studyTitle": "Đặc điểm rối loạn nuốt và một số yếu tố liên quan ở người bệnh đột quỵ não giai đoạn bán cấp",
+    "objectives": "Mục tiêu 1. Mô tả đặc điểm rối loạn nuốt.\nMục tiêu 2. Phân tích yếu tố liên quan.",
+    "rationale": "Rối loạn nuốt là biến chứng thường gặp sau đột quỵ não.",
+    "designValue": "Mô tả cắt ngang",
+    "subjectsValue": "Người bệnh đột quỵ não giai đoạn bán cấp điều trị nội trú",
+    "inclusionCriteria": "Chẩn đoán xác định đột quỵ não; đồng ý tham gia",
+    "exclusionCriteria": "Rối loạn ý thức không hợp tác được",
+    "measurementTool": "Thang GUSS (bản tiếng Việt)",
+    "collectionPeriod": "8 tháng",
+    "sampleSizeFeasibility": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Bảng tính khả thi — với hai ô gộp hàng (rowspan) trong cột Ghi chú và một hàng gộp cột (colspan) làm dòng kết luận:",
+            "marks": [
+              "bold"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Chỉ số"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Giá trị"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ghi chú"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Cỡ mẫu cần theo công thức"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "96"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ước lượng một tỷ lệ, p = 0,5; d = 0,10"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Số ca ước tính mỗi tháng"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "25"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Học viên khai báo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Số tháng thu thập"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "8"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Tỷ lệ đủ tiêu chuẩn chọn (giả định)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "60%"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Mặc định hệ thống"
+                      }
+                    ]
+                  }
+                ],
+                "attrs": {
+                  "rowspan": 2
+                }
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Tỷ lệ đồng ý tham gia (giả định)"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "85%"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Số ca thực tế có thể thu thập"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "102"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "25 × 8 × 0,60 × 0,85"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Kết luận khả thi: VÀNG — Sát ngưỡng (tỷ số 1,06). Khuyến cáo: nới sai số cho phép lên 12% hoặc kéo dài thời gian thu thập thêm 1–2 tháng nếu tỷ lệ đồng ý thấp hơn dự kiến.",
+                        "marks": [
+                          "bold"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "attrs": {
+                  "colspan": 3
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "references": "1. Tác giả A. [Tiêu đề]. [Tạp chí]. 2024.",
+    "questionsForAdvisor": "Ngưỡng sai số cho phép: nên giữ 10% hay nới lên 12%?",
+    "advisorComments": ""
+  }
+}

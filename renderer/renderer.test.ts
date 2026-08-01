@@ -226,4 +226,90 @@ describe('renderer', () => {
     expect(xml).toContain('w:w="11907" w:h="16840"');
     expect(xml).toContain('w:left="900"');
   });
+
+  describe('tables', () => {
+    function simpleTable(): CanonicalIR['blocks'][number] {
+      return {
+        id: 't1',
+        type: 'table',
+        children: [
+          {
+            id: 'r1',
+            type: 'tableRow',
+            children: [
+              { id: 'c1', type: 'tableCell', children: [{ id: 'c1p', type: 'paragraph', runs: [{ text: 'A' }] }] },
+              { id: 'c2', type: 'tableCell', children: [{ id: 'c2p', type: 'paragraph', runs: [{ text: 'B' }] }] },
+            ],
+          },
+        ],
+      };
+    }
+
+    it('gives every table a full bold border grid, even with no named table style in styleMap', () => {
+      const format = setupFormat(baseConfig({ styleMap: { ...baseConfig().styleMap, table: undefined as never } }));
+      const xml = documentXml(renderToDocx(ir([simpleTable()]), format).bytes);
+      expect(xml).toContain('<w:tblBorders>');
+      expect(xml).toContain('<w:top w:val="single" w:sz="12"');
+      expect(xml).toContain('<w:insideH w:val="single" w:sz="12"');
+      expect(xml).toContain('<w:insideV w:val="single" w:sz="12"');
+    });
+
+    it('still gives the full bold border grid when the config does declare a named table style', () => {
+      const format = setupFormat(baseConfig()); // styleMap.table: 'Table Style'
+      const xml = documentXml(renderToDocx(ir([simpleTable()]), format).bytes);
+      expect(xml).toContain('<w:tblStyle');
+      expect(xml).toContain('<w:tblBorders>');
+    });
+
+    it('renders a merged-cell table (colspan + rowspan) with correct gridSpan/vMerge XML and no data loss', () => {
+      const format = setupFormat(baseConfig());
+      const mergedTable: CanonicalIR['blocks'][number] = {
+        id: 't1',
+        type: 'table',
+        children: [
+          {
+            id: 'r1',
+            type: 'tableRow',
+            children: [
+              {
+                id: 'c1',
+                type: 'tableCell',
+                attrs: { colspan: 2 },
+                children: [{ id: 'c1p', type: 'paragraph', runs: [{ text: 'Spans two columns' }] }],
+              },
+            ],
+          },
+          {
+            id: 'r2',
+            type: 'tableRow',
+            children: [
+              {
+                id: 'c2',
+                type: 'tableCell',
+                attrs: { rowspan: 2 },
+                children: [{ id: 'c2p', type: 'paragraph', runs: [{ text: 'Spans two rows' }] }],
+              },
+              { id: 'c3', type: 'tableCell', children: [{ id: 'c3p', type: 'paragraph', runs: [{ text: 'Row 2 col 2' }] }] },
+            ],
+          },
+          {
+            id: 'r3',
+            type: 'tableRow',
+            children: [{ id: 'c4', type: 'tableCell', children: [{ id: 'c4p', type: 'paragraph', runs: [{ text: 'Row 3 col 2' }] }] }],
+          },
+        ],
+      };
+      const xml = documentXml(renderToDocx(ir([mergedTable]), format).bytes);
+      expect(xml).toContain('<w:gridSpan w:val="2"/>');
+      expect(xml).toContain('<w:vMerge w:val="restart"/>');
+      expect(xml).toContain('<w:vMerge/>'); // the continuation cell in row 3
+      expect(xml).toContain('Spans two columns');
+      expect(xml).toContain('Spans two rows');
+      expect(xml).toContain('Row 2 col 2');
+      expect(xml).toContain('Row 3 col 2');
+      // 3 rows in the IR, but row 3 only declares 1 real cell — the vMerge continuation for the
+      // rowspan from row 2 must still be inserted so Word's grid stays rectangular.
+      expect((xml.match(/<w:tr>/g) ?? []).length).toBe(3);
+    });
+  });
 });
