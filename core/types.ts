@@ -259,6 +259,23 @@ export interface DocumentSkeleton {
 }
 
 // ---------------------------------------------------------------------------
+// Document answers — document-answers.json (schemas/document-answers.schema.json)
+//
+// Private, per-project fill-in content, deliberately kept OUTSIDE /formats (which is shared/general
+// content only). Keyed by the attrs.slotId a skeleton's fillIn nodes carry. See
+// format-registry/answers-merge.ts, which merges this into a shared document-skeleton.json at
+// export time to produce a complete document.
+// ---------------------------------------------------------------------------
+
+export interface DocumentAnswers {
+  formatId: string;
+  skeletonVersion?: string;
+  projectId?: string;
+  note?: string;
+  answers: Record<string, string | PMNode[]>;
+}
+
+// ---------------------------------------------------------------------------
 // Template facts — template-facts.json (schemas/template-facts.schema.json)
 //
 // Real Word style facts extracted directly from a reference document's own word/styles.xml — font,

@@ -1,0 +1,22 @@
+{
+  "formatId": "defense-report.default",
+  "skeletonVersion": "v1",
+  "projectId": "proj_phase6_swallowing_disorder",
+  "note": "Real private content transcribed from the user's own uploaded Phase 6 reference document (Báo cáo bảo vệ luận văn — rối loạn nuốt sau đột quỵ), the completed defense-slide-deck counterpart of the Phase 1 idea proposal on the same topic. Kept entirely outside /formats; merged into formats/defense-report/default/document-skeleton.json at export time by format-registry/answers-merge.ts.",
+  "answers": {
+    "institutionName": "BỆNH VIỆN PHỤC HỒI CHỨC NĂNG TỈNH X",
+    "thesisTitle": "ĐẶC ĐIỂM RỐI LOẠN NUỐT VÀ MỘT SỐ YẾU TỐ LIÊN QUAN Ở NGƯỜI BỆNH ĐỘT QUỴ NÃO GIAI ĐOẠN BÁN CẤP TẠI BỆNH VIỆN PHỤC HỒI CHỨC NĂNG TỈNH X NĂM 2026",
+    "studentName": "Nguyễn Văn A",
+    "supervisorName": "PGS.TS. Trần Thị B",
+    "specialty": "Phục hồi chức năng",
+    "problemStatementBody": "Rối loạn nuốt là biến chứng thường gặp sau đột quỵ não. Liên quan trực tiếp đến viêm phổi hít, suy dinh dưỡng và kéo dài thời gian nằm viện. Phát hiện sớm giúp giảm đáng kể tỷ lệ biến chứng hô hấp. Tại đơn vị, việc phát hiện chủ yếu dựa vào quan sát của điều dưỡng, chưa có quy trình sàng lọc hệ thống. Chưa có số liệu về tỷ lệ thực tế và nhóm người bệnh nguy cơ cao.",
+    "objectives": "Mục tiêu 1. Mô tả đặc điểm rối loạn nuốt ở người bệnh đột quỵ não giai đoạn bán cấp tại Bệnh viện Phục hồi chức năng tỉnh X năm 2026.\nMục tiêu 2. Phân tích một số yếu tố liên quan đến mức độ rối loạn nuốt ở nhóm đối tượng nghiên cứu trên.",
+    "subjectsAndMethodsBody": "Thiết kế: Mô tả cắt ngang.\nĐối tượng: Người bệnh đột quỵ não giai đoạn bán cấp điều trị nội trú.\nTiêu chuẩn chọn: chẩn đoán xác định đột quỵ não; 7 ngày đến 6 tháng từ khởi phát.\nTiêu chuẩn loại: rối loạn ý thức không hợp tác; bệnh lý hầu họng từ trước.\nCông cụ: Thang GUSS bản tiếng Việt; bệnh án nghiên cứu.\nCỡ mẫu: ước lượng một tỷ lệ; thực tế thu được 372 người bệnh.\nXử lý số liệu: phần mềm thống kê; hồi quy logistic đa biến.",
+    "flowDiagramBody": "Sàng lọc: 456 người bệnh. Đủ tiêu chuẩn: 408 (loại 48 vì không đủ tiêu chuẩn chọn). Đồng ý tham gia: 387 (từ chối 21). Đưa vào phân tích: 372 (loại 15 vì thiếu dữ liệu chính). Tỷ lệ đáp ứng: 94,9%.",
+    "resultsBody": "Đặc điểm chung của đối tượng nghiên cứu (n = 372, Bảng 3.1): tuổi trung bình 62,4 ± 13,1 năm; giới nữ 158 (42,5%); nhồi máu não 268 (72,0%); xuất huyết não 104 (28,0%); thời gian từ khởi phát 24,5 [14–45] ngày; điểm NIHSS lúc vào viện 8,2 ± 4,6.\nMức độ rối loạn nuốt theo thang GUSS: tỷ lệ rối loạn nuốt chung 58,6% (n = 372).\nYếu tố liên quan đến rối loạn nuốt (rút gọn từ Bảng 3.7 — mô hình hồi quy logistic đa biến): tuổi từ 65 trở lên, OR hiệu chỉnh 1,87 (KTC 95% 1,12–3,12), p = 0,017; đột quỵ thân não, OR 3,42 (1,95–6,00), p < 0,001; điểm NIHSS từ 10 trở lên, OR 2,64 (1,58–4,41), p < 0,001; tiền sử đột quỵ, OR 1,45 (0,82–2,56), p = 0,201.",
+    "discussionBody": "Tỷ lệ rối loạn nuốt cao hơn một số báo cáo trong nước, có thể do đối tượng là người bệnh nội trú tại cơ sở phục hồi chức năng. Đột quỵ thân não là yếu tố liên quan mạnh nhất, phù hợp với cơ chế tổn thương trung tâm điều khiển nuốt. Thang GUSS cho thấy tính khả thi khi áp dụng thường quy tại giường bệnh. Hạn chế: thiết kế cắt ngang không cho phép kết luận quan hệ nhân quả; nghiên cứu thực hiện tại một cơ sở.",
+    "conclusionBody": "1. Tỷ lệ rối loạn nuốt ở người bệnh đột quỵ não giai đoạn bán cấp là 58,6%, trong đó mức độ nặng chiếm 11,3%.\n2. Các yếu tố liên quan độc lập đến rối loạn nuốt gồm: tuổi từ 65 trở lên, đột quỵ thân não và điểm NIHSS từ 10 trở lên.",
+    "recommendationsBody": "Áp dụng sàng lọc nuốt bằng thang GUSS thường quy cho người bệnh đột quỵ trong 48 giờ đầu nhập khoa. Ưu tiên đánh giá sớm nhóm người bệnh cao tuổi, đột quỵ thân não hoặc có điểm NIHSS cao.",
+    "closingRemarkBody": "Kính mong nhận được ý kiến đóng góp của quý thầy cô."
+  }
+}

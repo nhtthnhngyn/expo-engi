@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://research-platform.example/schemas/document-answers.schema.json",
+  "title": "Document answers (document-answers.json)",
+  "description": "Private, per-project fill-in content, kept entirely separate from the shared /formats registry. Answers are keyed by the attrs.slotId that document-skeleton.json's fillIn nodes carry; format-registry/answers-merge.ts merges this file into the shared skeleton at export time to produce a complete document. Never stored under /formats — /formats is shared/general content only.",
+  "type": "object",
+  "required": ["formatId", "answers"],
+  "additionalProperties": false,
+  "properties": {
+    "formatId": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9-]+$" },
+    "skeletonVersion": { "type": "string", "pattern": "^v[0-9]+(\\.[0-9]+)*$" },
+    "projectId": { "type": "string" },
+    "note": { "type": "string" },
+    "answers": {
+      "type": "object",
+      "description": "Keyed by attrs.slotId. A value is either a plain string (wrapped as a single text run at merge time) or an array of ProseMirror inline nodes for richer content (marks, multiple runs).",
+      "additionalProperties": {
+        "anyOf": [
+          { "type": "string" },
+          { "type": "array", "items": { "type": "object" } }
+        ]
+      }
+    }
+  }
+}

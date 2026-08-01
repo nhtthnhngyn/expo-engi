@@ -127,6 +127,51 @@ otherwise go through `ExportService` (or the HTTP route) so nothing bypasses aut
   fillIn nodes with the user's actual content) — the engine doesn't need to know which nodes came
   from the skeleton; a locked heading is indistinguishable in shape from any other heading.
 
+  Important: `GET /formats/:formatId/skeleton` always returns the same shared `document-skeleton.json`
+  bytes for every caller — nothing about a single user's export ever writes back into it. Each call
+  is conceptually a fresh clone of the same seed document.
+
+## Private content: document-answers.json
+
+Everything under `/formats` — including `document-skeleton.json` — is shared, general content: the
+same skeleton is handed out to every user of a format, and exporting one user's document never
+mutates it for anyone else. A user's own fill-in text (their study title, their objectives, their
+abstract) is **private, per-project content** and does not belong in `/formats` at all.
+
+That private content is meant to live in its own JSON file, entirely outside `/formats`, in whatever
+per-project storage the platform already has (a database row, a project-scoped file — this engine is
+stateless and doesn't prescribe where). Its shape is `schemas/document-answers.schema.json` /
+`core/types.ts`'s `DocumentAnswers`:
+
+```json
+{
+  "formatId": "idea-proposal.default",
+  "projectId": "proj_123",
+  "answers": {
+    "studentName": "Nguyễn Văn A",
+    "rationale": "Rối loạn nuốt là biến chứng thường gặp sau đột quỵ não…"
+  }
+}
+```
+
+The key into `answers` is `attrs.slotId` — every `fillIn` node in a `document-skeleton.json` now
+carries a stable `slotId` alongside `fillIn: true`. `format-registry/answers-merge.ts`'s
+`mergeAnswersIntoSkeleton(skeleton, answers)` is a pure function that walks the skeleton, and for
+each `fillIn` node whose `slotId` has a matching answer, **appends** the answer's content after
+whatever the skeleton node already contains (a plain string answer becomes one text run; an array of
+ProseMirror inline nodes is used as-is for richer content). Append, not replace, matters for nodes
+like a journal's structured-abstract paragraph that already carries fixed bold lead-in labels
+(`Đặt vấn đề:`, `Mục tiêu:`, …) — those labels are permanent structure, not placeholder text, and
+must survive the merge. The result also reports `unfilledSlots` (skeleton slots with no matching
+answer — the seed's original content is left as-is) and `unmatchedAnswers` (answer keys with no
+matching slot — almost always a typo), so a caller can validate before rendering.
+
+The merged document is an ordinary ProseMirror doc — feed it into `normalize` → `validateIr` →
+`renderToDocx` exactly as shown above. `tools/render-answers.ts`
+(`npm run render:answers -- --format=<formatId> [--answers=<path>]`) is the reference
+implementation of this whole path, and `examples/answers/*.json` are six worked examples (one per
+shipped format) built from real reference documents, proving the merge end-to-end.
+
 ## Error handling
 
 Every failure is a structured `{ code, message, details[] }` — never a bare exception or a generic

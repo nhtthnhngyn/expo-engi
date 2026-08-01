@@ -18,6 +18,7 @@
     "lint:stylemap": "tsx tools/style-map-lint-cli.ts",
     "render:fixture": "tsx tools/render-fixture.ts",
     "render:skeleton": "tsx tools/render-skeleton.ts",
+    "render:answers": "tsx tools/render-answers.ts",
     "extract:outline": "tsx tools/extract-outline.ts",
     "admin-ui": "tsx admin-ui/server.ts",
     "api": "tsx api/server.ts"

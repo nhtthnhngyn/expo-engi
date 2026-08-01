@@ -1,7 +1,7 @@
 {
   "formatId": "report-writing.default",
   "skeletonVersion": "v1",
-  "note": "Same conventions and Chapter I-II structure as protocol-design.default's skeleton (verified byte-identical page/typography/named styles against the real reference documents — see GENERAL_VS_PRIVATE_NOTES.md). Differs from Chapter III onward: a completed thesis reports actual results and a discussion rather than expected results and an implementation plan.",
+  "note": "Same conventions and Chapter I-II structure as protocol-design.default's skeleton (verified byte-identical page/typography/named styles against the real reference documents — see GENERAL_VS_PRIVATE_NOTES.md). Differs from Chapter III onward: a completed thesis reports actual results and a discussion rather than expected results and an implementation plan. Every fillIn node carries a stable attrs.slotId — see format-registry/answers-merge.ts, which uses it to merge a separate, private per-project document-answers.json into this shared skeleton at export time.",
   "doc": {
     "type": "doc",
     "content": [
@@ -10,46 +10,46 @@
 
       { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "problemStatement" },
         "content": [{ "type": "text", "text": "ĐẶT VẤN ĐỀ" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "problemStatementBody" }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "researchObjectives" },
         "content": [{ "type": "text", "text": "Mục tiêu nghiên cứu" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "objectives" }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "literatureReview" },
         "content": [{ "type": "text", "text": "CHƯƠNG I: TỔNG QUAN TÀI LIỆU" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — topic-dependent literature review, no pre-filled subheadings." }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "literatureReviewBody", "note": "Open — topic-dependent literature review, no pre-filled subheadings." }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "methods" },
         "content": [{ "type": "text", "text": "CHƯƠNG II: PHƯƠNG PHÁP NGHIÊN CỨU" }] },
 
       { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
         "content": [{ "type": "text", "text": "2.1. Thiết kế nghiên cứu" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "studyDesign" }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
         "content": [{ "type": "text", "text": "2.2. Thời gian và địa điểm nghiên cứu" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "timeAndPlace" }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
         "content": [{ "type": "text", "text": "2.3. Đối tượng nghiên cứu" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "subjects" }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 2, "locked": true, "sectionKind": "methodsSubsection" },
         "content": [{ "type": "text", "text": "2.4. Cỡ mẫu và phương pháp chọn mẫu" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "sampleSizeAndSampling" }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "results" },
         "content": [{ "type": "text", "text": "CHƯƠNG III: KẾT QUẢ" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open — subheadings typically correspond 1:1 with the declared objectives; count/wording can't be fixed here." }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "resultsBody", "note": "Open — subheadings typically correspond 1:1 with the declared objectives; count/wording can't be fixed here." }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "chapter", "chapterRole": "discussion" },
         "content": [{ "type": "text", "text": "CHƯƠNG IV: BÀN LUẬN" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true, "note": "Open. The source document's discussion subheadings (population characteristics, age/sex, comparison of results) reflect this one study's own reporting convention, not a universal structure — left unfixed so the format applies outside health-sciences research too." }, "content": [] },
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "discussionBody", "note": "Open. The source document's discussion subheadings (population characteristics, age/sex, comparison of results) reflect this one study's own reporting convention, not a universal structure — left unfixed so the format applies outside health-sciences research too." }, "content": [] },
 
       { "type": "heading", "attrs": { "level": 1, "locked": true, "sectionKind": "references" },
         "content": [{ "type": "text", "text": "TÀI LIỆU THAM KHẢO" }] },
-      { "type": "paragraph", "attrs": { "fillIn": true }, "content": [] }
+      { "type": "paragraph", "attrs": { "fillIn": true, "slotId": "references" }, "content": [] }
     ]
   }
 }

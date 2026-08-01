@@ -121,6 +121,9 @@ document), where every node carries one of two markers:
   pre-fill these with placeholder/hint text (like "[Enter your methods here]") — that's a
   front-end display concern (CSS placeholder, greyed-out hint), not data that should end up in a
   stored document or, worse, an exported `.docx` if the user skips a section.
+- `attrs.slotId: "<name>"` — every `fillIn` node also carries a stable slot id, unique within its
+  skeleton. This is the key a separate, private `document-answers.json` uses to address that exact
+  node — see "General vs. private content" below.
 
 For a format whose real headings use named Word styles (see the thesis-family formats), locked
 nodes are ordinary `heading` nodes. For a format with no named heading styles (see the manuscript
@@ -153,20 +156,28 @@ leaving a genuinely procedural heading open means losing real value the standard
 - **Document creation**: when a user starts a new document of a given format, the web app clones
   `document-skeleton.json` as the starting content — this is the "already on the web" experience
   described, now backed by data instead of hardcoded UI.
-- **Editing**: the user fills the `fillIn` nodes; `locked` nodes stay as-is (or, for a more
-  form-like editing UI, each `fillIn` node can instead be a separate stored field keyed by its
-  `sectionKind`/`blockKind`, assembled back into a full document by merging with the skeleton
-  right before export — pick whichever matches how content is actually stored today).
-- **Export**: either way, what reaches the normalizer is a complete ProseMirror document —
-  locked headings with their real text, fillIn nodes with the user's actual content. Nothing
-  about the export engine changes; a skeleton-seeded heading is indistinguishable in shape from
-  any other heading node.
+- **Editing**: the user fills the `fillIn` nodes; `locked` nodes stay as-is.
+- **Export**: what reaches the normalizer is a complete ProseMirror document — locked headings
+  with their real text, fillIn nodes with the user's actual content. Nothing about the export
+  engine changes; a skeleton-seeded heading is indistinguishable in shape from any other heading
+  node.
 
 ### Extraction method (same discipline as `config.json`)
 
 Read the same `document.xml` used to build the style config, list every heading/section-label in
 document order, and sort each into "lock it" or "leave it open" per the rule above — never lock
 a heading whose exact wording depends on the specific document it was found in.
+
+### General vs. private content: `document-answers.json`
+
+`document-skeleton.json` is shared, general content — the *same* file is handed to every user of a
+format, and stays that way. A user's own fill-in text (their study title, their objectives, their
+data) is private, per-project content and never lives in `/formats`. Instead it lives in its own
+`document-answers.json` — see `ENGINE_INTEGRATION_GUIDE.md`'s "Private content" section for the
+full shape and `format-registry/answers-merge.ts` for the pure function
+(`mergeAnswersIntoSkeleton`) that merges one into a shared skeleton at export time, keyed by each
+`fillIn` node's `attrs.slotId`. `examples/answers/*.json` has one real worked example per shipped
+format.
 
 ---
 

@@ -75,7 +75,12 @@ stop — that logic belongs in a format's `config.json` or in a registered block
       meta.json                    # structure/workflow: status, sectionOrder, requiredBlocks,
                                     # entitlement, provenance/reviewedBy
       document-skeleton.json       # optional: the seed ProseMirror doc a new document starts from
-                                    # (locked vs. fillIn nodes) — backs a fill-in-the-blanks editor
+                                    # (locked vs. fillIn nodes, each fillIn carrying a slotId) —
+                                    # backs a fill-in-the-blanks editor. Shared/general content only —
+                                    # a user's private answers live in their own document-answers.json,
+                                    # entirely outside /formats (see ENGINE_INTEGRATION_GUIDE.md and
+                                    # format-registry/answers-merge.ts). examples/answers/*.json has
+                                    # one real worked example per shipped format.
       template-facts.json          # optional: real per-style facts (font/size/bold/...) extracted
                                     # from a reference document; npm run build:templates turns this
                                     # into template.dotx automatically
@@ -135,10 +140,13 @@ npm run build:templates
 npm test
 
 # render a format's golden fixture locally
-npm run render:fixture -- --format=report-writing.consort
+npm run render:fixture -- --format=report-writing.default
 
 # render a format's starting document (document-skeleton.json) to see what a brand-new document looks like
-npm run render:skeleton -- --format=protocol-design.vn-academic-thesis-protocol
+npm run render:skeleton -- --format=protocol-design.default
+
+# merge a private document-answers.json into a shared skeleton and render the complete document
+npm run render:answers -- --format=idea-proposal.default
 ```
 
 ## Testing expectations

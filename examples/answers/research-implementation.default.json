@@ -1,0 +1,13 @@
+{
+  "formatId": "research-implementation.default",
+  "skeletonVersion": "v1",
+  "projectId": "proj_phase3_nc2026001",
+  "note": "Real private content drawn directly from the worked codebook.json example embedded in the user's own uploaded Phase 3 reference document (Đặc tả file đầu ra — Phase Triển khai nghiên cứu, section 4). That spec document doesn't contain an actual filled-in CRF (it's an artifact-format specification, not study data), so this answers file represents one illustrative CRF record built from the spec's own worked example (study id NC-2026-001, subject-code pattern NC001, the six example variables with their real name/label/type/role) rather than inventing an unrelated study. Kept entirely outside /formats; merged into formats/research-implementation/default/document-skeleton.json at export time by format-registry/answers-merge.ts.",
+  "answers": {
+    "studyCode": "NC-2026-001",
+    "subjectCode": "NC001",
+    "collectionDate": "15/08/2026",
+    "variablesBody": "ma_doi_tuong — Mã đối tượng (text, identifier, bắt buộc, pattern ^NC[0-9]{3}$).\ntuoi — Tuổi (continuous, năm, confounder, bắt buộc, khoảng hợp lệ 18–100).\ngioi — Giới tính (nominal, confounder, bắt buộc; 1 = Nam, 2 = Nữ).\nvas — Mức độ đau theo thang VAS (ordinal, exposure, bắt buộc; 1 = Nhẹ (1-3), 2 = Vừa (4-6), 3 = Nặng (7-10); công cụ: Visual Analogue Scale).\nbmi — Chỉ số khối cơ thể (continuous, kg/m2, descriptor, không bắt buộc; tính từ cân_nặng / (chiều_cao/100)^2).\nket_cuc — Có kết cục X (boolean, outcome, bắt buộc; 0 = Không, 1 = Có).",
+    "collectorSignature": ""
+  }
+}

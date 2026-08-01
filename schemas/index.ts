@@ -25,6 +25,7 @@ export const canonicalIrSchema = load('canonical-ir.schema.json');
 export const formatStyleSchema = load('format-style.schema.json');
 export const formatMetaSchema = load('format-meta.schema.json');
 export const documentSkeletonSchema = load('document-skeleton.schema.json');
+export const documentAnswersSchema = load('document-answers.schema.json');
 export const templateFactsSchema = load('template-facts.schema.json');
 
 export const SCHEMA_FILES = [
@@ -33,6 +34,7 @@ export const SCHEMA_FILES = [
   'format-style.schema.json',
   'format-meta.schema.json',
   'document-skeleton.schema.json',
+  'document-answers.schema.json',
   'template-facts.schema.json',
 ] as const;
 
@@ -44,6 +46,7 @@ export const validateCanonicalIr: ValidateFunction = ajv.compile(canonicalIrSche
 export const validateFormatStyle: ValidateFunction = ajv.compile(formatStyleSchema);
 export const validateFormatMeta: ValidateFunction = ajv.compile(formatMetaSchema);
 export const validateDocumentSkeleton: ValidateFunction = ajv.compile(documentSkeletonSchema);
+export const validateDocumentAnswers: ValidateFunction = ajv.compile(documentAnswersSchema);
 export const validateTemplateFacts: ValidateFunction = ajv.compile(templateFactsSchema);
 
 export function ajvErrorsToDetails(errors: ErrorObject[] | null | undefined): ErrorDetail[] {
