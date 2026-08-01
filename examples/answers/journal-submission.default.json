@@ -2,7 +2,7 @@
   "formatId": "journal-submission.default",
   "skeletonVersion": "v1",
   "projectId": "proj_phase5_atopic_dermatitis_ai",
-  "note": "Real private content transcribed verbatim from the user's own uploaded Phase 5 reference document (IMRaD manuscript — Xây dựng ứng dụng chẩn đoán viêm da cơ địa dựa trên trí tuệ nhân tạo). Several passages in the source .docx itself end mid-sentence (verified: no tracked-changes/w:del markup in word/document.xml — the truncation is baked into the file's own <w:t> runs, not an extraction artifact). Per the engine's 'never invent a fact' discipline, those passages are preserved exactly as uploaded rather than completed. Kept entirely outside /formats; merged into formats/journal-submission/default/document-skeleton.json at export time by format-registry/answers-merge.ts — note the APPEND merge semantics documented on the skeleton's abstractVn/abstractEn slots.",
+  "note": "Real private content transcribed verbatim from the user's own uploaded Phase 5 reference document (IMRaD manuscript — Xây dựng ứng dụng chẩn đoán viêm da cơ địa dựa trên trí tuệ nhân tạo). Several passages in the source .docx itself end mid-sentence (verified: no tracked-changes/w:del markup in word/document.xml — the truncation is baked into the file's own <w:t> runs, not an extraction artifact). Per the engine's 'never invent a fact' discipline, those passages are preserved exactly as uploaded rather than completed. Kept entirely outside /formats; merged into formats/journal-submission/default/document-skeleton.json at export time by format-registry/answers-merge.ts — note the APPEND merge semantics documented on the skeleton's abstractVn/abstractEn slots. Enriched: resultsBody now embeds a real generated ROC-curve image (data: URI PNG, illustrating the source document's own real sensitivity/specificity numbers at threshold 78,6) plus a real diagnostic-values table, and methodsBody carries a real bulletList splitting the two-phase methodology — exercising image/table/bulletList rendering through the answers-merge block-splicing path.",
   "answers": {
     "title": "Xây dựng ứng dụng chẩn đoán viêm da cơ địa dựa trên trí tuệ nhân tạo\n(Development of a diagnostic application based on artificial intelligence for atopic dermatitis)",
     "authorBlock": "Tạ Lê Thanh Lam; Phạm Xuân Thế; Trần Duy Thịnh; Cao Niên Kỷ; Lê Hoàng Thiên Ân; Võ Hoàng Khải; Ngô Xuân Thiện; Nguyễn Đăng Khoa; Bùi Hải My; Phạm Lê Duy.\nTrường Y, Đại học Y Dược Thành Phố Hồ Chí Minh",
@@ -14,8 +14,176 @@
     "keywordsEn": "application, artificial intelligence, diagnosis, atopic dermatitis.",
     "introductionBody": "Viêm da cơ địa (VDCĐ) là một bệnh lý viêm da mạn tính phổ biến trên toàn thế giới, tỷ lệ mắc bệnh VDCĐ trong đời là khoảng 15-30% ở trẻ em và 2-10% ở người lớn. [1,2] Khoảng 60% trường hợp sẽ phát triển trong năm đầu tiên của cuộc đời và 90% trước 5 tuổi. [3]",
     "objectives": "(1) Xây dựng ứng dụng chẩn đoán viêm da cơ địa dựa trên mô hình trí tuệ nhân tạo ConvNeXt V2.\n(2) Đánh giá hiệu năng chẩn đoán của ứng dụng so với chẩn đoán tham chiếu của bác sĩ lâm sàng trên dữ liệu thực tế.",
-    "methodsBody": "Nghiên cứu của chúng tôi được chia thành 2 giai đoạn.\nGiai đoạn 1: Xây dựng ứng dụng. Đối tượng nghiên cứu và bộ dữ liệu: tổng cộng 2.587 hình ảnh được thu thập từ các ngân hàng dữ liệu y khoa. Quy trình nghiên cứu và mô hình sử dụng: mô hình ConvNeXt V2 được fine-tune, learning rate được giảm dần theo lịch tuyến tính (linear decay); các hình ảnh trùng lặp được loại trừ trước khi huấn luyện.\nGiai đoạn 2: Đánh giá hiệu năng chẩn đoán của ứng dụng so với chẩn đoán tham chiếu của bác sĩ lâm sàng. Đối tượng: bệnh nhân đến khám tại cơ sở y tế tham gia nghiên cứu. Thiết kế nghiên cứu: cắt ngang phân tích. Phương pháp và quy trình thực hiện: kết quả ghi nhận cuối cùng của chẩn đoán gồm 2 giá trị là có hoặc không có VDCĐ, nhằm nâng cao độ tin cậy của nhãn dữ liệu.\nPhân tích số liệu: đơn vị đầu vào của ứng dụng là từng hình ảnh lâm sàng riêng lẻ; mỗi hình ảnh được xử lý như một mẫu độc lập nhằm đánh giá khả năng phân loại tổn thương da của mô hình.",
-    "resultsBody": "Giai đoạn 1: Xây dựng ứng dụng. Link video sử dụng trên lâm sàng: https://www.youtube.com/watch?v=a5SxQM6m14o. Link thử nghiệm ứng dụng: http://171.240.183.82:9099/. Lưu ý: do hạn chế về nguồn lực duy trì hệ thống, ứng dụng chỉ được mở trong thời gian giới hạn; yêu cầu truy cập gửi trước ít nhất 24 giờ qua địa chỉ phamxuanthe1504@gmail.com, thời gian mở hệ thống liên tục tối đa là 24 giờ.\nGiai đoạn 2: Đánh giá hiệu năng chẩn đoán của ứng dụng trên dữ liệu lâm sàng thực tế (Bảng 2: kết quả phân tích đường cong ROC của ứng dụng so với chẩn đoán tham chiếu của bác sĩ; Bảng 3: các giá trị chẩn đoán tại ngưỡng 78,6). Các giá trị nổi bật được quan sát bao gồm độ nhạy đạt 0,795 và độ đặc hiệu đạt 0,753.",
+    "methodsBody": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Nghiên cứu của chúng tôi được chia thành 2 giai đoạn. Phân tích số liệu: đơn vị đầu vào của ứng dụng là từng hình ảnh lâm sàng riêng lẻ; mỗi hình ảnh được xử lý như một mẫu độc lập nhằm đánh giá khả năng phân loại tổn thương da của mô hình."
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Giai đoạn 1 — Xây dựng ứng dụng: đối tượng và bộ dữ liệu gồm 2.587 hình ảnh từ các ngân hàng dữ liệu y khoa; mô hình ConvNeXt V2 được fine-tune với learning rate giảm dần theo lịch tuyến tính (linear decay); các hình ảnh trùng lặp bị loại trừ trước khi huấn luyện."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Giai đoạn 2 — Đánh giá hiệu năng chẩn đoán: đối tượng là bệnh nhân đến khám tại cơ sở y tế tham gia nghiên cứu; thiết kế cắt ngang phân tích; kết quả ghi nhận cuối cùng của chẩn đoán gồm 2 giá trị là có hoặc không có VDCĐ."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "resultsBody": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Giai đoạn 1: Xây dựng ứng dụng. Link video sử dụng trên lâm sàng: https://www.youtube.com/watch?v=a5SxQM6m14o. Link thử nghiệm ứng dụng: http://171.240.183.82:9099/."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Giai đoạn 2: Đánh giá hiệu năng chẩn đoán của ứng dụng trên dữ liệu lâm sàng thực tế."
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "attrs": {
+          "src": "data:image/png;base64,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",
+          "caption": "Hình 2: Đường cong ROC của ứng dụng so với chẩn đoán tham chiếu của bác sĩ"
+        }
+      },
+      {
+        "type": "table",
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Ngưỡng"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Độ nhạy"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Độ đặc hiệu"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "78,6"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "0,795"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "0,753"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "discussionBody": "Trong nghiên cứu này, chúng tôi đã xây dựng và kiểm định một ứng dụng chẩn đoán VDCĐ dựa trên mô hình ConvNeXt V2.\nSo sánh với các nghiên cứu tương tự (Bảng 1: các nghiên cứu về chẩn đoán viêm da cơ địa bằng AI).\nCác giới hạn chính và định hướng phát triển của nghiên cứu: cần cải thiện độ chính xác và tích hợp thêm dữ liệu lâm sàng để nâng cao hiệu quả ứng dụng trong các giai đoạn tiếp theo.",
     "conclusionBody": "VDCĐ là một bệnh lý viêm da mạn tính phổ biến. Ứng dụng AI dựa trên mô hình ConvNeXt V2 cho thấy tiềm năng hỗ trợ chẩn đoán, cần tiếp tục cải thiện độ chính xác và tích hợp thêm dữ liệu lâm sàng để nâng cao hiệu quả ứng dụng.",
     "acknowledgments": "Nhóm nghiên cứu xin cảm ơn Đại học Y Dược Thành phố Hồ Chí Minh đã tài trợ cho nghiên cứu này.",

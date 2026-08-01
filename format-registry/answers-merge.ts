@@ -9,9 +9,19 @@
  * `attrs.slotId` each fillIn node carries. Nothing under `/formats` is ever mutated by this;
  * `mergeAnswersIntoSkeleton` returns a brand-new document.
  *
- * Merge is APPEND, not REPLACE: a fillIn node's existing `content` (e.g. a structured abstract's
- * fixed bold lead-in labels) is preserved, and the answer's content is appended after it. A slot
- * with no matching answer keeps its skeleton content unchanged (usually empty).
+ * An answer's content is either **inline** or **block**, decided by shape, not by any extra flag:
+ * - A plain string, or an array whose nodes are all `text` (the base contract's only inline leaf
+ *   type), is inline content. It is APPENDED into the fillIn node's existing `content` — never
+ *   replaced — so fixed lead-in labels a skeleton already carries (e.g. a structured abstract's
+ *   bold "Đặt vấn đề:") survive the merge.
+ * - An array containing any non-`text` node (`table`, `image`, `codeBlock`, `bulletList`,
+ *   `orderedList`, `blockquote`, `horizontalRule`, `paragraph`, `heading`, …) is block content —
+ *   the same vocabulary the editor itself produces, so a user's private answer can be as rich as
+ *   anything they could type in a Notion-like editor. Block content is SPLICED IN as new siblings
+ *   immediately after the fillIn node, in the same content array, leaving the fillIn node's own
+ *   (usually empty) content untouched.
+ *
+ * A slot with no matching answer keeps its skeleton content unchanged (usually empty).
  */
 
 import type { DocumentAnswers, DocumentSkeleton, PMDoc, PMNode } from '../core/types.js';
@@ -31,20 +41,47 @@ function answerToContent(value: string | PMNode[]): PMNode[] {
   return value;
 }
 
-function mergeNode(node: PMNode, answers: Record<string, string | PMNode[]>, matchedSlots: Set<string>): PMNode {
-  const attrs = (node.attrs ?? {}) as Record<string, unknown>;
-  const content = node.content ? node.content.map((child) => mergeNode(child, answers, matchedSlots)) : node.content;
+/** The base contract's only inline leaf type is `text` — anything else is block content. */
+function isInlineOnly(nodes: PMNode[]): boolean {
+  return nodes.every((node) => node.type === 'text');
+}
 
-  if (attrs.fillIn === true && typeof attrs.slotId === 'string') {
+function mergeNodeList(
+  nodes: PMNode[] | undefined,
+  answers: Record<string, string | PMNode[]>,
+  matchedSlots: Set<string>,
+): PMNode[] | undefined {
+  if (!nodes) return nodes;
+  const out: PMNode[] = [];
+
+  for (const node of nodes) {
+    const attrs = (node.attrs ?? {}) as Record<string, unknown>;
+    const mergedContent = mergeNodeList(node.content, answers, matchedSlots);
+    const mergedNode = mergedContent === node.content ? node : { ...node, content: mergedContent };
+
+    if (attrs.fillIn !== true || typeof attrs.slotId !== 'string') {
+      out.push(mergedNode);
+      continue;
+    }
     const slotId = attrs.slotId;
-    if (Object.prototype.hasOwnProperty.call(answers, slotId)) {
-      matchedSlots.add(slotId);
-      const answerContent = answerToContent(answers[slotId]!);
-      return { ...node, content: [...(content ?? []), ...answerContent] };
+    if (!Object.prototype.hasOwnProperty.call(answers, slotId)) {
+      out.push(mergedNode);
+      continue;
+    }
+
+    matchedSlots.add(slotId);
+    const answerContent = answerToContent(answers[slotId]!);
+
+    if (answerContent.length === 0 || isInlineOnly(answerContent)) {
+      out.push({ ...mergedNode, content: [...(mergedNode.content ?? []), ...answerContent] });
+    } else {
+      // Block content: keep the fillIn node as-is (its own label/content, if any) and splice the
+      // answer's block nodes in as new siblings right after it.
+      out.push(mergedNode, ...answerContent);
     }
   }
 
-  return content === node.content ? node : { ...node, content };
+  return out;
 }
 
 /**
@@ -60,7 +97,8 @@ export function mergeAnswersIntoSkeleton(skeleton: DocumentSkeleton, answers: Do
 
   const allSlotIds = collectSlotIds(skeleton.doc);
   const matchedSlots = new Set<string>();
-  const doc = mergeNode(skeleton.doc, answers.answers, matchedSlots) as PMDoc;
+  const content = mergeNodeList(skeleton.doc.content, answers.answers, matchedSlots);
+  const doc: PMDoc = { ...skeleton.doc, content } as PMDoc;
 
   const unfilledSlots = allSlotIds.filter((slotId) => !matchedSlots.has(slotId));
   const unmatchedAnswers = Object.keys(answers.answers).filter((key) => !allSlotIds.includes(key));

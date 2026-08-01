@@ -2,7 +2,7 @@
   "formatId": "protocol-design.default",
   "skeletonVersion": "v1",
   "projectId": "proj_phase2_ai_gait_analysis",
-  "note": "Real private content transcribed from the user's own uploaded Phase 2 reference document (Đề cương nghiên cứu — so sánh phân tích dáng đi AI MediaPipe với hệ thống IMU sau đột quỵ). Kept entirely outside /formats; merged into formats/protocol-design/default/document-skeleton.json at export time by format-registry/answers-merge.ts.",
+  "note": "Real private content transcribed from the user's own uploaded Phase 2 reference document (Đề cương nghiên cứu — so sánh phân tích dáng đi AI MediaPipe với hệ thống IMU sau đột quỵ). Kept entirely outside /formats; merged into formats/protocol-design/default/document-skeleton.json at export time by format-registry/answers-merge.ts. Enriched: sampleSizeAndSampling now carries real block content (paragraphs + a 7-step ordered list for the sampling procedure) rather than a flattened string, exercising the answers-merge block-splicing path.",
   "answers": {
     "problemStatementBody": "Do đó, việc tiến hành nghiên cứu nhằm mô tả các thông số dáng đi được phân tích bằng công cụ trí tuệ nhân tạo và đánh giá mức độ tương đồng giữa các thông số này với hệ thống phân tích dáng đi sử dụng cảm biến quán tính (IMU sensors) ở người bệnh sau đột quỵ là cần thiết. Kết quả nghiên cứu kỳ vọng sẽ góp phần làm rõ khả năng ứng dụng của các hệ thống markerless AI gait analysis trong cung cấp dữ liệu vận động định lượng khách quan, từ đó mở ra hướng tiếp cận đánh giá dáng đi đơn giản, chi phí thấp và phù hợp hơn với thực hành phục hồi chức năng lâm sàng.",
     "objectives": "Mục tiêu tổng quát: Đánh giá khả năng ứng dụng của hệ thống phân tích dáng đi dựa trên trí tuệ nhân tạo MediaPipe trong đánh giá dáng đi ở người bệnh sau đột quỵ thông qua so sánh với hệ thống phân tích dáng đi sử dụng cảm biến quán tính (IMU sensors).\nMục tiêu cụ thể:\n1. Mô tả đặc điểm lâm sàng và chức năng vận động của người bệnh sau đột quỵ tham gia nghiên cứu.\n2. Mô tả các thông số dáng đi được trích xuất từ video bằng hệ thống AI sử dụng MediaPipe.\n3. Mô tả các thông số dáng đi được ghi nhận bằng hệ thống phân tích dáng đi sử dụng cảm biến quán tính (IMU Sensors).\n4. Phân tích mức độ tương quan và độ tương đồng giữa các thông số dáng đi thu được từ MediaPipe và hệ thống IMU ở người bệnh sau đột quỵ.\n5. Xác định các thông số dáng đi có độ phù hợp cao giữa hai hệ thống nhằm đánh giá khả năng ứng dụng hệ thống AI MediaPipe trong thực hành phục hồi chức năng lâm sàng.",
@@ -10,7 +10,141 @@
     "studyDesign": "Cắt ngang phân tích đánh giá tương đồng",
     "timeAndPlace": "Thời gian thực hiện: tháng 5/2026 – 5/2027 (12 tháng). Địa điểm nghiên cứu: Bệnh viện An Bình.",
     "subjects": "Dân số nghiên cứu: bệnh nhân đã được điều trị đột quỵ sau đợt cấp, có khả năng thực hiện nhiệm vụ đi bộ để ghi hình/phân tích dáng đi, đã đang hoặc sắp điều trị phục hồi chức năng sau đột quỵ.\nDân số chọn mẫu: các bệnh nhân sau đột quỵ đến khám hoặc điều trị tại Khoa Phục hồi chức năng Bệnh viện An Bình trong thời gian từ 01/07/2026 đến 01/07/2027, đáp ứng tiêu chí chọn mẫu và đồng ý tham gia nghiên cứu.\nTiêu chuẩn chọn vào: đã được chẩn đoán, điều trị đột quỵ và đã kết thúc giai đoạn cấp tính; có thể tự di chuyển và không cần hỗ trợ của người khác hoặc dụng cụ; đồng ý ghi hình và sử dụng dữ liệu cho nghiên cứu.\nTiêu chuẩn loại trừ: bệnh lý khác ảnh hưởng dáng đi rõ rệt (Parkinson, bệnh tiểu não, gãy xương chi dưới…); rối loạn về tâm thần không hợp tác.",
-    "sampleSizeAndSampling": "Cỡ mẫu: được tính dựa trên mục tiêu phân tích mối tương quan giữa các thông số dáng đi thu được từ hệ thống markerless AI gait analysis MediaPipe và hệ thống IMU. Giả định hệ số tương quan kỳ vọng là 0,4, với mức ý nghĩa α = 0,05 và lực mẫu 80%, cỡ mẫu tối thiểu ước tính là 47 người bệnh. Dự phòng khoảng 10–15% trường hợp dữ liệu không đạt chất lượng, nghiên cứu dự kiến tuyển chọn khoảng 55–60 người bệnh sau đột quỵ.\nPhương pháp chọn mẫu: chọn mẫu thuận tiện liên tiếp, tuyển tất cả bệnh nhân sau đột quỵ đến khám/điều trị tại khoa Phục hồi chức năng bệnh viện An Bình trong thời gian thu thập số liệu, thỏa tiêu chí chọn vào và không thuộc tiêu chí loại trừ, cho đến khi đạt cỡ mẫu dự kiến.\nQuy trình lấy mẫu: (1) Sàng lọc bệnh nhân; (2) Mời tham gia nghiên cứu; (3) Tuyển mẫu và thu thập thông tin nền; (4) Ghi hình dáng đi theo quy trình chuẩn hóa; (5) Kiểm tra chất lượng dữ liệu; (6) Đánh giá bằng thiết bị Steadys (IMU sensors); (7) Ghép và xử lý dữ liệu.",
+    "sampleSizeAndSampling": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Cỡ mẫu: được tính dựa trên mục tiêu phân tích mối tương quan giữa các thông số dáng đi thu được từ hệ thống markerless AI gait analysis MediaPipe và hệ thống IMU. Giả định hệ số tương quan kỳ vọng là 0,4, với mức ý nghĩa α = 0,05 và lực mẫu 80%, cỡ mẫu tối thiểu ước tính là 47 người bệnh. Dự phòng khoảng 10–15% trường hợp dữ liệu không đạt chất lượng, nghiên cứu dự kiến tuyển chọn khoảng 55–60 người bệnh sau đột quỵ."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Phương pháp chọn mẫu: chọn mẫu thuận tiện liên tiếp, tuyển tất cả bệnh nhân sau đột quỵ đến khám/điều trị tại khoa Phục hồi chức năng bệnh viện An Bình trong thời gian thu thập số liệu, thỏa tiêu chí chọn vào và không thuộc tiêu chí loại trừ, cho đến khi đạt cỡ mẫu dự kiến."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Quy trình lấy mẫu:",
+            "marks": [
+              "bold"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sàng lọc bệnh nhân: rà soát bệnh nhân sau đột quỵ đến khám/điều trị tại bệnh viện; sàng lọc theo tiêu chí chọn vào và loại trừ dựa trên bệnh án và khả năng thực hiện ghi hình dáng đi."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Mời tham gia nghiên cứu: giải thích mục tiêu nghiên cứu, quyền lợi và bảo mật thông tin; bệnh nhân đồng ý tham gia và ký phiếu chấp thuận."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Tuyển mẫu và thu thập thông tin nền: gán mã định danh cho bệnh nhân và video; thu thập các thông tin lâm sàng cần thiết theo phiếu."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Ghi hình dáng đi: thực hiện ghi hình theo quy trình chuẩn hóa về vị trí camera (trước-sau và trái-phải), ánh sáng và quãng đường đi; lưu trữ video dưới dạng ẩn danh."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Kiểm tra chất lượng dữ liệu: đánh giá chất lượng video; loại bỏ các video không đạt yêu cầu theo tiêu chí đã định trước."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Đánh giá bằng thiết bị Steadys (IMU sensors): đánh giá và ghi nhận các thông tin dáng đi của bệnh nhân bằng thiết bị."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Ghép và xử lý dữ liệu: ghép dữ liệu đánh giá thang điểm lâm sàng, kết quả MediaPipe, kết quả IMU và thông tin bệnh nhân; làm sạch và khóa dữ liệu trước khi phân tích."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "expectedResultsBody": "3.1. Mục tiêu 1: Mô tả đặc điểm lâm sàng và chức năng vận động của người bệnh sau đột quỵ tham gia nghiên cứu (Bảng 3.1, Bảng 3.2).\n3.2. Mục tiêu 2: Mô tả các thông số dáng đi được trích xuất từ video bằng hệ thống AI sử dụng MediaPipe (Bảng 3.3).",
     "personnel": "Nhân lực: gồm học viên, giảng viên hướng dẫn và 2 cộng tác viên.",
     "resources": "Tài liệu tham khảo: từ các nguồn dữ liệu như PubMed, Google Scholar, Google, Thư viện Đại học Y Dược TP.HCM.\nPhương tiện lấy mẫu: điện thoại, laptop, máy quay phim Sony FDR-AX43A, hệ thống AI phân tích dáng đi.\nPhần mềm hỗ trợ nhập liệu, phân tích số liệu: Excel 2016, JASP.",
