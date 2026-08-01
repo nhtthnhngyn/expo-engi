@@ -149,9 +149,17 @@ export function runPropertiesXml(
   return `<w:rPr>${parts.join('')}</w:rPr>`;
 }
 
+/** ST_Jc has no "justify" value — OOXML's word for justified text is "both". */
+const JC_VALUE: Readonly<Record<string, string>> = Object.freeze({
+  left: 'left',
+  right: 'right',
+  center: 'center',
+  justify: 'both',
+});
+
 /** Emits the `<w:jc>` paragraph-alignment override a block's direct formatting may specify. */
 export function directParagraphPropsXml(direct: DirectFormatting): string {
-  return direct.alignment ? `<w:jc w:val="${direct.alignment}"/>` : '';
+  return direct.alignment ? `<w:jc w:val="${JC_VALUE[direct.alignment]}"/>` : '';
 }
 
 export function runsXml(runs: IRRun[] | undefined, ctx: RunContext): string {

@@ -117,9 +117,9 @@ function styleXml(definition: StyleDefinition, defaults: TemplateDefinition): st
     `<w:name w:val="${escapeXml(definition.name)}"/>` +
     basedOn +
     '<w:qFormat/>' +
-    tblPr +
     pPr +
     rPr +
+    tblPr +
     '</w:style>'
   );
 }

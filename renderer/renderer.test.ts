@@ -9,7 +9,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { renderToDocx } from './index.js';
 import { resolveFormat } from '../format-registry/resolver.js';
-import { buildDotx } from '../tools/dotx-builder.js';
+import { buildDotx, stylesXml } from '../tools/dotx-builder.js';
 import { zipRead } from '../core/ooxml/zip.js';
 import type { CanonicalIR, FormatConfig, FormatMeta } from '../core/types.js';
 
@@ -226,6 +226,16 @@ describe('renderer', () => {
     expect(xml).toContain('<w:jc w:val="right"/>');
   });
 
+  it('maps a "justify" alignment to OOXML\'s w:jc value "both" (ST_Jc has no "justify" member)', () => {
+    const format = setupFormat(
+      baseConfig({ styleMap: { ...baseConfig().styleMap, 'custom:justified': { style: 'Body Copy', paragraphFormatting: { alignment: 'justify' } } } }),
+    );
+    const document = ir([{ id: '1', type: 'paragraph', runs: [{ text: 'x' }], attrs: { blockKind: 'justified' } }]);
+    const xml = documentXml(renderToDocx(document, format).bytes);
+    expect(xml).toContain('<w:jc w:val="both"/>');
+    expect(xml).not.toContain('w:val="justify"');
+  });
+
   it('honours page.widthTwips/heightTwips/margins from config.page', () => {
     const format = setupFormat(
       baseConfig({
@@ -389,5 +399,20 @@ describe('renderer', () => {
       // still flows to un-tagged children exactly as before this fix.
       expect(xml).toContain(`<w:pStyle w:val="${headerStyleId}"/>`);
     });
+  });
+});
+
+describe('dotx-builder table styles', () => {
+  it('orders pPr/rPr before tblPr in a table-type style (CT_Style requires rPr before tblPr)', () => {
+    const xml = stylesXml({
+      bodyFont: 'Calibri',
+      bodySizeHalfPoints: 22,
+      styles: [{ name: 'Table Style', type: 'table', bold: true }],
+    });
+    const rPrIndex = xml.indexOf('<w:rPr>');
+    const tblPrIndex = xml.indexOf('<w:tblPr>');
+    expect(rPrIndex).toBeGreaterThan(-1);
+    expect(tblPrIndex).toBeGreaterThan(-1);
+    expect(rPrIndex).toBeLessThan(tblPrIndex);
   });
 });
