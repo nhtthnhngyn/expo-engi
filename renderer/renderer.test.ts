@@ -113,6 +113,16 @@ describe('renderer', () => {
     expect(xml).toContain(`<w:pStyle w:val="${bodyStyleId}"/>`);
   });
 
+  it('splits a run\'s embedded newlines into <w:br/> instead of a raw newline byte inside <w:t>', () => {
+    const format = setupFormat(baseConfig());
+    const document = ir([
+      { id: '1', type: 'paragraph', runs: [{ text: 'Line one\nLine two\nLine three' }] },
+    ]);
+    const xml = documentXml(renderToDocx(document, format).bytes);
+    expect(xml).toContain('<w:t xml:space="preserve">Line one</w:t><w:br/><w:t xml:space="preserve">Line two</w:t><w:br/><w:t xml:space="preserve">Line three</w:t>');
+    expect(xml).not.toMatch(/<w:t[^>]*>[^<]*\n/);
+  });
+
   it('respects sectionOrder (from meta.json) regardless of the order blocks appear in the IR', () => {
     const format = setupFormat(baseConfig(), baseMeta({ sectionOrder: ['first', 'second'] }));
     const document = ir([

@@ -170,7 +170,13 @@ function singleRunXml(run: IRRun, ctx: RunContext): string {
   }
 
   if (run.text.length > 0) {
-    const body = `<w:t xml:space="preserve">${escapeXml(run.text)}</w:t>`;
+    const lines = run.text.split('\n');
+    const body = lines
+      .map((line, index) => {
+        const br = index === 0 ? '' : '<w:br/>';
+        return `${br}<w:t xml:space="preserve">${escapeXml(line)}</w:t>`;
+      })
+      .join('');
     pieces.push(`<w:r>${rPr}${body}</w:r>`);
   }
 
