@@ -1,90 +1,90 @@
-# Proposal: Universal Research-Document Export Engine
+# Đề xuất: Universal Research-Document Export Engine
 
-## Problem
+## Vấn đề
 
-The platform's research workflow has six phases today — Protocol Design, Data Collection, Data
-Processing, Statistical Analysis, Report Writing, Journal Submission — and more will be added as
-the product grows. Every phase's content is authored as rich text (ProseMirror JSON) in the
-editor, and every phase eventually needs to leave the platform as a correctly formatted Word
-document: a protocol draft, a CRF, a stats report, a CONSORT/STROBE/PRISMA-compliant manuscript,
-a specific journal's submission format.
+Quy trình nghiên cứu của nền tảng hiện có sáu phase — Thiết kế đề cương, Thu thập số liệu, Xử lý số
+liệu, Phân tích thống kê, Viết báo cáo, Nộp bài báo khoa học — và sẽ có thêm phase khi sản phẩm phát
+triển. Nội dung của mọi phase được soạn dưới dạng rich text (ProseMirror JSON) trong editor, và
+cuối cùng mọi phase đều cần rời khỏi nền tảng dưới dạng một tài liệu Word được định dạng đúng chuẩn:
+một bản nháp đề cương, một CRF, một báo cáo thống kê, một bản thảo tuân thủ CONSORT/STROBE/PRISMA,
+định dạng nộp bài của một tạp chí cụ thể.
 
-Building export as "one function per phase" means every future format — and every research
-platform's own house style — adds a new, separately-maintained codepath. A bug fix or a new
-content type (a table, an equation, a checklist) then has to be fixed N times instead of once, and
-the cost of supporting a new format grows without bound.
+Nếu xây export theo kiểu "một hàm cho mỗi phase" thì mỗi format tương lai — và mỗi phong cách trình
+bày riêng của từng nền tảng nghiên cứu — sẽ thêm một codepath mới, phải bảo trì riêng biệt. Một lần
+sửa lỗi hay một loại nội dung mới (một bảng, một công thức, một checklist) khi đó phải sửa N lần
+thay vì một lần, và chi phí hỗ trợ thêm một format mới sẽ tăng không giới hạn.
 
-## Proposed solution
+## Giải pháp đề xuất
 
-Build **one** export engine, shared by every phase and every format, plus a **format registry** —
-a folder of small configuration files and Word templates, one per format — that the engine reads
-at export time. The engine itself never contains logic specific to any phase or format; all of
-that lives in data.
+Xây dựng **một** export engine duy nhất, dùng chung cho mọi phase và mọi format, cộng với một
+**format registry** — một thư mục chứa các file cấu hình nhỏ và template Word, mỗi format một bộ —
+mà engine đọc vào lúc export. Bản thân engine không bao giờ chứa logic đặc thù cho bất kỳ phase hay
+format nào; tất cả những gì đó nằm trong dữ liệu.
 
-Concretely: ProseMirror JSON → a shared normalizer → a shared, phase-agnostic intermediate
-representation → a shared Word renderer that consults a format's config for styling, section
-order, and numbering. Adding format #50 next year means adding a folder under `/formats` — not
-touching engine code.
+Cụ thể: ProseMirror JSON → một normalizer dùng chung → một biểu diễn trung gian (IR) dùng chung,
+không phụ thuộc phase → một renderer Word dùng chung, tham chiếu config của một format để lấy
+styling, thứ tự section, và cách đánh số. Thêm format thứ 50 vào năm sau chỉ đơn giản là thêm một
+thư mục dưới `/formats` — không đụng vào code của engine.
 
-## Why this is the right shape
+## Vì sao đây là hình dạng đúng
 
-- **Maintenance scales sub-linearly.** A bug fix in table handling, footnote support, or TOC
-  generation is fixed once and applies to every current and future format.
-- **New formats are cheap and safe to add.** A new journal template or a new phase's output format
-  is a config file + a `.dotx`, reviewed and tested like any other data change — no engine
-  redeploy, no new code review of shared logic.
-- **The architecture is provable early.** The delivery plan requires getting two unrelated formats
-  (e.g. a protocol template and CONSORT) working through the identical renderer binary before any
-  further tooling is built — this is checked, not assumed.
-- **No AI decision-making in the format-authoring path.** Given these formats are used in real
-  research and publication contexts (CONSORT/STROBE/PRISMA compliance has actual downstream
-  consequences), the semantic judgments in format onboarding are deliberately fully deterministic:
-  a fixed rule (is this heading standard or topic-specific?) or a human decision, never a model's
-  guess. An assistant may extract real facts from an official reference document — style names,
-  fonts, sizes, margins, heading order, and even a starting "fill in the blanks" document skeleton
-  — but only facts actually present in the file, never invented ones, and every extracted format
-  starts in `draft` status until a human reviews and publishes it.
+- **Chi phí bảo trì tăng chậm hơn tuyến tính.** Một lần sửa lỗi trong xử lý bảng, hỗ trợ footnote,
+  hay sinh mục lục (TOC) chỉ cần sửa một lần và áp dụng cho mọi format hiện tại lẫn tương lai.
+- **Thêm format mới rẻ và an toàn.** Một template tạp chí mới hay định dạng đầu ra của một phase mới
+  chỉ là một file config + một `.dotx`, được review và test như bất kỳ thay đổi dữ liệu nào khác —
+  không cần redeploy engine, không cần review lại logic dùng chung.
+- **Kiến trúc được chứng minh sớm.** Kế hoạch triển khai yêu cầu phải chạy được hai format không
+  liên quan tới nhau (ví dụ một template đề cương và CONSORT) qua cùng một renderer binary trước khi
+  xây thêm bất kỳ công cụ nào khác — điều này được kiểm chứng, không phải giả định.
+- **Không có quyết định của AI trong luồng soạn format.** Vì các format này được dùng trong bối cảnh
+  nghiên cứu và xuất bản thật (tuân thủ CONSORT/STROBE/PRISMA có hệ quả thật ở phía sau), các phán
+  đoán mang tính ngữ nghĩa trong onboard format được cố tình thiết kế hoàn toàn xác định (deterministic):
+  hoặc là một quy tắc cố định (heading này là chuẩn hay đặc thù theo chủ đề?), hoặc là quyết định của
+  con người, không bao giờ là phỏng đoán của model. Một trợ lý có thể trích xuất các dữ kiện thật từ
+  một tài liệu tham chiếu chính thức — tên style, font, cỡ chữ, margin, thứ tự heading, thậm chí cả
+  một tài liệu khởi tạo "điền vào chỗ trống" — nhưng chỉ những dữ kiện thật sự có trong file, không
+  bao giờ bịa ra, và mọi format vừa trích xuất đều bắt đầu ở trạng thái `draft` cho đến khi có người
+  review và publish.
 
-## Scope
+## Phạm vi
 
-**In scope (v1):** the normalizer/IR/renderer pipeline; the format registry and its folder
-structure; export API (sync + async); entitlement and RBAC gating; audit logging; the format
-onboarding process (manual authoring, optionally assisted by deterministic structural extraction);
-an admin UI for authoring and publishing format configs.
+**Trong phạm vi (v1):** pipeline normalizer/IR/renderer; format registry và cấu trúc thư mục của nó;
+export API (đồng bộ + bất đồng bộ); kiểm soát entitlement và RBAC; ghi audit log; quy trình onboard
+format (soạn thủ công, có thể được hỗ trợ bởi trích xuất cấu trúc xác định); một admin UI để soạn và
+publish config của format.
 
-**Explicitly deferred:** tracked-changes/comments round-tripping through export; live-updating
-Word fields; full bibliography/citation-manager integration. These are called out so scope stays
-honest — they can be picked up once the core engine is proven.
+**Cố tình chưa làm:** round-trip tracked-changes/comment qua export; Word field cập nhật trực tiếp
+(live-updating); tích hợp đầy đủ với trình quản lý trích dẫn/thư mục tài liệu tham khảo. Những mục
+này được nêu rõ để phạm vi luôn trung thực — có thể làm sau khi engine lõi đã được chứng minh.
 
-## Delivery plan (see `AGENT_BUILD_SPEC.md` for full detail)
+## Kế hoạch triển khai (xem `AGENT_BUILD_SPEC.md` để biết chi tiết đầy đủ)
 
-Work proceeds in dependency order: data contracts/schemas → normalizer → validator → renderer +
-first format → a **second and third format proving genericity with zero renderer changes** →
-export API → block plugins for complex content → admin config editor → hardening (versioning,
-determinism, RBAC, audit). The genericity checkpoint is placed deliberately before the admin
-tooling milestone, so tooling isn't built around an unproven abstraction.
+Công việc tiến hành theo thứ tự phụ thuộc: hợp đồng dữ liệu/schema → normalizer → validator →
+renderer + format đầu tiên → **format thứ hai và thứ ba để chứng minh tính tổng quát mà không cần
+sửa renderer** → export API → block plugin cho nội dung phức tạp → admin config editor → hoàn thiện
+(versioning, tính xác định, RBAC, audit). Mốc kiểm chứng tính tổng quát được đặt có chủ đích trước
+milestone công cụ admin, để công cụ không được xây quanh một abstraction chưa được chứng minh.
 
-## Success criteria
+## Tiêu chí thành công
 
-- Two structurally different formats render correctly through one renderer binary with no
-  renderer code differences between them.
-- A new format can go from "official reference document in hand" to "published, tested format"
-  without any engine code change.
-- Re-exporting identical content against an unchanged format produces byte-identical output
-  (determinism), every time.
-- Every export is attributable: who, when, which format version, which content version.
+- Hai format khác nhau về cấu trúc render đúng qua cùng một renderer binary, không có khác biệt nào
+  trong code renderer giữa chúng.
+- Một format mới có thể đi từ "có tài liệu tham chiếu chính thức trong tay" đến "format đã publish,
+  đã test" mà không cần bất kỳ thay đổi code engine nào.
+- Export lại cùng một nội dung với một format không đổi cho ra kết quả giống hệt nhau ở mức byte
+  (tính xác định), mọi lần.
+- Mọi lượt export đều có thể truy vết: ai, khi nào, phiên bản format nào, phiên bản nội dung nào.
 
-## Risks & mitigations
+## Rủi ro & biện pháp giảm thiểu
 
-| Risk | Mitigation |
+| Rủi ro | Biện pháp giảm thiểu |
 |---|---|
-| Phases invent bespoke ProseMirror node types instead of the shared `researchBlock` convention, breaking genericity | Enforce the convention in the editor layer and reject non-conforming input at the normalizer boundary with a clear error |
-| A format's `.dotx` style names drift from what its config references, causing silent mis-styling | Automated style-map lint blocks publishing any config whose styles don't exist in the template |
-| Config authoring accumulates logic/conditionals over time | Code review rule: any config needing an `if` is redirected to a block plugin instead |
-| Onboarding a new format is slow without any automation | Deterministic extraction produces a complete draft — config, starting document skeleton, and the real style facts needed to build the Word template automatically — without taking any decision-making role; a human still reviews before it goes live |
+| Các phase tự bịa ra kiểu node ProseMirror riêng thay vì dùng quy ước `researchBlock` dùng chung, phá vỡ tính tổng quát | Bắt buộc quy ước này ở tầng editor và từ chối input không tuân thủ ngay tại ranh giới của normalizer với một lỗi rõ ràng |
+| Tên style trong `.dotx` của một format bị lệch so với những gì config của nó tham chiếu, gây sai style một cách âm thầm | Style-map lint tự động chặn publish bất kỳ config nào có style không tồn tại trong template |
+| Việc soạn config dần dần tích tụ logic/điều kiện theo thời gian | Quy tắc review code: bất kỳ config nào cần một `if` sẽ được chuyển hướng sang một block plugin thay vì viết trực tiếp |
+| Onboard một format mới chậm nếu không có tự động hóa | Trích xuất xác định (deterministic) tạo ra một bản nháp hoàn chỉnh — config, tài liệu khởi tạo, và các dữ kiện style thật cần thiết để tự động build template Word — mà không đóng vai trò ra quyết định nào; vẫn cần một người review trước khi đưa vào sử dụng thật |
 
-## Ask
+## Đề nghị
 
-Approve the architecture and delivery order in `AGENT_BUILD_SPEC.md`, and prioritize the
-genericity checkpoint (two formats, one renderer) as the go/no-go milestone before further
-investment in tooling.
+Phê duyệt kiến trúc và thứ tự triển khai trong `AGENT_BUILD_SPEC.md`, và ưu tiên mốc kiểm chứng
+tính tổng quát (hai format, một renderer) làm milestone go/no-go trước khi đầu tư thêm vào công cụ.

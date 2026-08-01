@@ -1,176 +1,184 @@
-# Export engine — ProseMirror → Word, for every research phase and format
+# Export engine — ProseMirror → Word, cho mọi phase và mọi format nghiên cứu
 
-This service converts a phase's rich-text content (ProseMirror JSON) into a correctly formatted
-`.docx`, for any research phase (Protocol Design, Data Collection, Data Processing, Statistical
-Analysis, Report Writing, Journal Submission, and any phase added later) and any format within a
-phase (CONSORT, STROBE, PRISMA, a specific journal's template, a CRF layout, an institution's
-thesis template, etc.).
+Dịch vụ này chuyển nội dung rich-text (ProseMirror JSON) của một phase thành file `.docx` được
+định dạng đúng chuẩn, áp dụng cho bất kỳ phase nghiên cứu nào (Thiết kế đề cương, Thu thập số liệu,
+Xử lý số liệu, Phân tích thống kê, Viết báo cáo, Nộp bài báo khoa học, và bất kỳ phase nào được
+thêm sau này) và bất kỳ format nào trong một phase (CONSORT, STROBE, PRISMA, template của một tạp
+chí cụ thể, một biểu mẫu CRF, template luận văn của một cơ sở đào tạo, v.v.).
 
-**Before touching engine code, read `AGENT_BUILD_SPEC.md`.** It is the source of truth for
-contracts, folder layout, and required tests. This README is a map to that document and a
-quickstart, not a replacement for it. See also `PROPOSAL.md` for the "why" at a higher level.
+**Trước khi động vào code của engine, hãy đọc `AGENT_BUILD_SPEC.md`.** Đây là nguồn tham chiếu
+chính xác duy nhất cho các hợp đồng dữ liệu (contracts), cấu trúc thư mục, và bộ test bắt buộc.
+README này chỉ là bản đồ dẫn tới tài liệu đó và một hướng dẫn khởi động nhanh, không phải bản thay
+thế. Xem thêm `PROPOSAL.md` để hiểu "vì sao" ở tầm nhìn tổng quan hơn.
 
-Two more focused guides live alongside this one, for the two audiences who touch this repo without
-needing the full spec:
+Có thêm hai tài liệu tập trung hơn đi kèm README này, dành cho hai nhóm người dùng chạm vào repo
+này mà không cần đọc toàn bộ spec:
 
-- **`CLAUDE_FORMAT_EXTRACTION_GUIDE.md`** — everything an AI assistant (Claude chat/Claude Code)
-  needs to turn one uploaded reference document into a new format entry: exact file shapes, hard
-  rules, worked examples. Point a chat session at this file when onboarding a new format.
-- **`ENGINE_INTEGRATION_GUIDE.md`** — everything another developer needs to call this engine as a
-  library/service from the collaborative research platform: the three pipeline functions, the HTTP
-  API surface, error codes, entitlement/RBAC headers, and how a skeleton-backed "fill in the
-  blanks" editor is supposed to work.
+- **`CLAUDE_FORMAT_EXTRACTION_GUIDE.md`** — mọi thứ một trợ lý AI (Claude chat/Claude Code) cần để
+  biến một tài liệu tham chiếu được tải lên thành một format entry mới: hình dạng file chính xác,
+  các quy tắc bắt buộc, ví dụ minh họa. Trỏ một phiên chat vào file này khi onboard một format mới.
+- **`ENGINE_INTEGRATION_GUIDE.md`** — mọi thứ một developer khác cần để gọi engine này như một
+  library/service từ nền tảng nghiên cứu cộng tác: ba hàm của pipeline, bề mặt HTTP API, các mã
+  lỗi, header entitlement/RBAC, và cách một editor "điền vào chỗ trống" dựa trên skeleton hoạt động.
 
-## The one rule that matters
+## Nguyên tắc duy nhất quan trọng nhất
 
-The engine is phase-agnostic. Every format-specific detail — styling, section order, numbering,
-starting document structure, required sections — lives in data under `/formats`, never in engine
-code.
+Engine hoàn toàn không phụ thuộc phase (phase-agnostic). Mọi chi tiết đặc thù theo format — style,
+thứ tự section, đánh số, cấu trúc tài liệu khởi tạo, các section bắt buộc — đều nằm trong dữ liệu
+dưới `/formats`, không bao giờ nằm trong code của engine.
 
 ```
 ProseMirror JSON  →  Normalizer  →  Canonical Document IR  →  Renderer + Format Config  →  .docx
-     (input)         (shared)          (shared)                (shared code,
-                                                                  per-format data)
+     (đầu vào)       (dùng chung)       (dùng chung)              (code dùng chung,
+                                                                    dữ liệu riêng từng format)
 ```
 
-If a change requires an `if (formatId === ...)` inside `/normalizer`, `/validator`, or `/renderer`,
-stop — that logic belongs in a format's `config.json` or in a registered block plugin instead.
+Nếu một thay đổi cần đến `if (formatId === ...)` bên trong `/normalizer`, `/validator`, hoặc
+`/renderer` — dừng lại — logic đó phải thuộc về `config.json` của một format, hoặc một block
+plugin đã đăng ký, chứ không phải engine code.
 
-## Repo layout
+## Cấu trúc repo
 
 ```
 /export-engine
-  /schemas                  # JSON schemas: ProseMirror contract, IR, config.json, meta.json,
+  /schemas                  # JSON schema: hợp đồng ProseMirror, IR, config.json, meta.json,
                              # document-skeleton.json, template-facts.json
-  /core                     # shared TypeScript types + structured error type, ooxml zip/xml helpers
-  /normalizer                # ProseMirror JSON -> IR (shared, no format-specific logic)
+  /core                     # TypeScript type dùng chung + kiểu lỗi có cấu trúc, helper zip/xml ooxml
+  /normalizer                # ProseMirror JSON -> IR (dùng chung, không có logic riêng theo format)
     /node-mappers
-    /plugins                # per-blockKind transforms, keyed by blockKind not by phase
-  /validator                # checks IR against a format's requiredBlocks/shape
-  /renderer                 # IR + resolved format -> .docx bytes (styles, sections, numbering, TOC)
-  /format-registry           # resolver (loads config+meta+skeleton+template), style-map lint,
-                             # staging/publish workflow, acceptance-checklist runner
-  /formats                  # <-- every format's data lives here (see below)
-  /formats-staging          # in-progress drafts authored via the admin staging flow (Path B below)
-  /api                      # export + onboarding + staging/publish HTTP routes, RBAC, entitlements,
-                             # audit log, sync/async jobs
-  /template-extraction      # deterministic, rule-based structural extraction (no ML)
-  /admin-ui                 # config editor: author, lint, review, publish a staged format
-  /tools                    # CLI scripts: validate-schemas, build:templates, render:fixture,
+    /plugins                # transform theo từng blockKind, khóa theo blockKind chứ không theo phase
+  /validator                # kiểm tra IR theo requiredBlocks/hình dạng của một format
+  /renderer                 # IR + format đã resolve -> bytes .docx (style, section, đánh số, TOC)
+  /format-registry           # resolver (nạp config+meta+skeleton+template), style-map lint,
+                             # quy trình staging/publish, bộ chạy acceptance-checklist
+  /formats                  # <-- dữ liệu của mọi format nằm ở đây (xem bên dưới)
+  /formats-staging          # bản nháp đang soạn qua luồng admin staging (Path B bên dưới)
+  /api                      # route HTTP export + onboarding + staging/publish, RBAC, entitlement,
+                             # audit log, job sync/async
+  /template-extraction      # trích xuất cấu trúc theo quy tắc xác định (không dùng ML)
+  /admin-ui                 # trình soạn config: viết, lint, review, publish một format đang staging
+  /tools                    # script CLI: validate-schemas, build:templates, render:fixture,
                              # render:skeleton, build-registry, style-map-lint-cli
   /tests
-    /fixtures                # one sample IR + acceptance checklist per format, used for golden tests
+    /fixtures                # một IR mẫu + acceptance checklist cho mỗi format, dùng cho golden test
     golden-tests.spec.ts
 ```
 
-## `/formats` — where every format lives
+## `/formats` — nơi dữ liệu của mọi format sống
 
 ```
 /formats
-  _registry.json                   # generated index of every registered format (any status)
+  _registry.json                   # index được sinh tự động của mọi format đã đăng ký (mọi status)
   /<phaseId>/
     /<formatId>/
-      config.json                  # styling + JSON->Word mapping only (page, typography, headings,
+      config.json                  # chỉ styling + mapping JSON->Word (page, typography, headings,
                                     # styleMap, toc, headingNumbering, citationStyle, pageNumbering)
-      meta.json                    # structure/workflow: status, sectionOrder, requiredBlocks,
+      meta.json                    # cấu trúc/workflow: status, sectionOrder, requiredBlocks,
                                     # entitlement, provenance/reviewedBy
-      document-skeleton.json       # optional: the seed ProseMirror doc a new document starts from
-                                    # (locked vs. fillIn nodes, each fillIn carrying a slotId) —
-                                    # backs a fill-in-the-blanks editor. Shared/general content only —
-                                    # a user's private answers live in their own document-answers.json,
-                                    # entirely outside /formats (see ENGINE_INTEGRATION_GUIDE.md and
-                                    # format-registry/answers-merge.ts). examples/answers/*.json has
-                                    # one real worked example per shipped format.
-      template-facts.json          # optional: real per-style facts (font/size/bold/...) extracted
-                                    # from a reference document; npm run build:templates turns this
-                                    # into template.dotx automatically
-      template.dotx                # the actual Word template; its styles must match config.json
-      extraction-outline.json      # optional, read-only reference material if a doc assisted authoring
+      document-skeleton.json       # tùy chọn: tài liệu ProseMirror khởi tạo mà một tài liệu mới của
+                                    # format này bắt đầu từ đó (node locked và fillIn, mỗi fillIn
+                                    # mang một slotId) — hậu thuẫn cho editor "điền vào chỗ trống".
+                                    # Chỉ chứa nội dung chung/dùng chung — nội dung riêng tư của
+                                    # người dùng nằm trong document-answers.json của riêng họ, hoàn
+                                    # toàn nằm ngoài /formats (xem ENGINE_INTEGRATION_GUIDE.md và
+                                    # format-registry/answers-merge.ts). examples/answers/*.json có
+                                    # một ví dụ thật cho mỗi format đã có.
+      template-facts.json          # tùy chọn: dữ kiện style thật theo từng style (font/cỡ chữ/đậm/...)
+                                    # trích xuất từ một tài liệu tham chiếu; npm run build:templates
+                                    # biến file này thành template.dotx tự động
+      template.dotx                # template Word thật; style của nó phải khớp với config.json
+      extraction-outline.json      # tùy chọn, tài liệu tham khảo chỉ-đọc nếu có AI hỗ trợ soạn thảo
       CHANGELOG.md
 ```
 
-`config.json` and `meta.json` answer two different questions and are deliberately separate files —
-see `formats/FORMAT_CONFIG_GUIDE.md` for the full schema and the reasoning. A format is valid with
-just `config.json` + `meta.json` + `template.dotx`; `document-skeleton.json` and
-`template-facts.json` are additive.
+`config.json` và `meta.json` trả lời hai câu hỏi khác nhau và cố tình tách thành hai file riêng —
+xem `formats/FORMAT_CONFIG_GUIDE.md` để biết schema đầy đủ và lý do. Một format hợp lệ chỉ cần
+`config.json` + `meta.json` + `template.dotx`; `document-skeleton.json` và `template-facts.json`
+là bổ sung thêm.
 
-## Two ways to onboard a new format
+## Hai cách để onboard một format mới
 
-**Path A — AI-assisted extraction from an uploaded reference document** (the common path today —
-see `CLAUDE_FORMAT_EXTRACTION_GUIDE.md` for the full procedure): an assistant reads a `.docx`
-reference document's real OOXML — never guesses — and writes `config.json`,
-`document-skeleton.json`, `template-facts.json`, and a minimal `meta.json` (`status: "draft"`,
-`reviewedBy: null`) straight into `/formats/<phaseId>/<formatId>/`. A human then runs
-`npm run build:templates && npm run validate:schemas`, reviews the rendered result
-(`npm run render:skeleton -- --format=...`), and flips `status` to `active`.
+**Path A — trích xuất có AI hỗ trợ từ một tài liệu tham chiếu được tải lên** (cách phổ biến hiện
+nay — xem `CLAUDE_FORMAT_EXTRACTION_GUIDE.md` để biết quy trình đầy đủ): một trợ lý đọc OOXML thật
+của một tài liệu tham chiếu `.docx` — không bao giờ đoán — và viết `config.json`,
+`document-skeleton.json`, `template-facts.json`, cùng một `meta.json` tối giản (`status: "draft"`,
+`reviewedBy: null`) thẳng vào `/formats/<phaseId>/<formatId>/`. Sau đó một người sẽ chạy
+`npm run build:templates && npm run validate:schemas`, xem lại kết quả render
+(`npm run render:skeleton -- --format=...`), rồi chuyển `status` thành `active`.
 
-**Path B — the formal staging/admin flow** (`/formats-staging`, `admin-ui`, `format-registry/publish.ts`):
-a human authors `draft-config.json`/`draft-meta.json` directly (optionally guided by
-`extraction-outline.json`), the style-map lint checks every style reference against the uploaded
-`.dotx`, a second reviewer test-renders the draft against a golden fixture, and `publishDraft` moves
-the approved files into `/formats` and marks the format `active`. This is the fuller-ceremony path
-for teams that want a distinct-reviewer gate enforced by the tool itself rather than by process.
+**Path B — luồng staging/admin chính thức** (`/formats-staging`, `admin-ui`,
+`format-registry/publish.ts`): một người trực tiếp soạn `draft-config.json`/`draft-meta.json`
+(có thể dựa theo `extraction-outline.json`), style-map lint kiểm tra mọi tham chiếu style so với
+`.dotx` đã tải lên, một reviewer thứ hai test-render bản nháp so với golden fixture, và
+`publishDraft` chuyển các file đã duyệt vào `/formats` và đánh dấu format là `active`. Đây là con
+đường đầy đủ nghi thức hơn cho những nhóm muốn một cổng review độc lập được chính công cụ thực thi,
+thay vì chỉ dựa vào quy trình làm việc.
 
-Both paths converge on the same `/formats/<phaseId>/<formatId>/` shape — nothing downstream (the
-resolver, normalizer, validator, renderer, export API) cares which path a format came through.
+Cả hai con đường đều hội tụ về cùng một hình dạng `/formats/<phaseId>/<formatId>/` — không có
+thành phần nào phía sau (resolver, normalizer, validator, renderer, export API) quan tâm một format
+đến từ con đường nào.
 
-## Format onboarding — deterministic only, no AI decision-making
+## Onboard format — chỉ xác định, không có quyết định của AI
 
-This is a deliberate constraint, not an oversight: no generative model decides *what a format's
-structure is*. An assistant may parse and report real facts from a reference document (style names,
-fonts, sizes, margins, heading order) — verbatim, never invented — but every semantic judgment
-(is this heading standard or topic-specific? what does this style map to?) is either a fixed rule
-applied consistently (see `CLAUDE_FORMAT_EXTRACTION_GUIDE.md`'s locked/fillIn split) or a human
-decision. A freshly-extracted format is always `status: "draft"` and needs a reviewer before it's
-visible to real users.
+Đây là một ràng buộc có chủ đích, không phải thiếu sót: không có model sinh nào quyết định *cấu
+trúc của một format là gì*. Một trợ lý có thể đọc và báo cáo các dữ kiện thật từ một tài liệu tham
+chiếu (tên style, font, cỡ chữ, margin, thứ tự heading) — nguyên văn, không bao giờ bịa ra — nhưng
+mọi phán đoán mang tính ngữ nghĩa (heading này là chuẩn hay đặc thù theo chủ đề? style này map vào
+đâu?) đều hoặc là một quy tắc cố định được áp dụng nhất quán (xem phần tách locked/fillIn trong
+`CLAUDE_FORMAT_EXTRACTION_GUIDE.md`), hoặc là quyết định của con người. Một format vừa được trích
+xuất luôn có `status: "draft"` và cần một người review trước khi hiển thị cho người dùng thật.
 
-## Quickstart
+## Khởi động nhanh
 
 ```bash
-# install dependencies
+# cài dependency
 npm install
 
-# validate all schemas, configs, skeletons, and template-facts against them
+# kiểm tra mọi schema, config, skeleton, và template-facts theo đúng schema của chúng
 npm run validate:schemas
 
-# build every format's template.dotx (from template-definitions.ts and from any template-facts.json)
+# build template.dotx cho mọi format (từ template-definitions.ts và từ mọi template-facts.json)
 npm run build:templates
 
-# run the full unit + golden test suite (see AGENT_BUILD_SPEC.md section 9 for what's covered)
+# chạy toàn bộ unit test + golden test suite (xem AGENT_BUILD_SPEC.md mục 9 để biết phạm vi)
 npm test
 
-# render a format's golden fixture locally
+# render golden fixture của một format tại máy local
 npm run render:fixture -- --format=report-writing.default
 
-# render a format's starting document (document-skeleton.json) to see what a brand-new document looks like
+# render tài liệu khởi tạo của một format (document-skeleton.json) để xem một tài liệu mới trông thế nào
 npm run render:skeleton -- --format=protocol-design.default
 
-# merge a private document-answers.json into a shared skeleton and render the complete document
+# gộp một document-answers.json riêng tư vào skeleton dùng chung và render tài liệu hoàn chỉnh
 npm run render:answers -- --format=idea-proposal.default
 ```
 
-## Testing expectations
+## Kỳ vọng về testing
 
-Every component ships unit tests alongside it, not after — see `AGENT_BUILD_SPEC.md` section 9
-for the exact test list per component (normalizer, block plugins, validator, format resolver,
-renderer, export API, extraction tool, style-map lint). A format is not considered done until it
-has a golden fixture + acceptance checklist under `/tests/fixtures` and passes the determinism
-test (same input twice → byte-identical `.docx`).
+Mỗi thành phần đi kèm unit test ngay khi được viết, không phải viết sau — xem `AGENT_BUILD_SPEC.md`
+mục 9 để biết danh sách test chính xác theo từng thành phần (normalizer, block plugin, validator,
+format resolver, renderer, export API, công cụ extraction, style-map lint). Một format chưa được
+coi là hoàn thành cho đến khi có golden fixture + acceptance checklist dưới `/tests/fixtures` và
+vượt qua test tính xác định (determinism) (cùng một input chạy hai lần → `.docx` giống hệt nhau ở
+mức byte).
 
-## Before you open a PR
+## Trước khi mở PR
 
-- New format-specific behavior → goes in a `/formats/<phaseId>/<formatId>/config.json`/`meta.json`
-  or a registered block plugin, never as a conditional in shared engine code.
-- Touching the normalizer, validator, or renderer → run the full golden-test suite, not just the
-  unit tests for that component, since a regression there affects every format at once.
-- Adding a format → confirm `npm run validate:schemas` passes (style-map lint + schema checks) and
-  a second reviewer has signed off (or `publishDraft`'s review gate has) before it goes `active`.
+- Hành vi đặc thù theo format mới → đưa vào `/formats/<phaseId>/<formatId>/config.json`/`meta.json`
+  hoặc một block plugin đã đăng ký, không bao giờ là một điều kiện (conditional) trong engine code
+  dùng chung.
+- Động vào normalizer, validator, hoặc renderer → chạy toàn bộ golden-test suite, không chỉ unit
+  test của riêng thành phần đó, vì một regression ở đây ảnh hưởng đến mọi format cùng lúc.
+- Thêm một format → xác nhận `npm run validate:schemas` pass (style-map lint + kiểm tra schema) và
+  đã có một reviewer thứ hai ký duyệt (hoặc review gate của `publishDraft` đã thông qua) trước khi
+  chuyển sang `active`.
 
-## Further reading
+## Đọc thêm
 
-- `AGENT_BUILD_SPEC.md` — full contracts, schemas, milestone plan, unit test plan, guardrails.
-- `PROPOSAL.md` — motivation, scope, risks, and the delivery plan at a glance.
-- `CLAUDE_FORMAT_EXTRACTION_GUIDE.md` — how to turn one reference document into a new format.
-- `ENGINE_INTEGRATION_GUIDE.md` — how to call this engine from the platform.
-- `formats/FORMAT_CONFIG_GUIDE.md` — the full `config.json`/`meta.json`/`document-skeleton.json`/
-  `template-facts.json` schema reference, with worked examples.
+- `AGENT_BUILD_SPEC.md` — hợp đồng đầy đủ, schema, kế hoạch theo milestone, kế hoạch unit test,
+  các rào chắn (guardrails).
+- `PROPOSAL.md` — động lực, phạm vi, rủi ro, và kế hoạch triển khai nhìn tổng quan.
+- `CLAUDE_FORMAT_EXTRACTION_GUIDE.md` — cách biến một tài liệu tham chiếu thành một format mới.
+- `ENGINE_INTEGRATION_GUIDE.md` — cách gọi engine này từ nền tảng.
+- `formats/FORMAT_CONFIG_GUIDE.md` — tham chiếu schema đầy đủ của `config.json`/`meta.json`/
+  `document-skeleton.json`/`template-facts.json`, kèm ví dụ minh họa.
