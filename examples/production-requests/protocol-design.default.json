@@ -1,0 +1,155 @@
+{
+  "formatId": "protocol-design.default",
+  "documentTitle": "Đề cương nghiên cứu: So sánh phân tích dáng đi AI (MediaPipe) với hệ thống IMU sau đột quỵ",
+  "sourceDocVersion": "1",
+  "answers": {
+    "problemStatementBody": "Do đó, việc tiến hành nghiên cứu nhằm mô tả các thông số dáng đi được phân tích bằng công cụ trí tuệ nhân tạo và đánh giá mức độ tương đồng giữa các thông số này với hệ thống phân tích dáng đi sử dụng cảm biến quán tính (IMU sensors) ở người bệnh sau đột quỵ là cần thiết. Kết quả nghiên cứu kỳ vọng sẽ góp phần làm rõ khả năng ứng dụng của các hệ thống markerless AI gait analysis trong cung cấp dữ liệu vận động định lượng khách quan, từ đó mở ra hướng tiếp cận đánh giá dáng đi đơn giản, chi phí thấp và phù hợp hơn với thực hành phục hồi chức năng lâm sàng.",
+    "objectives": "Mục tiêu tổng quát: Đánh giá khả năng ứng dụng của hệ thống phân tích dáng đi dựa trên trí tuệ nhân tạo MediaPipe trong đánh giá dáng đi ở người bệnh sau đột quỵ thông qua so sánh với hệ thống phân tích dáng đi sử dụng cảm biến quán tính (IMU sensors).\nMục tiêu cụ thể:\n1. Mô tả đặc điểm lâm sàng và chức năng vận động của người bệnh sau đột quỵ tham gia nghiên cứu.\n2. Mô tả các thông số dáng đi được trích xuất từ video bằng hệ thống AI sử dụng MediaPipe.\n3. Mô tả các thông số dáng đi được ghi nhận bằng hệ thống phân tích dáng đi sử dụng cảm biến quán tính (IMU Sensors).\n4. Phân tích mức độ tương quan và độ tương đồng giữa các thông số dáng đi thu được từ MediaPipe và hệ thống IMU ở người bệnh sau đột quỵ.\n5. Xác định các thông số dáng đi có độ phù hợp cao giữa hai hệ thống nhằm đánh giá khả năng ứng dụng hệ thống AI MediaPipe trong thực hành phục hồi chức năng lâm sàng.",
+    "literatureReviewBody": "1.1. Tổng quan về bất thường dáng đi sau đột quỵ\n1.1.1. Định nghĩa và đặc điểm bất thường dáng đi sau đột quỵ: Không phải tất cả bệnh nhân đều có cùng một kiểu dáng đi; điều này thường phụ thuộc vào mức độ nghiêm trọng, vị trí tổn thương và các yếu tố cá nhân. Loại bất thường dáng đi phổ biến nhất sau đột quỵ là dáng đi liệt nửa người (hemiplegic gait) [1,2].\n1.1.2. Cơ chế sinh lý bệnh bất thường dáng đi [2]: chủ yếu bắt nguồn từ tổn thương hệ thần kinh trung ương, dẫn đến sự kết hợp phức tạp giữa các thiếu hụt vận động nguyên phát và các cơ chế bù trừ thứ phát.\n1.2. Tổng quan về các phương pháp đánh giá dáng đi: có thể chia thành hai nhóm chính — truyền thống (dựa trên quan sát) và hiện đại (dựa trên công nghệ định lượng).\n1.2.1. Đánh giá lâm sàng: các thang điểm thường dùng gồm Functional Ambulation Category (FAC) [11], Wisconsin Gait Scale (WGS) [12], Time up and go (TUG) [13], Berg Balance Scale (BBS) [14], Modified Ashworth Scale (MAS) và thang điểm MRC [15].",
+    "studyDesign": "Cắt ngang phân tích đánh giá tương đồng",
+    "timeAndPlace": "Thời gian thực hiện: tháng 5/2026 – 5/2027 (12 tháng). Địa điểm nghiên cứu: Bệnh viện An Bình.",
+    "subjects": "Dân số nghiên cứu: bệnh nhân đã được điều trị đột quỵ sau đợt cấp, có khả năng thực hiện nhiệm vụ đi bộ để ghi hình/phân tích dáng đi, đã đang hoặc sắp điều trị phục hồi chức năng sau đột quỵ.\nDân số chọn mẫu: các bệnh nhân sau đột quỵ đến khám hoặc điều trị tại Khoa Phục hồi chức năng Bệnh viện An Bình trong thời gian từ 01/07/2026 đến 01/07/2027, đáp ứng tiêu chí chọn mẫu và đồng ý tham gia nghiên cứu.\nTiêu chuẩn chọn vào: đã được chẩn đoán, điều trị đột quỵ và đã kết thúc giai đoạn cấp tính; có thể tự di chuyển và không cần hỗ trợ của người khác hoặc dụng cụ; đồng ý ghi hình và sử dụng dữ liệu cho nghiên cứu.\nTiêu chuẩn loại trừ: bệnh lý khác ảnh hưởng dáng đi rõ rệt (Parkinson, bệnh tiểu não, gãy xương chi dưới…); rối loạn về tâm thần không hợp tác.",
+    "sampleSizeAndSampling": [
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Cỡ mẫu: được tính dựa trên mục tiêu phân tích mối tương quan giữa các thông số dáng đi thu được từ hệ thống markerless AI gait analysis MediaPipe và hệ thống IMU. Giả định hệ số tương quan kỳ vọng là 0,4, với mức ý nghĩa α = 0,05 và lực mẫu 80%, cỡ mẫu tối thiểu ước tính là 47 người bệnh. Dự phòng khoảng 10–15% trường hợp dữ liệu không đạt chất lượng, nghiên cứu dự kiến tuyển chọn khoảng 55–60 người bệnh sau đột quỵ."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Phương pháp chọn mẫu: chọn mẫu thuận tiện liên tiếp, tuyển tất cả bệnh nhân sau đột quỵ đến khám/điều trị tại khoa Phục hồi chức năng bệnh viện An Bình trong thời gian thu thập số liệu, thỏa tiêu chí chọn vào và không thuộc tiêu chí loại trừ, cho đến khi đạt cỡ mẫu dự kiến."
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "Quy trình lấy mẫu:",
+            "marks": [
+              "bold"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "content": [
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Sàng lọc bệnh nhân: rà soát bệnh nhân sau đột quỵ đến khám/điều trị tại bệnh viện; sàng lọc theo tiêu chí chọn vào và loại trừ dựa trên bệnh án và khả năng thực hiện ghi hình dáng đi."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Mời tham gia nghiên cứu: giải thích mục tiêu nghiên cứu, quyền lợi và bảo mật thông tin; bệnh nhân đồng ý tham gia và ký phiếu chấp thuận."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Tuyển mẫu và thu thập thông tin nền: gán mã định danh cho bệnh nhân và video; thu thập các thông tin lâm sàng cần thiết theo phiếu."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Ghi hình dáng đi: thực hiện ghi hình theo quy trình chuẩn hóa về vị trí camera (trước-sau và trái-phải), ánh sáng và quãng đường đi; lưu trữ video dưới dạng ẩn danh."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Kiểm tra chất lượng dữ liệu: đánh giá chất lượng video; loại bỏ các video không đạt yêu cầu theo tiêu chí đã định trước."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Đánh giá bằng thiết bị Steadys (IMU sensors): đánh giá và ghi nhận các thông tin dáng đi của bệnh nhân bằng thiết bị."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Ghép và xử lý dữ liệu: ghép dữ liệu đánh giá thang điểm lâm sàng, kết quả MediaPipe, kết quả IMU và thông tin bệnh nhân; làm sạch và khóa dữ liệu trước khi phân tích."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "expectedResultsBody": "3.1. Mục tiêu 1: Mô tả đặc điểm lâm sàng và chức năng vận động của người bệnh sau đột quỵ tham gia nghiên cứu (Bảng 3.1, Bảng 3.2).\n3.2. Mục tiêu 2: Mô tả các thông số dáng đi được trích xuất từ video bằng hệ thống AI sử dụng MediaPipe (Bảng 3.3).",
+    "personnel": "Nhân lực: gồm học viên, giảng viên hướng dẫn và 2 cộng tác viên.",
+    "resources": "Tài liệu tham khảo: từ các nguồn dữ liệu như PubMed, Google Scholar, Google, Thư viện Đại học Y Dược TP.HCM.\nPhương tiện lấy mẫu: điện thoại, laptop, máy quay phim Sony FDR-AX43A, hệ thống AI phân tích dáng đi.\nPhần mềm hỗ trợ nhập liệu, phân tích số liệu: Excel 2016, JASP.",
+    "budget": "",
+    "timeline": "",
+    "anticipatedDifficulties": "Khó khăn thứ hai là lấy đủ mẫu cho nghiên cứu.\nPhương án giải quyết: tăng cường nhân lực cho đội lấy mẫu và dự trù phương án lấy mẫu thêm ở những bệnh viện khác.",
+    "references": "[1] S. Li, G. E. Francisco, and P. Zhou, \"Post-stroke Hemiplegic Gait: New Perspective and Insights,\" Front. Physiol., vol. 9, p. 1021, Aug. 2018, doi: 10.3389/fphys.2018.01021.\n[2] C. Beyaert, R. Vasa, and G. E. Frykberg, \"Gait post-stroke: Pathophysiology and rehabilitation strategies,\" Neurophysiol. Clin. Neurophysiol., vol. 45, no. 4–5, pp. 335–355, Nov. 2015, doi: 10.1016/j.neucli.2015.09.005.\n[3] N. T. H. Ân, H. Lý Cẩm, and N. Đặng Thị Thảo, \"Thực trạng sử dụng công cụ đo lường khả năng đi lại trên người bệnh đột quỵ trong điều trị vật lý trị liệu,\" Tạp Chí Khoa Học Trường Đại Học Quốc Tế Hồng Bàng, pp. 11–18, Sep. 2025, doi: 10.59294/HIUJS2025060.\n[4] F. Ferrarello et al., \"Tools for Observational Gait Analysis in Patients With Stroke: A Systematic Review,\" Phys. Ther., vol. 93, no. 12, pp. 1673–1685, Dec. 2013, doi: 10.2522/ptj.20120344.\n[5] R. Baker, \"Gait analysis methods in rehabilitation,\" J. NeuroEngineering Rehabil., vol. 3, no. 1, p. 4, Dec. 2006, doi: 10.1186/1743-0003-3-4.\n[7] C. Lugaresi et al., \"MediaPipe: A Framework for Building Perception Pipelines,\" 2019, arXiv. doi: 10.48550/ARXIV.1906.08172.\n[11] J. Mehrholz, K. Wagner, K. Rutte, D. Meiβner, and M. Pohl, \"Predictive Validity and Responsiveness of the Functional Ambulation Category in Hemiparetic Patients After Stroke,\" Arch. Phys. Med. Rehabil., vol. 88, no. 10, pp. 1314–1319, Oct. 2007, doi: 10.1016/j.apmr.2007.06.764.\n[12] A. Pizzi, G. Carlucci, C. Falsini, F. Lunghi, S. Verdesca, and A. Grippo, \"Gait in hemiplegia: evaluation of clinical features with the wisconsin gait scale,\" J. Rehabil. Med., vol. 39, no. 2, pp. 170–174, 2007, doi: 10.2340/16501977-0026.\n[13] D. Podsiadlo and S. Richardson, \"The Timed 'Up & Go': A Test of Basic Functional Mobility for Frail Elderly Persons,\" J. Am. Geriatr. Soc., vol. 39, no. 2, pp. 142–148, Feb. 1991, doi: 10.1111/j.1532-5415.1991.tb01616.x.\n[14] S. Tyson and L. Connell, \"How to measure balance in clinical practice,\" Clin. Rehabil., vol. 23, no. 9, pp. 824–840, Sep. 2009, doi: 10.1177/0269215509335018.\n[15] R. W. Bohannon and M. B. Smith, \"Interrater Reliability of a Modified Ashworth Scale of Muscle Spasticity,\" Phys. Ther., vol. 67, no. 2, pp. 206–207, Feb. 1987, doi: 10.1093/ptj/67.2.206."
+  }
+}
